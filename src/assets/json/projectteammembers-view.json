@@ -1,0 +1,74 @@
+{
+	"pageHeading": "Project Team Members",
+	"formType": "simple",
+  "editMode": "page",
+  "keyField":"_id",
+	"form": {
+	  "collectionName": "projectteammembers",
+	  "fields": [
+        {
+            "fieldGroupClassName": "display-flex",
+            "fieldGroup": [
+      {
+        "type": "label-view",
+        "key": "teammemberid",
+        "props": {
+        "label": "Test Member Id"
+        }
+      },
+      {
+        "type": "label-view",
+        "key": "projectteamid",
+        "props": {
+        "label": "Project Team Id"
+        }
+      },
+      
+      {
+        "type": "label-view",
+        "key": "employeeid",
+        "props": {
+        "label": "Employee Id"
+        }
+      },
+      {
+        "type": "label-view",
+        "key": "projectid",
+        "props": {
+        "label": "Project Id"
+        }
+      },
+      {
+        "type": "label-view",
+        "key": "projectroleid",
+        "props": {
+        "label": "Project Role Id"
+        }
+      },
+      {
+        "type": "label-view",
+        "key": "teammembername",
+        "props": {
+        "label": "Team Member Name"
+        }
+      },
+      {
+        "type": "label-view",
+        "key": "statedate",
+        "props": {
+        "label": "Start Date"
+        }
+      },
+      {
+        "type": "label-view",
+        "key": "enddate",
+        "props": {
+        "label": "End Date"
+        }
+      }
+    ]
+}   
+   ]
+	},
+	"onCancelRoute": "/list/projectteammembers"
+  }

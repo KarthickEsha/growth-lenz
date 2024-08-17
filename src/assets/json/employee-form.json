@@ -1,0 +1,555 @@
+{
+	"pageHeading": "Organization",
+	"formType": "simple",
+	"editMode": "page",
+	"user":true,
+"screenEditMode":"page",
+	"form": {
+		"collectionName": "organisation",
+		"fields": [
+			{
+				"fieldGroupClassName": "display-flex",
+				"fieldGroup": [
+					{
+						  "type": "label-view", 
+						  "key": "_id",
+						"className": "flex-6",
+						  "props": {            
+						    "label": "Organization ID", 
+						"label_width":100,        
+						"value_width":200,       
+						"value_in_next_row":true
+						  },"hideExpression": "!model.isEdit"
+						  
+						}
+						,{
+							"type": "label-view", 
+						"className": "flex-6",
+						"key": "org_name",
+							"props": {            
+							  "label": "Organization Name", 
+						  "label_width":100,        
+						  "value_width":200,       
+						  "value_in_next_row":true
+							},"hideExpression": "!model.isEdit"
+						  }
+						  ,
+					{
+						"type": "input",
+						"key": "_id",
+						"className": "flex-1",
+						"templateOptions": {
+							"label": "Organization ID",
+							"required": true
+						},"hideExpression": "model.isEdit"
+					},
+					{
+						"type": "input",
+						"key": "org_name",
+						"className": "flex-1",
+						"templateOptions": {
+							"label": "Organization Name",
+							"required": true
+						},"hideExpression": "model.isEdit"
+					}
+				]
+			},
+			{
+				"fieldGroupClassName": "display-flex",
+				"fieldGroup": [
+					{
+						"type": "label-view", 
+						"key": "org_type",
+					  "className": "flex-6",
+						"props": {            
+						  "label": "Organization Type", 
+					  "label_width":100,        
+					  "value_width":200,       
+					  "value_in_next_row":true
+						},"hideExpression": "!model.isEdit"
+						
+					  }
+					  ,{
+						"key": "org_type",
+						"type": "select-input",
+						"className": "flex-1",
+						"props": {
+						  "label": "Organization Type",
+						  "placeholder": "Organization Type",
+						  "labelPropTemplate": " {{name}}",
+						  "optionsDataSource": {
+							"collectionName": "org_type"
+						  },
+						  "labelProp": "name",
+						  "valueProp": "_id",
+						  "required": true
+						},"hideExpression": "model.isEdit"
+						
+					  },
+					{
+						"key": "status",
+						"type": "select",
+						"defaultValue": "Email Sended",
+						"className": "flex-6",
+						"templateOptions": {
+							"label": "Status",
+							"options": [
+								{
+									"label": "Active",
+									"value": "Active"
+								},
+								{
+									"label": "Disable",
+									"value": "Disable"
+								}
+							]
+						},
+						"hideExpression": "!model.isEdit"
+					}
+				]
+			},
+			{
+				"type": "tab-input",
+				"fieldGroup": [
+					{
+						"props": {
+							"label": "Registration details"
+						},
+						"fieldGroup": [
+							{
+								"fieldGroupClassName": "display-flex",
+								"fieldGroup": [
+									{
+										"type": "input",
+										"key": "gst_no",
+										"className": "flex-1",
+										"templateOptions": {
+											"label": "GST Number"
+										}
+									},
+									{
+										"type": "input",
+										"key": "pan_no",
+										"className": "flex-1",
+										"templateOptions": {
+											"label": "PAN No"
+										}
+									}
+								]
+							},
+							{
+								"type": "tab-input",
+								"fieldGroup": [
+									{
+										"props": {
+											"label": "Registration Address"
+										},
+										"fieldGroup": [
+											{
+												"key": "address",
+												"type": "input",
+												"className": "flex-6",
+												"props": {
+													"label": "Address",
+													"placeholder": "Address",
+													"required": true
+												}
+											} ,{
+												"fieldGroupClassName": "display-flex",
+												"fieldGroup": [
+													{
+														"type": "select-input",
+														"key": "country",
+														"props": {
+														  "label": "Country Name",
+														  "labelPropTemplate": " {{name}}",
+														  "optionsDataSource": {
+															"collectionName": "countries"
+														  },
+														  "required": true,
+														  "labelProp": "name",
+														  "valueProp": "id"
+														},
+														"validation": {
+														  "messages": {
+															"required": "Country Name should be selected."
+														  }
+														}
+													  },
+													  {
+														"type": "select-input",
+														"key": "state",
+														"parentKey":"country",
+														"props": {
+														  "label": "State",
+														  "labelPropTemplate": "{{name}}",
+														  "optionsDataSource": {
+															"multifilter": "states"
+														  },
+														  "multifilter_condition":{
+															"clause":"AND",
+															"conditions":[
+															  {"column":"status","operator":"EQUALS","type":"string","value":true},
+															  {"column":"id","operator":"EQUALS","type":"string","value":""}
+															]
+															},
+														  "labelProp": "name",
+														  "valueProp": "id",
+														  "required": true
+														},
+														"validation": {
+														  "messages": {
+															"required": "State Name should be selected."
+														  }
+														}
+													  }
+												]
+											},
+											{
+												"fieldGroupClassName": "display-flex",
+												"fieldGroup": [
+													{
+														"type": "select-input",
+														"key": "city",
+														"parentKey":"state",
+														"props": {
+														  "label": "City",
+														  "labelPropTemplate": "{{name}}",
+														  "optionsDataSource": {
+															"multifilter": "cities"
+														  },
+														  "multifilter_condition":{
+															"clause":"AND",
+															"conditions":[
+															  {"column":"status","operator":"EQUALS","type":"string","value":true},
+															  {"column":"id","operator":"EQUALS","type":"string","value":""}
+															]
+															},
+														  "labelProp": "name",
+														  "valueProp": "id",
+														  "required": true
+														},
+														"validation": {
+														  "messages": {
+															"required": "City Name should be selected."
+														  }
+														}
+													  },{
+														"type": "input",
+														"key": "pin_code",
+														"props": {
+														"label": "Pincode Code",
+														"placeholder": "Pincode Code",
+														"required": true,
+														"readonly":true
+														},
+														"validation": {
+														  "messages": {
+															"required": "City Name should be selected."
+														  }
+														}
+													  }
+												]
+											}
+											
+											 
+										]
+									},
+									{
+										"props": {
+											"label": "Commercial Address"
+										},
+										"fieldGroup": [
+											{
+												"fieldGroupClassName": "display-flex",
+												"fieldGroup": [
+													{
+														"key": "billing_address.street",
+														"type": "input",
+														"className": "flex-6",
+														"props": {
+															"label": "Street",
+															"pattern": "^([A-Za-z0-9()#,.-/]+ )+[A-Za-z0-9()#,.-]+$|^[A-Za-z0-9#(),.-]+$",
+															"placeholder": "Street",
+															"required": true
+														}
+													},
+													{
+														"key": "billing_address.area_name",
+														"className": "flex-6",
+														"type": "input",
+														"props": {
+															"label": "Area Name",
+															"placeholder": "Area Name"
+														}
+													}
+												]
+											},
+											{
+												"fieldGroupClassName": "display-flex",
+												"fieldGroup": [
+													{
+														"type": "input",
+														"key": "billing_address.state",
+														"className": "flex-6",
+														"props": {
+															"label": "State",
+															"required": true
+														}
+													},{
+														"key": "billing_address.city",
+														"type": "input",
+														"className": "flex-6",
+														"props": {
+															"label": "City",
+															"required": true
+														}
+													}
+													
+												]
+											},
+											{
+												"fieldGroupClassName": "display-flex",
+												"fieldGroup": [
+													{
+														"key": "billing_address.landmark",
+														"className": "flex-6",
+														"type": "input",
+														"props": {
+															"label": "Landmark",
+															"placeholder": "Landmark"
+														}
+													},
+													{
+														"type": "input",
+														"key": "billing_address.country",
+														"className": "flex-6",
+														"props": {
+															"label": "Country",
+															"required": true
+														}
+													},
+													{
+														"key": "billing_address.zipcode",
+														"type": "number",
+														"className": "flex-6",
+														"props": {
+															"maxLength": 6,
+															"label": "Zip code",
+															"pattern": "[0-9]{6}",
+															"required": true
+														}
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					},
+					{
+						"props": {
+							"label": "Contract Details"
+						},
+						"fieldGroup": [
+							{
+								"fieldGroupClassName": "display-flex",
+								"fieldGroup": [
+									{
+										"type": "datepicker",
+										"key": "contract.contract_start_date",
+										"className": "flex-6",
+										"props": {
+											"label": "Contract Start Date",
+											"placeholder": "Contract Start Date",
+											"required": true
+										}
+									},
+									{
+										"type": "datepicker",
+										"key": "contract.contract_end_date",
+										"className": "flex-6",
+										"props": {
+											"label": "Contract End Date",
+											"placeholder": "Contract End Date",
+											"required": true
+										}
+									}
+								]
+							},
+							{
+								"fieldGroupClassName": "display-flex",
+								"fieldGroup": [
+									{
+										"type": "image-input",
+										"key": "contract.contract_file",
+										"className": "flex-6",
+										"props": {
+											"refId": "_id",
+											"label": "Contract Details File Upload"
+										}
+									},
+									{
+										"type": "input",
+										"key": "contract.description",
+										"className": "flex-6",
+										"props": {
+											"label": "Description"
+										}
+									}
+								]
+							}
+						]
+					},
+					{
+						"props": {
+							"label": "Admin Contact Details"
+						},
+						"fieldGroup": [
+							{
+								"fieldGroupClassName": "display-flex",
+								"fieldGroup": [
+									{
+										"type": "label-view", 
+										"key": "contact_details.first_name",
+									  "className": "flex-6",
+										"props": {            
+										  "label": "First Name", 
+									  "label_width":100,        
+									  "value_width":200,       
+									  "value_in_next_row":true
+										},"hideExpression": "!model.isEdit"
+										
+									  },
+									  {
+										"type": "label-view", 
+										"key": "contact_details.last_name",
+									  "className": "flex-6",
+										"props": {            
+										  "label": "Last Name", 
+									  "label_width":100,        
+									  "value_width":200,       
+									  "value_in_next_row":true
+										},"hideExpression": "!model.isEdit"
+										
+									  },
+									
+									{
+										"key": "contact_details.first_name",
+										"type": "input",
+										"className": "flex-6",
+										"props": {
+											"label": "First Name",
+											"placeholder": "First Name",
+											"pattern": "^[a-zA-Z]+$",
+											"required": true
+										},"hideExpression": "model.isEdit"
+						
+									},
+									{
+										"key": "contact_details.last_name",
+										"type": "input",
+										"className": "flex-6",
+										"props": {
+											"label": "Last Name",
+											"placeholder": "Last Name",
+											"pattern": "^[a-zA-Z]+$",
+											"required": true
+										},"hideExpression": "model.isEdit"
+						
+									}
+								]
+							},
+							{
+								"fieldGroupClassName": "display-flex",
+								"fieldGroup": [
+									
+									  {
+										"type": "label-view", 
+										"key": "contact_details.email_id",
+									  "className": "flex-6",
+										"props": {            
+										  "label": "Email Id", 
+									  "label_width":100,        
+									  "value_width":200,       
+									  "value_in_next_row":true
+										},"hideExpression": "!model.isEdit"
+										
+									  },{
+										"type": "label-view", 
+										"key": "contact_details.mobile_number",
+									  "className": "flex-6",
+										"props": {            
+										  "label": "Moblie Number", 
+									  "label_width":100,        
+									  "value_width":200,       
+									  "value_in_next_row":true
+										},"hideExpression": "!model.isEdit"
+										
+									  },
+									  	{
+										"key": "contact_details.email_id",
+										"type": "input",
+										"className": "flex-6",
+										"props": {
+											"label": "Email Id",
+											"placeholder": "Email Id",
+											"pattern": "[a-z0-9._%+-]+@[a-z.-]+\\.[a-z]{2,4}$",
+											"required": true
+										},"hideExpression": "model.isEdit"
+						
+									},
+									{
+										"key": "contact_details.mobile_number",
+										"type": "input",
+										"className": "flex-6",
+										"props": {
+											"label": "Moblie Number",
+											"required": true
+										},"hideExpression": "model.isEdit"
+						
+									}
+								]
+							}
+						]
+					},
+					{
+						"props": {
+							"label": "Other Info"
+						},
+						"fieldGroup": [
+							{
+								"type": "logo",
+								"key": "Org_logo",
+								"className": "flex-6",
+								"templateOptions": {
+									"label": "Organization Logo"
+								}
+							},
+							{
+								"type": "location",
+								"key": "location.coordinates",
+								"className": "flex-6",
+								"showsearchbar": true,
+								"draggable": true,
+								"props": {
+									"label": "Location",
+									"placeholder": "Type the Address"
+								}
+							}
+						]
+					}
+				]
+			}
+		],
+		"defaultValues": [
+			{
+				"colName": "status",
+				"value": "Email Sended",
+				"type": "string"
+			}
+		]
+	},
+	"onCancelRoute": "list/organisation"
+}

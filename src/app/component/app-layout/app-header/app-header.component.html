@@ -1,0 +1,137 @@
+<!-- <div *ngIf="isContentVisible"
+  style="display: flex; border-radius: 5px; float: right; margin-right: 40px; border-color: black;">
+  <button mat-raised-button color="primary" class="menu-button" (click)="editicon($event)"
+    style="text-transform: uppercase;">
+    <span>{{show_edit_icon?'edit':'cancel'}}</span>
+  </button>
+</div> -->
+
+
+<!-- 
+<div class="display-items">
+
+  <div *ngIf="this.authdata.user_type == 'SAAS' && this.authdata.role_id == 2" style="width: 200px;margin-top: -28px;">
+    <ng-select style="margin:0px 0px 10px 10px" [items]="CustomerList" bindLabel="company_name" bindValue="_id"
+      placeholder="Select Customer" (change)="selectionChange($event)" appearance='outline'>
+    </ng-select>
+  </div>
+  <div><mat-icon  matBadge={{totalNotificationCount}} matBadgeColor="warn" (click)="onClickNotificationDebounced()"
+      class="icon">notifications</mat-icon>
+  </div>
+
+
+
+<div><mat-icon [style.color]="isConnected ? 'green' : 'red'" matTooltip="Notification Status" (click)="isConnected ? null : restartEmitterServer()">lens</mat-icon></div>
+<div [matMenuTriggerFor]="menu" *ngIf="this.logo_image" (click)="toggleProfileInfo()"><img class="profile-pic"
+  [src]="this.logo_image" alt=""  />
+  <mat-menu #menu="matMenu">
+    <div class="profile-info">
+     <strong>{{profile_name}}</strong><br>
+     <strong>{{profile_email}}</strong>
+    </div>
+   </mat-menu>
+</div>
+
+
+  <div *ngIf="notificationIconClicked">
+  <mat-drawer-container autosize>
+    <mat-drawer [(opened)]="notificationIconClicked" #drawer class="example-sidenav" mode="over" position="end">
+
+      <div style="height: fit-content;">
+        <strong style="padding-left: 10px;">Notifications</strong>
+        <div class="notification">
+          <button style="width: 24%;margin: 0px 5px 0px 5px;" mat-stroked-button (click)="onAddButonClick()">Send Notification</button>
+          <button style="width: 24%;margin: 0px 5px 0px 5px;" mat-stroked-button (click)="clearAllData()">Clear All</button>
+        </div>
+        <mat-divider style="margin: 10px 18px 5px 2px;"></mat-divider>
+      </div>
+      <div *ngIf="notificationData == undefined">
+        <p style="color:grey;justify-content: center;text-align: center;
+  align-items: center;
+  height: 100vh;display: flex;">No notifications found</p>
+      </div>
+      <div *ngFor="let data of notificationData">
+        <mat-card style="margin:10px;cursor: pointer;">
+
+          <div style="display: flex;justify-content: space-between; align-items: center; margin: 5px;">
+            <div>
+              <img src="../../../../assets/images/notification-removebg-preview.png" height="35px" width="35px">
+            </div>
+            <div style="margin:10px" (click)="notificatonViewed(data)">
+              <p style="font-weight: bold;">{{data.title}}</p>
+              <p style="margin-left:10px;margin-top:10px;color:rgb(100, 99, 99)">{{data.body}}</p>
+              <p style="margin-left:10px;margin-top:5px;color:rgb(187, 185, 185)">{{ getFormattedDate(data.notified_on) }}</p>
+            </div>
+            <div style="text-align: end">
+              <button mat-icon-button aria-label="Close notification" (click)="closeNotificaton(data)">
+                <mat-icon style="color:gray">close</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+    </mat-drawer>
+  </mat-drawer-container>
+      </div>
+
+      <ng-template #editViewPopup class="example-sidenav" mode="over" style="height: auto" >
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="margin: auto;text-align: center;">
+                  <h3>Send Notifications</h3>
+              </div>
+              <div style="text-align: end;">
+                  <mat-icon (click)="closeDialog()">close</mat-icon>
+              </div>
+          </div>
+          <form [formGroup]="form">
+            <div style="padding-right: 10px;padding-left: 10px;margin-top: 10px;">
+                  <mat-form-field style="width: 100%;">
+                      <mat-label>Title</mat-label>
+                      <input matInput type="text" formControlName="title" placeholder="Title">
+                  </mat-form-field>
+                  <mat-form-field style="width: 100%;">
+                    <mat-label>Body</mat-label>
+                    <textarea matInput
+                      cdkTextareaAutosize
+                      formControlName="body"
+                      #autosize="cdkTextareaAutosize">
+                    </textarea>
+                </mat-form-field>
+                <div style="padding-bottom: 15px;">
+                  <fieldset class="legendary-radio-group">
+                      <legend>Type</legend>
+                      <mat-radio-group formControlName="type">
+                        <mat-radio-button value="Chat">Chat</mat-radio-button>
+                        <mat-radio-button value="Video Call">Video Call</mat-radio-button>
+                      </mat-radio-group>
+                  </fieldset>
+              </div>
+            </div>
+            <div class="weekdays-row" style="padding-left: 10px;padding-right: 10px;">
+              <mat-form-field style="width: 100%;">
+                <mat-label>User Type</mat-label>
+                <mat-select formControlName="user_type" (selectionChange)="getFilterData($event.value)" multiple>
+                  <mat-option *ngFor="let e of userOptions" [value]="e">
+                    {{ e.value }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>&nbsp;&nbsp;
+              <mat-form-field style="width: 100%;">
+                <mat-label>Users</mat-label>
+                <mat-select formControlName="users" multiple>
+                  <mat-option *ngFor="let e of finalFilter" [value]="e.full_name || e">
+                    {{ e.full_name || e }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </form>
+        </div>
+
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <button class="submitbtn" style="margin: 5px;" mat-raised-button (click)="sendEmitterMessage()">Send</button>
+    </div>
+    </ng-template>
+  </div> -->

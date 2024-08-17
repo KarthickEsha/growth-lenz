@@ -1,0 +1,314 @@
+
+{"form": {
+	"formType":"simple",
+	"keyField": "_id",
+	"form":{
+	   "collectionName":"device", 
+	   "fields":[
+		  {
+			 "fieldGroupClassName":"display-flex",
+			 "fieldGroup":[
+				{
+				   "type":"input",
+				   "key":"_id",
+				   "className":"flex-1", 
+				   "props":{
+					  "label":"Device Id",
+					  "placeholder":"Device Id",
+					  "maxLength":30,
+					  "required":true
+				   },
+				   "expressionProperties": {     "templateOptions.disabled": "model.isEdit"    } ,"reference":"this used for disable on edit"
+				}, {
+         
+					"key": "job_type",
+					"type": "radio",
+					"className":"flex-1",
+					"props": {
+					  "label": "Is label is more than one Field",
+					  "required": true,
+					  "options": [
+						{
+						  "value": "Onsite",
+						  "label": "Onsite"
+						},
+						{
+						  "value": "Remote",
+						  "label": "Remote"
+						}
+					  ]
+					}
+				 },   
+				{
+				   "type":"input",
+				   "key":"device_name",
+				   "className":"flex-3",
+				   "props":{
+					  "label":"Device Name",
+					  "required":true
+				   }
+				}
+			 ]
+		  }, 
+		   {
+			"type": "tab-input",
+			"fieldGroup": [
+			   {
+				  "templateOptions": {
+					 "label": "Address"
+				  },
+				  "fieldGroup": [
+					 {
+						"type": "input",
+						"key": "address",
+						"templateOptions": {
+						   "label": "Address",
+						   "placeholder": "Address",
+						   "required": true,
+						   "maxLength": 150
+						}
+					 },
+					 {
+						"fieldGroupClassName": "display-flex",
+						"fieldGroup": [
+						   {
+							  "type": "textarea",
+							  "key": "city",
+							  "className": "flex-1",
+							  "templateOptions": {
+								 "label": "City",
+								 "placeholder": "City",
+								 "required": true,
+								 "maxLength": 50
+							  }
+						   }
+						]
+					 },
+					 {
+						"fieldGroupClassName": "display-flex",
+						"fieldGroup": [
+						   {
+							  "type": "input",
+							  "key": "pincode",
+							  "className": "flex-3",
+							  "templateOptions": {
+								 "label": "PinCode",
+								 "type": "number",
+								 "placeholder": "Pincode",
+								 "maxLength": 6,
+								 "required": true
+							  }
+						   },
+						   {
+							  "type": "input",
+							  "key": "country",
+							  "className": "flex-3",
+							  "templateOptions": {
+								 "label": "Country",
+								 "placeholder": "Country",
+								 "maxLength": 50,
+								 "required": true
+							  }
+						   }
+						]
+					 }
+				  ]
+			   }
+				]
+		},
+		  {
+			 "key":"status",
+			 "type":"select",
+			 "defaultValue":"A",
+			 "props":{
+				"label":"Status",
+				"options":[
+				   {
+					  "label":"Active",
+					  "value":"Active"
+				   },
+				   {
+					  "label":"Disable",
+					  "value":"Disable"
+				   }
+				],
+				"required":true
+			 },
+			 "hideExpression":"!model.isEdit"
+		  }
+	   ],
+	   "defaultValues":[
+		  {
+			 "colName":"status",
+			 "value":"Active",
+			 "type":"string"
+		  }
+	   ]
+	},
+	"onCancelRoute":"/list/device"
+ }
+ ,"table":{
+	"pageHeading": "Customer List",
+	"collectionName": "customer",
+   	"showbutton":true,  "reference": "add button (by default = false)",
+	"addRoute": "/add/customer",       
+	"editRoute": "/edit/customer",
+	"keyField":"_id",   "keyFieldreference": "this is used for the take Primary Key field in Form Services  ",
+	"editMode" : "popup",   "editModeReference": "this is used for the from table actions it has type(popup,page)",
+    "screenEditMode":"popup",   "screenEditModeReference": "this is used for the from Clicking table ",
+	"action_reference":"this only used for the editmode it not working for the screen edit mode",
+	 "actions": [				
+    {
+      "label":"Facility",
+	  "formAction":"list",   "formActionType": "list(Route to another page),route(Route to add page depending on screen),view(Just text to show data),edit,delete,add (by default)",
+      "icon":"open_in_new",
+	  "route":"list/acility" , "reference": " THis used for route Other Screens"
+    },
+    {
+      "label":"Edit",
+	  "formAction":"edit",
+      "icon":"edit"
+    },
+    {
+      "label": "Delete",
+	  "formAction":"delete",
+      "icon": "delete"
+    }
+  ],
+	"columnDefs": [
+    {
+			"headerName": "Customer Id",
+			"field": "org_id",
+			"filter": "agTextColumnFilter",
+			"sortable": true
+		},
+		{
+			"headerName": "Customer Name",
+			"field": "org_name",
+			"filter": "agTextColumnFilter",
+			"sortable": true
+		},
+		{
+			"headerName": "Customer Type",
+			"field": "org_type",
+			"filter": "agTextColumnFilter",
+			"sortable": true
+		},
+		{
+			"headerName": "Customer Mail Id",
+			"field": "email_id",
+			"filter": "agTextColumnFilter",
+			"sortable": true
+		},
+		 {
+        "type": "rightAligned",
+        "headerName": "Actions",
+        "cellRenderer": "buttonRenderer",
+        "lockPosition": "right",
+        "cellRendererParams": {
+          "onClick": "this.onBtnClick1.bind(this)",
+          "label": "Click 1"
+        }
+      }
+
+	]
+
+
+},
+"menuColor":[{
+	"fieldGroupClassName": "display-flex",
+	"fieldGroup": [
+		{
+			"key": "theme.left_panel_color",
+			"name": "--sidenav-color",
+			"type": "color-picker-input",
+			"className": "flex-1",
+			"props": {
+				"label": "Left panel color"
+			}
+		},
+		{
+			"key": "theme.menu_font_color",
+			"name": "--menu-font",
+			"type": "color-picker-input",
+			"className": "flex-1",
+			"props": {
+				"label": "Menu font color"
+			}
+		},
+		{
+			"key": "theme.page_title_color",
+			"name": "--page-heading-color",
+			"type": "color-picker-input",
+			"className": "flex-1",
+			"props": {
+				"label": "Page title colour"
+			}
+		}
+	]
+},
+{
+	"fieldGroupClassName": "display-flex",
+	"fieldGroup": [
+		{
+			"key": "theme.grid_header_color",
+			"name": "--ag-header-color",
+			"type": "color-picker-input",
+			"className": "flex-1",
+			"props": {
+				"label": "Grid header Color"
+			}
+		},
+		{
+			"key": "theme.header_font_color",
+			"name": "--header-font",
+			"type": "color-picker-input",
+			"className": "flex-1",
+			"props": {
+				"label": "Grid header font color"
+			}
+		},
+		{
+			"key": "theme.save_button_color",
+			"name": "--submit-button",
+			"type": "color-picker-input",
+			"className": "flex-1",
+			"props": {
+				"label": "Save button color"
+			}
+		}
+	]
+},
+{
+	"fieldGroupClassName": "display-flex",
+	"fieldGroup": [
+		{
+			"key": "theme.cancel_button_color",
+			"type": "color-picker-input",
+			"name": "--cancel-button",
+			"className": "flex-1",
+			"props": {
+				"label": "Cancel button color"
+			}
+		},
+		{
+			"key": "theme.filter_button_color",
+			"name": "--filter-button",
+			"type": "color-picker-input",
+			"className": "flex-1",
+			"props": {
+				"label": "Filter button color"
+			}
+		},
+		{
+			"key": "theme.other_button_color",
+			"name": "--other-button-color",
+			"type": "color-picker-input",
+			"className": "flex-1",
+			"props": {
+				"label": "Other button color"
+			}
+		}
+	]
+}]
+}

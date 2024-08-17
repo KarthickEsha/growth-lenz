@@ -1,0 +1,792 @@
+
+<div style="height: 90vh;overflow-y: scroll;"><div style="height: 20px;display: flex;flex-direction: row;">
+  <!-- <div style="float: left;margin-left: 50px;" >
+      <mat-icon style="font-size:35px;"  (click)="back()">keyboard_backspace</mat-icon>
+    </div> -->
+    <div style="justify-content: center;align-items: center;margin-left: 49%;">
+  
+      <span class="head"> Data Set  </span>
+    </div>
+    </div>
+    <form [formGroup]="dataSet" style="margin: 10px;">
+      <div style="display: flex;align-items: center;" class="form-array-container">
+          <mat-form-field style="margin: 10px;" class="form-array-item">
+              <mat-label>DataSet Name</mat-label>
+              <input matInput placeholder="DataSet Name" formControlName="dataSetName" required>
+            </mat-form-field>
+          
+            <mat-form-field  style="margin: 10px;max-width: 50%;" class="form-array-item">
+              <mat-label>DataSet Descripition</mat-label>
+              <input matInput placeholder="DataSet Descripition" formControlName="dataSetDescription">
+            </mat-form-field>
+      </div>
+
+      <mat-form-field style="margin: 10px;max-width: 49%;" class="form-array-item">
+        <mat-label>DataSet Base Collection Name (Model Name) </mat-label>
+      <mat-select  formControlName="dataSetBaseCollection" required>
+        <mat-option *ngFor="let val of selected" (click)="valuechange(val)" [value]="val[valueProp]">{{ val[labelProp] }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+      <div  class="form-array-container" *ngIf="this.dataSet.get('dataSetBaseCollection').value">
+        <div style="display: flex;align-items: center;">
+          <h4 style="margin: 10px;font-size: medium;" class="form-array-item">DataSet Base Collection Filter (Model Name) </h4>
+          <mat-icon (click)="BaseCollectionFilter()" style="margin: 10px;">filter_list</mat-icon>
+      </div>
+      </div>
+          
+       <div *ngIf="baseConvertString">
+
+        <div  *ngFor="let values of baseConvertString; let i = index ;let last=last" class="string-convert">
+          <!--! SubParrent array -->
+          <div *ngFor="let val of values ; let index = index ">
+          
+                  <div *ngIf="val.flag == false"  [style.margin-left]="i > 0 ? '20px' : '0px'">
+                    <h6 [style.background-color]="val.operator === 'AND' ? '#b3e811' : '#ffecc7'"  style="border-radius: 50px; font-size: medium; padding: 5px;margin: 10px;justify-content: center; ">
+                      <!-- <span style="margin-left: 20px; margin-right: 20px ;margin: 20px;">{{ "    " + val?.filter + "    " }}</span> -->
+                      <div style="display: flex;justify-content: center;">
+
+                        <span style="color: black;margin-left: 20px;"><b>{{ "    " + val?.field + "    " }}</b></span>
+                        <span style="color: rgb(78, 71, 71); ">{{ "    (" + val?.operators + ")    " }}</span>
+                        <span style="color: black;margin-right: 20px "><b>{{ "    " + val?.value + "    " }}</b></span>
+  
+                      </div>
+                    </h6>
+                   </div>
+                </div>
+       </div>     
+  </div>
+  <div >
+    
+        <div style="display: flex;align-items: center;" class="form-array-container" *ngIf="this.dataSet.get('dataSetBaseCollection').value">
+          <h4 style="margin: 10px;font-size: medium;">Join Collection</h4>
+          <button mat-icon-button  (click)="PopUpJoinCollection()">
+              <mat-icon>library_add</mat-icon>
+              </button>   </div>
+        <div *ngFor=" let JoinIndex = index;let JoinCollection of CustomColumn('dataSetJoinCollection').controls;let last=last">
+          <div [style]=" to_read_the_flag('dataSetJoinCollection',JoinIndex)==true?'display: flex;align-items: center;margin: 10px;':'' ">
+            <div *ngIf="to_read_the_flag('dataSetJoinCollection',JoinIndex)==true">
+                {{to_return_datadataSetJoinCollection('dataSetJoinCollection',JoinIndex)}} 
+                <!-- ! To Do  Index -->
+                <mat-icon *ngIf="!Return_Join_collection_Present(JoinIndex)" (click)="JoinCollectionFilter(JoinIndex)">filter_list</mat-icon>
+                <mat-icon *ngIf="Return_Join_collection_Present(JoinIndex)" (click)="JoinCollectionFilterEdit(JoinIndex)">filter_list</mat-icon>
+
+      <button mat-icon-button (click)="DeleteJoinColletion('dataSetJoinCollection',JoinIndex,JoinCollection.value.toCollection)" style="margin: 10px;">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button (click)="PopUpJoinCollection(JoinIndex,true)" style="margin: 10px;" *ngIf="to_read_the_flag('dataSetJoinCollection',JoinIndex)==true">
+            <mat-icon>edit</mat-icon>
+          
+          </button>
+         </div>
+      </div>
+
+      <div *ngIf="JoinConvertString[JoinIndex]">
+        <div  *ngFor="let values of JoinConvertString[JoinIndex]; let i = index ;let last=last" class="string-convert">
+          <!--! SubParrent array -->
+          <div *ngFor="let val of values ; let index = index ">
+                  <div *ngIf="val.flag == false"  [style.margin-left]="i > 0 ? '20px' : '0px'">
+                    <h6 [style.background-color]="val.operator === 'AND' ? '#b3e811' : '#ffecc7'"  style="border-radius: 50px; font-size: medium; padding: 5px;">
+                      <!-- <span style="margin-left: 20px; margin-right: 20px">{{ "    " + val?.filter + "    " }}</span> -->
+                      <span style="color: black;"><b>{{ "    " + val?.field + "    " }}</b></span>
+                      <span style="color: rgb(78, 71, 71);">{{ "    (" + val?.operators + ")    " }}</span>
+                      <span style="color: black;"><b>{{ "    " + val?.value + "    " }}</b></span>
+                    </h6>
+                   </div>
+                </div>
+       </div>     
+      </div>
+    </div>
+     
+    </div>
+  <hr>
+  <!-- ! Custom Field -->
+      <div>
+  
+        <div style="display: flex;align-items: center;" class="form-array-container">
+        <h4 style="margin: 10px;font-size: medium;">Custom Column</h4>
+          <button mat-icon-button (click)="addCustomColumn()">
+            <mat-icon>library_add</mat-icon>
+          </button>
+        </div>
+        <div formArrayName="CustomColumn">
+          <div *ngFor="let customIndex = index;let customColumn of CustomColumn('CustomColumn').controls;let last=last">
+              <div formGroupName="{{customIndex}}" *ngIf="to_read_the_flag('CustomColumn',customIndex)==false">
+                <div style="display: flex;align-items: center;" class="form-array-item">
+                  <div style="margin: 10px;max-width: 33%;width: 33%;" >
+                    <mat-form-field>
+                      <mat-label>Custom Column Name (Display)</mat-label>
+                      <input matInput placeholder="Column Name" formControlName="dataSetCustomColumnName" required>
+                    </mat-form-field>
+                  </div>
+                  <div style="margin: 10px;max-width: 33%;width: 33%;" class="form-array-item">
+                    <mat-form-field>
+                      <mat-label>Custom Label Name</mat-label>
+                      <input matInput placeholder="Label Name" formControlName="dataSetCustomLabelName" required>
+                    </mat-form-field>
+                  </div>
+                  <div style="margin: 10px;max-width: 33%;width: 33%;"class="form-array-item">
+                    <mat-form-field>
+                      <mat-label>Function</mat-label>
+                      <mat-select  formControlName="dataSetCustomAggregateFnName" required>
+                        <mat-option *ngFor="let val of custom_columns_fn" (click)="CustomColum(val)"[value]="val.value">{{ val.name }}</mat-option>
+
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div  *ngIf="customColumn.value.dataSetCustomAggregateFnName" style="margin: 10px;max-width: 33%;width: 33%;">
+            <ng-select
+            [items]="select"
+            [clearSearchOnAdd]="true"
+            [multiple]="true"
+            appearance="outline"
+            [bindLabel]="name"
+            formControlName="dataSetCustomField"
+            placeholder="Select a custom"
+            [closeOnSelect]="false"
+            >
+            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                  <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" [ngModelOptions]="{standalone: true}"/>
+                  <span style="margin-left:5px" [innerHTML]="item[name]"></span>
+              </ng-template> 
+              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+              <div class="ng-value" *ngFor="let item of items | slice:0:1">
+                  <span class="ng-value-label"> {{$any(item)[name]}}</span>
+                  <span class="ng-value-icon right" (click)="clear(item)"  aria-hidden="true">×</span>
+              </div>
+              <div class="ng-value" *ngIf="items.length > 1">
+                  <span class="ng-value-label">{{items.length - 1}} more...</span>
+              </div>
+            </ng-template>
+          </ng-select>
+        </div>
+                </div>
+              </div>
+              <div [style]=" to_read_the_flag('CustomColumn',customIndex)==true?'display: flex;align-items: center;margin: 10px;':'' ">
+                <div *ngIf="to_read_the_flag('CustomColumn',customIndex)==true">
+                  {{to_return_data('CustomColumn',customIndex,true)}}
+            </div>
+        <button mat-icon-button (click)="deleteCustomColumn('CustomColumn',customIndex,customColumn.value)" style="margin: 10px;" *ngIf="to_read_the_flag('CustomColumn',customIndex)==true">
+          <mat-icon>delete</mat-icon>
+        </button>
+  
+        <button mat-icon-button (click)="deleteCustomColumn('CustomColumn',customIndex)" style="margin: 10px;" *ngIf="to_read_the_flag('CustomColumn',customIndex)==false" >
+          <mat-icon>close</mat-icon>
+        </button>
+        <button mat-icon-button (click)="ConvertintoString('CustomColumn',customIndex,false,true,'dataSetCustomField')" style="margin: 10px;" *ngIf="to_read_the_flag('CustomColumn',customIndex)==true">
+          <mat-icon>edit</mat-icon>
+        
+        </button>
+        
+        
+        <button mat-icon-button (click)="ConvertintoString('CustomColumn',customIndex,true,true,'dataSetCustomField',true,customColumn.value)" style="margin: 10px;" *ngIf="to_read_the_flag('CustomColumn',customIndex)==false">
+          <mat-icon>check</mat-icon>
+        </button>
+        
+              </div>
+             
+        </div>
+        </div>
+      </div>
+      <hr>
+  <!-- ! Agg FN -->
+  
+      <div>
+        <div style="display: flex;align-items: center;">
+          <h4 style="margin: 10px;font-size: medium;">Aggregation Function</h4>
+            <button mat-icon-button (click)="addAggregation()">
+              <mat-icon>library_add</mat-icon>
+            </button>
+          </div>
+          <div formArrayName="Aggregation">
+            <div *ngFor=" let AggregationIndex = index;let Aggregation of CustomColumn('Aggregation').controls;let last=last">
+                <div formGroupName="{{AggregationIndex}}" *ngIf="to_read_the_flag('Aggregation',AggregationIndex)==false">
+              <div style="display: flex;align-items: center;">
+                <div style="margin: 10px;max-width: 33%;width: 33%;" >
+                  <mat-form-field>
+                    <mat-label>Aggregation Column Name (Display)</mat-label>
+                    <input matInput placeholder="Column Name"  formControlName="Agg_Column_Name" required>
+                  </mat-form-field>
+                </div>
+                <div style="margin: 10px;max-width: 33%;width: 33%;">
+                  <mat-form-field>
+                    <mat-label>Aggregation Function </mat-label>
+                    <mat-select formControlName="Agg_Fn_Name"  required>
+                      <mat-option *ngFor="let val of aggFn" (click)="aggfunctionChange(val)"[value]="val.value">{{ val.name }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div style="margin: 10px;max-width: 33%;width: 33%;" *ngIf="Aggregation.value.Agg_Fn_Name" >
+                  <mat-form-field>
+                    <mat-label>Aggregation Column Field(Name)</mat-label>
+                    <mat-select formControlName="Agg_Field_Name" required>
+                      <mat-option *ngFor="let val of custom_columns_select" [value]="val">{{ val['name'] }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+          
+                <div style="margin: 10px;max-width: 33%;width: 33%;">
+                  <mat-form-field>
+                    <mat-label>Group By Field (Name)</mat-label>
+                    <mat-select formControlName="Agg_group_byField" required>
+                      <mat-option *ngFor="let val of options" [value]="val">{{ val['name'] }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+            </div>
+             </div>
+            <div [style]=" to_read_the_flag('Aggregation',AggregationIndex)==true?'display: flex;align-items: center;margin: 10px;':'' ">
+              <div *ngIf="to_read_the_flag('Aggregation',AggregationIndex)==true">
+                    {{to_return_data('Aggregation',AggregationIndex,false)}}
+              </div>
+              <button mat-icon-button (click)="deleteAggColumn('Aggregation',AggregationIndex,Aggregation.value)" *ngIf="to_read_the_flag('Aggregation',AggregationIndex)==true" style="margin: 10px;">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteAggColumn('Aggregation',AggregationIndex)" *ngIf="to_read_the_flag('Aggregation',AggregationIndex)==false" style="margin: 10px;" >
+                <mat-icon>close</mat-icon>
+              </button>
+              <button mat-icon-button (click)="AggEdit(AggregationIndex,Aggregation.value)" style="margin: 10px;" *ngIf="to_read_the_flag('Aggregation',AggregationIndex)==true">
+                <mat-icon>edit</mat-icon>
+              </button>
+              
+              <button mat-icon-button (click)="AggConvertIntoString('Aggregation',AggregationIndex,true,true,Aggregation.value)" style="margin: 10px;" *ngIf="to_read_the_flag('Aggregation',AggregationIndex)==false">
+                <mat-icon>check</mat-icon>
+              </button>
+        </div>
+               
+          </div>
+          </div>
+      </div>
+      <hr>
+
+      <!-- <app-filter [dragData]="this.dragData"></app-filter> -->
+      <!-- !AGGrid Cloumns -->
+    <!-- <div  >
+      <h4 style="margin: 10px;font-size: medium;">Cloumn Visibilty</h4>
+  
+      <div style="max-width: 100%;width: 100%;display:flex; justify-content: center;align-items: center;">
+        <div class="example-container">
+                 <h6 style="justify-items: start;"> Columns </h6>
+                 <div
+                   cdkDropList
+                   #transferFrom=cdkDropList
+                   [cdkDropListData]="dragData"
+                   [cdkDropListConnectedTo]="[transerTo]"
+                   class="example-list"
+                   (cdkDropListDropped)="drop($event)">
+                   <div class="example-box" *ngFor="let item of dragData" cdkDrag>{{item.name}}</div>
+                 </div>
+               </div>
+
+           
+               <div class="example-container">    
+             <h6>Columns To Show</h6>
+               <div
+                 cdkDropList
+                 #transerTo=cdkDropList
+                 [cdkDropListData]="selectedColumns"
+                 [cdkDropListConnectedTo]="[transferFrom]"
+                 class="example-list"
+                 (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let item of selectedColumns" cdkDrag> 
+                {{item.name}} 
+                <mat-icon matSuffix (click)="item.hide = !item.hide">{{item.hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </div>
+               </div>
+             </div>
+      </div>
+      <hr>
+  
+    </div>
+   -->
+
+  
+   <div>
+    <div style="display: flex;align-items: center;">
+      <h4 style="margin: 10px;font-size: medium;">Filter Params</h4>
+        <button mat-icon-button (click)="AddFilterParams()">
+          <mat-icon>library_add</mat-icon>
+        </button>
+      </div>
+      <div formArrayName="FilterParams">
+        <div *ngFor=" let FilterParamsIndex = index;let Filter of CustomColumn('FilterParams').controls;let last=last">
+            <div formGroupName="{{FilterParamsIndex}}" *ngIf="to_read_the_flag('FilterParams',FilterParamsIndex)==false">
+          <div style="display: flex;align-items: center;">
+            <div style="margin: 10px;max-width: 33%;width: 33%;" >
+              <mat-form-field>
+                <mat-label>Parms Name </mat-label>
+                <span matPrefix>Param</span>
+  
+                <input matInput placeholder="Params Name" formControlName="parmasName" required>
+              </mat-form-field>
+            </div>
+          <div style="margin: 10px;max-width: 33%;width: 33%;">
+              <mat-form-field>
+                <mat-label>Select The DataType</mat-label>
+                <mat-select #select formControlName="parmsDataType"  required>
+                  <mat-option value="string">String</mat-option>
+                  <mat-option value="int">INT</mat-option>
+                  <mat-option value="int64">INT64</mat-option>
+                  <mat-option value="float32">FLOAT32</mat-option>
+                  <mat-option value="float64">FLOAT64</mat-option>
+                  <mat-option value="boolean">Boolean</mat-option>
+                  <mat-option value="time.Time">Data</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>    
+            <div style="margin: 10px;max-width: 33%;width: 33%;"  *ngIf=" select.value != 'time.Time'" >
+              <mat-form-field>
+                <mat-label>Default Value</mat-label>
+                <input matInput placeholder="Params Name" formControlName="defaultValue" required>
+              </mat-form-field>
+            </div>
+            <div style="margin: 10px;max-width: 33%;width: 33%;"  *ngIf="select.value == 'time.Time'" >
+              <mat-form-field>
+                <mat-label>Choose a Date </mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="defaultValue">
+                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+        </div>
+         </div>
+        <div [style]=" to_read_the_flag('FilterParams',FilterParamsIndex)==true?'display: flex;align-items: center;margin: 10px;':'' ">
+          <div *ngIf="to_read_the_flag('FilterParams',FilterParamsIndex)==true">
+                {{to_return_FilterParams(FilterParamsIndex)}}
+          </div>
+          <button mat-icon-button (click)="deleteFilterColumn('FilterParams',FilterParamsIndex,Filter.value)"  *ngIf="to_read_the_flag('FilterParams',FilterParamsIndex)==true" style="margin: 10px;">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteFilterColumn('FilterParams',FilterParamsIndex)" *ngIf="to_read_the_flag('FilterParams',FilterParamsIndex)==false" style="margin: 10px;" >
+            <mat-icon>close</mat-icon>
+          </button>
+          <button mat-icon-button (click)="ConvertintoString('FilterParams',FilterParamsIndex,false,false)" style="margin: 10px;" *ngIf="to_read_the_flag('FilterParams',FilterParamsIndex)==true">
+            <mat-icon>edit</mat-icon>
+          </button>
+          
+          <button mat-icon-button (click)="parmsConvertIntoString('Param','parmasName',FilterParamsIndex,true)" style="margin: 10px;" *ngIf="to_read_the_flag('FilterParams',FilterParamsIndex)==false">
+            <mat-icon>check</mat-icon>
+          </button>
+    </div>
+
+           
+      </div>
+      </div>
+  </div>
+  <hr>
+
+  
+  </form>
+  <div *ngIf="!(options.length==0)">
+    <h4 style="margin: 10px;font-size: medium;">Over All Filter</h4>
+
+    <div  style=" display: flex;
+    justify-content: flex-end;
+    align-items: center;">
+     <span style="  border: 2px solid black;
+     background-color:rgb(179, 232, 17);margin: 10px;
+     color: black;" >AND</span>  <span style="
+  border: 2px solid black;margin: 10px;
+  background-color: rgb(255, 236, 199);
+  color: black;">OR</span>
+   </div>
+   
+   <div style="overflow-y: scroll;display: block;max-height: 400px;">
+     <!-- ! Parent level Group  -->
+  
+  <div *ngFor="let values of grp; let i = index ;let last=last">
+  <!--! SubParrent array -->
+  <div *ngFor="let val of values ; let index = index ">
+  
+  <div  style="display: flex;align-items: center;margin-left: 5px;" *ngIf="val.flag==true">
+   <mat-form-field style="display: flex;align-items: start;justify-content: left;float: left;margin: 5px;">
+     <mat-label>Field</mat-label>
+     <mat-select [(ngModel)]="field[i][index]">
+       <mat-option *ngFor="let option of options"  (click)="setflag(option,i,index);getOperators(option,i,index)" [value]="option">{{ option?.name }}</mat-option>
+     </mat-select>
+   </mat-form-field>
+
+   <mat-form-field *ngIf="field[i][index]!=undefined" style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;">
+     <mat-label>Operator</mat-label>
+     <mat-select [(ngModel)]="operator[i][index]">
+       <mat-option *ngFor="let option of operatorOptions[i][index] " (click)="opertorchange(option,i,index)" [value]="option">{{ option?.label }}</mat-option>
+     </mat-select>
+   </mat-form-field>  
+   <mat-form-field *ngIf="field[i][index]!=undefined && operator[i][index] !=undefined && !operator[i][index]['value_not_need']" style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;">
+    <mat-label>Value Type </mat-label>
+    <mat-select [(ngModel)]="value_type[i][index]">
+      <mat-option value="constant"> Constant</mat-option>
+      <mat-option value="custom_Variable" *ngIf="field[i][index].type=='time.Time'" (click)="this.anotherfield[i][index]='';this.orbitalValue[i][index]='' "> Custom Varaiable</mat-option>
+      <mat-option value="filter_Paramas" *ngIf="!(filterParms.length==0)" (click)="this.anotherfield[i][index]='';this.orbitalValue[i][index]='' "> Filter Parms </mat-option>
+    </mat-select>
+  </mat-form-field>  
+
+   <mat-form-field *ngIf="field[i][index]!=undefined&&operator[i][index]!=undefined && field[i][index].type=='bool' && value_type[i][index]=='constant' " style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;">
+    <mat-label>Value </mat-label>
+    <mat-select [(ngModel)]="orbitalValue[i][index]">
+      <mat-option [value]='true'> True</mat-option>
+      <mat-option [value]='false'>False</mat-option>
+      </mat-select>
+  </mat-form-field>  
+
+  <!-- Normal value -->
+   <ng-container *ngIf="flag[i][index]==false&&inputflag[i][index]==false &&value_type[i][index]=='constant' &&field[i][index].type!=='time.Time'&&field[i][index].type!=='bool' " >
+     <mat-form-field>
+       <mat-label>Value</mat-label>
+       <input matInput [(ngModel)]="orbitalValue[i][index]" />
+     </mat-form-field>
+   </ng-container>
+<!-- If field Type is Data VAlue Type is Constatnt -->
+   <ng-container *ngIf="flag[i][index]==false&&inputflag[i][index]==false &&value_type[i][index]=='constant' &&field[i][index].type==='time.Time' ">
+    <mat-form-field>
+      <mat-label *ngIf=" operator[i][index].value!== 'within'">Choose a date</mat-label>
+      <mat-label *ngIf=" operator[i][index].value=== 'within'">Choose a Date From</mat-label>
+
+      <input matInput [matDatepicker]="picker"  [(ngModel)]="orbitalValue[i][index]">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </ng-container>
+<!-- If field Type is Data VAlue Type is Constant Variable  -->
+  
+   <ng-container *ngIf="flag[i][index]==false&&inputflag[i][index]==false &&value_type[i][index]=='custom_Variable'" >
+    <mat-form-field>
+      <mat-label>Type the Custom Variable</mat-label>
+      <input matInput [(ngModel)]="orbitalValue[i][index]" placeholder="The Format Should be 1d 1m 1y / 4w"/>
+      <mat-hint>The Format Should be 1d 1m 1y(i.e 1 Day from 1 Month from 1 Year) / 4 w(i.e 4 weeks) </mat-hint>
+    </mat-form-field>
+  </ng-container>  
+
+   <ng-container *ngIf="flag[i][index]==false&&inputflag[i][index]==false&&value_type[i][index]=='filter_Paramas'" >
+    <mat-form-field>
+      <mat-label>Filter Parms</mat-label>
+      <!-- <input matInput  /> -->
+      <mat-select [(ngModel)]="orbitalValue[i][index]">
+        <mat-option *ngFor="let Prasms of filterParms"  [value]="Prasms">{{ Prasms?.ParamsName }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
+<!-- ! this contain two or more input box -->
+   <ng-container *ngIf="inputflag[i][index]=='any'" style="display: flex;align-items: center;margin-left: 5px;">
+   
+   <div *ngIf="value_type[i][index]=='constant' && field[i][index].type!=='time.Time' " style="display: flex;align-items: center;margin-left: 5px;">
+      <mat-form-field style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;" >
+        <mat-label>Another MIN Value</mat-label>
+        <input matInput [(ngModel)]="orbitalValue[i][index]" />
+      </mat-form-field >
+      <mat-form-field  style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;">
+        <mat-label>Another Max Value</mat-label>
+        <input matInput [(ngModel)]="anotherfield[i][index]" />
+      </mat-form-field>
+    </div>
+  
+  
+    <div *ngIf="value_type[i][index]=='constant' && field[i][index].type==='time.Time'" style="display: flex;align-items: center;margin-left: 5px;">
+      <mat-form-field  style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;">
+        <mat-label>Choose a From date</mat-label>
+        <input matInput [matDatepicker]="picker"  [(ngModel)]="orbitalValue[i][index]">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field  style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;">
+        <mat-label>Choose a To date</mat-label>
+        <input matInput [matDatepicker]="picker1" [min]="orbitalValue[i][index]" [(ngModel)]="anotherfield[i][index]" >
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+  
+    <div *ngIf="value_type[i][index]=='custom_Variable'  &&( operator[i][index].value=== 'between_age' || operator[i][index].value=== 'in_between' )&& field[i][index].type==='time.Time' " style="display: flex;align-items: center;margin-left: 5px;">
+      <mat-form-field style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;" >
+        <mat-label *ngIf=" operator[i][index].value=== 'between_age'">Age Range From</mat-label>
+        <mat-label *ngIf=" operator[i][index].value=== 'in_between'">Date Format</mat-label>
+
+        <input matInput [(ngModel)]="orbitalValue[i][index]" />
+        <mat-hint *ngIf=" operator[i][index].value=== 'between_age'"><b>Exampe From Age Range :</b> 20 </mat-hint>
+        <mat-hint *ngIf="operator[i][index].value=== 'in_between' ">The Format Should be 1d 1m 1y / 4 w(i.e 4 weeks) </mat-hint>
+
+      </mat-form-field >
+      <mat-form-field  style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;">
+        <mat-label *ngIf=" operator[i][index].value=== 'between_age'">Age Range To</mat-label>
+        <mat-label *ngIf=" operator[i][index].value=== 'in_between'">Date Format</mat-label>
+        <input matInput [(ngModel)]="anotherfield[i][index]" />
+        <mat-hint *ngIf=" operator[i][index].value=== 'between_age'"><b>Exampe To Age Range :</b> 40 </mat-hint>
+        <mat-hint *ngIf="operator[i][index].value=== 'in_between' ">The Format Should be 1d 1m 1y / 4 w(i.e 4 weeks) </mat-hint>
+
+      </mat-form-field>
+    </div>
+    <div *ngIf="value_type[i][index]=='custom_Variable'  && operator[i][index].value=== 'within' && field[i][index].type==='time.Time' ">
+
+      <mat-form-field style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;" >
+        <mat-label>With in Custom Date Format</mat-label>
+        <input matInput [(ngModel)]="orbitalValue[i][index]" />
+        <mat-hint>The Format Should be 1d 1m 1y(i.e 1 Day from 1 Month from 1 Year) / 4 w(i.e 4 weeks) </mat-hint>
+
+        </mat-form-field >
+    </div>
+  </ng-container>
+  
+   <!-- <ng-container *ngIf="flag[i][index]==true &&inputflag[i][index]==true">
+     <mat-form-field style="display: flex;align-items: start;justify-content: left;float: left;margin: 5px;">
+       <mat-label>Orbital Value</mat-label>
+       <mat-select [(ngModel)]="orbitalValue[i][index]">
+         <mat-option *ngFor="let option of orbitalOptions[i][index]"[value]="option.value">{{ option?.label }}</mat-option>
+       </mat-select>
+     </mat-form-field>
+   </ng-container> -->
+  
+  <button mat-icon-button (click)="removeField(i,index)" style="margin-bottom: 5px;">
+   <mat-icon>delete</mat-icon>
+  </button>
+  <button mat-icon-button  (click)="convertdata_into_string(i,index)" style="margin-bottom: 5px;">
+   <mat-icon>check</mat-icon>
+  </button>
+  
+  </div>
+  <!-- !this used for the String Conversion -->
+  <div *ngIf="val.flag == false" style="display: flex; align-items: center; " [style.margin-left]="i > 0 ? '20px' : '0px'">
+   <h6 [style.background-color]="val.operator === 'AND' ? '#b3e811' : '#ffecc7'"  style="border-radius: 50px; font-size: medium; padding: 5px;">
+     <!-- <span style="margin-left: 20px; margin-right: 20px">{{ "    " + val?.filter + "    " }}</span> -->
+     <span style="color: black;"><b>{{ "    " + val?.field + "    " }}</b></span>
+     <span style="color: rgb(119, 106, 106);">{{ "    " + val?.operators + "    " }}</span>
+     <span style="color: black;"><b>{{ "    " + val?.value + "    " }}</b></span>
+
+   </h6>
+  
+  <button mat-icon-button (click)="removePArentField(i)"*ngIf="index==0" style="margin-bottom: 5px;">
+   <mat-icon>delete_forever</mat-icon>
+ </button>
+
+
+  <button mat-icon-button (click)="removeField(i,index)" *ngIf="!(index==0)" style="margin-bottom: 5px;">
+    <mat-icon>delete</mat-icon>
+  </button>
+  <button mat-icon-button (click)="addgrp(i,index)" *ngIf="index==0" style="margin-bottom: 5px;">
+    <mat-icon>add</mat-icon>
+  </button>
+  <button mat-icon-button (click)="Grp_undo_edit(i,index)" style="margin-bottom: 5px;">
+    <mat-icon>edit</mat-icon>
+  </button>
+  </div>
+  
+  </div>
+  
+  <div *ngIf="last">
+   <!-- !IF Need Undo -->
+   <!-- <button mat-raised-button color="primary" (click)="Parent_Conditons(false,'Conditions',i)" style="margin: 5px; justify-content: center; align-items: center;">
+     <mat-icon>add</mat-icon>
+     Conditions
+   </button>
+    -->
+   <button mat-raised-button color="primary" (click)="Parent_Conditons(true,'AND',i)" style="margin: 5px; justify-content: center; align-items: center;">
+     <mat-icon>add</mat-icon>
+     AND Group
+   </button>
+   
+   <button mat-raised-button color="primary" (click)="Parent_Conditons(true,'OR',i)" style="margin: 5px; justify-content: center; align-items: center;">
+     <mat-icon>add</mat-icon>
+     OR Group
+   </button>
+   <!-- <button mat-raised-button color="primary" (click)="EndGRpFlag(i)" style="margin: 5px; justify-content: center; align-items: center;">
+     <mat-icon>add</mat-icon>
+     END Group
+   </button> -->
+  </div>
+  </div>
+  
+  </div>
+  <div *ngIf="button_Flag==false">
+  <!-- <button mat-raised-button color="primary" (click)="Parent_Conditons(false,'Conditions')" style="margin: 5px; justify-content: center; align-items: center;">
+  <mat-icon>add</mat-icon>
+  Conditions
+  </button>
+  -->
+  <button mat-raised-button color="primary" (click)="button_Flag=true;Parent_Conditons(true,'AND',0)" style="margin: 5px; justify-content: center; align-items: center;">
+  <mat-icon>add</mat-icon>
+  AND Group
+  </button>
+  
+  <button mat-raised-button color="primary" (click)="button_Flag=true;Parent_Conditons(true,'OR',0)" style="margin: 5px; justify-content: center; align-items: center;">
+  <mat-icon>add</mat-icon>
+  OR Group
+  </button>
+  </div>
+       
+<hr>
+     
+  </div>
+<div>
+  <h4 style="margin: 10px;font-size: medium;">
+  Selected Columns</h4>
+    <mat-chip-row *ngFor="let columns of SelctedColumns;let i = index " style="margin-left: 4px;margin-bottom: 5px;">
+      {{columns.headerName}}
+      <button matChipRemove [attr.aria-label]="'remove ' + columns.field">
+        <mat-icon (click)="removeSelectedColumns(i);      ">cancel</mat-icon>
+      </button>
+    </mat-chip-row>
+
+  </div>
+  
+
+
+  <h4 style="margin: 10px;font-size: medium;">Preview</h4>
+
+  <button mat-raised-button color="primary" (click)="Preview()" style="margin: 5px; justify-content: center; align-items: center;">
+    Show Preview and Save
+  </button>
+
+  <button mat-raised-button color="primary" (click)="savedataSet()" style="margin: 5px; justify-content: center; align-items: center;">
+    Save
+  </button>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- ? POP UP SCREEEN -->
+<ng-template #Popup mode="over" style="height: auto" let-data >
+  <div style="text-align-last: end">
+    <mat-icon (click)="this.dialogService.closeModal();close()">close</mat-icon>
+  </div>
+  <div class="page">
+  <mat-card style="width: 98%; margin: auto">
+    <mat-card-header style="flex: 1 1 auto;">
+      <div  style="width: 100%">
+        <h2 style="text-align: center;" class="page-title">Join Collection - Add</h2>
+      </div>
+    </mat-card-header>
+  
+    <mat-card-content style="padding-top: 10px">
+      <div>
+              <mat-form-field >
+                <mat-label>From Collection (Model Name)</mat-label>
+              <mat-select [(ngModel)]="fromCollection"  required>
+                <mat-option *ngFor="let val of fromcollectionList" (click)="collectionNameChanges(val[valueProp],true);fromCollectionReference='';" [value]="val[valueProp]">{{ val[labelProp] }}</mat-option>
+              </mat-select>
+            
+            </mat-form-field>
+            <mat-form-field >
+              <mat-label>From Collection Reference Field</mat-label>
+            <mat-select  [(ngModel)]="fromCollectionReference" required>
+              <mat-option *ngFor="let val of fromcollectionListID" [value]="val['field_name']">{{ val['name'] }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field >
+            <mat-label>To Collection (Model Name)</mat-label>
+          <mat-select  [(ngModel)]="toCollection" required>
+            <mat-option *ngFor="let val of tocollectionList" (click)="collectionNameChanges(val[valueProp],false);toCollectionReference='';" [value]="val[valueProp]">{{ val[labelProp] }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field  >
+          <mat-label>To Collection Reference Field</mat-label>
+        <mat-select  [(ngModel)]="toCollectionReference" required>
+          <mat-option *ngFor="let val of tocollectionListID"  [value]="val['field_name']">{{ val['name'] }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+      
+    </mat-card-content>
+    <mat-card-actions>
+      <div style="text-align-last: end; width: 100%">
+        <button style="margin: 5px" mat-button (click)="close();this.dialogService.closeModal()">Cancel</button>
+        <button style="margin: 5px" mat-button (click)="close()">Reset</button>
+        <button style="margin: 5px;  background:rgb(59,146,155)" mat-raised-button (click)="saveJoinCollection(data)" color="warn" >
+          Save
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>
+</ng-template>
+
+
+
+
+
+
+
+
+<ng-template #Filter mode="over" style="height: auto" let-data >
+  <div style="text-align-last: end">
+    <mat-icon (click)="this.dialogService.closeModal();">close</mat-icon>
+  </div>
+  <div class="page">
+  <mat-card style="width: 98%; margin: auto">
+    <mat-card-header style="flex: 1 1 auto;">
+      <div  style="width: 100%">
+        <h2 style="text-align: center;" class="page-title">{{ data.pageHeading }} - {{ data.Action }}</h2>
+        <h4 style="margin: 10px;font-size: medium;text-align: center;">Collection Name (model Name) - {{data.Collection}}</h4>
+
+      </div>
+    </mat-card-header>
+    <mat-card-content style="padding-top: 10px">   
+      <app-ngmodel [Action]="data.Action" [filterParms]="filterParms" [Collection]="data.Collection" [Data]="data.alldata"  (onClose)="closefilter($event,data)"></app-ngmodel>
+
+    </mat-card-content>
+  <!-- <button style="margin: 5px" mat-button (click)="close();this.dialogService.closeModal()">Cancel</button> -->
+</mat-card>    
+  </div>
+
+</ng-template>
+
+
+
+
+<ng-template #previewGrid mode="over" style="height: auto" let-data>
+  <div style="text-align-last: end">
+    <mat-icon (click)="this.dialogService.closeModal();">close</mat-icon>
+  </div>
+  <div class="page">
+  <mat-card style="width: 98%; margin: auto">
+    <mat-card-header style="flex: 1 1 auto;">
+      <div  style="width: 100%">
+        <h2 style="text-align: center;" class="page-title">Select the Column To Show ( Preview Screen )  </h2>
+      </div>
+    </mat-card-header>
+    <mat-card-content style="padding-top: 10px">   
+        <div>
+        <ag-grid-angular
+            style="width: 100%; height: 60vh;"
+            class="ag-theme-alpine"     
+            [columnDefs]="aggridStructure"
+            [pagination]="true"
+             [sideBar]="sideBar"
+             [suppressAutoSize]='true'
+            (gridReady)="onGridReady($event)"
+            [paginationPageSize]="20"
+            [rowData]="rowData"
+        ></ag-grid-angular>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div style="text-align-last: end; width: 100%">
+        <button style="margin: 5px" mat-button (click)="closePreview();this.dialogService.closeModal()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="SaveColumns()" style="margin: 5px; justify-content: center; align-items: center;">
+          Save Selected List
+        </button>
+      
+      </div>
+    </mat-card-actions>
+</mat-card>    
+  </div>
+
+</ng-template>

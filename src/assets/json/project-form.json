@@ -1,0 +1,13 @@
+{
+  "pageHeading": "se",
+  "formType": "simpleform",
+  "onCancelRoute": "se",
+  "editMode": "popup",
+  "token_need_to_set": false,
+  "form": {
+    "collectionName": "screen",
+    "fields": [
+      
+    ]
+  }
+}

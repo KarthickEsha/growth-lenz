@@ -1,0 +1,213 @@
+<mat-drawer-container>
+    <mat-drawer #drawer mode='over' position="end" class="example-sidenav" style="width: 40%; margin: auto;height: 100%;">
+      <mat-card style="max-height: 94%;min-height: auto;padding-top: 10px; scroll-behavior: auto; overflow-y: auto; scrollbar-width: thin;">
+        <div style="text-align-last: end">
+          <mat-icon style="float: right;font-size: large;"   (click)="this.drawer.toggle()">close</mat-icon>
+        </div>
+        <!-- <div *ngIf="Collection" (click)="filterClick()">
+          <button mat-mini-fab style="float: right;"> 
+            <mat-icon>filter_list</mat-icon>
+          </button>
+        </div> -->
+        <mat-card-content style="padding-top: 10px">
+          <div>
+            <form [formGroup]="form">
+              <formly-form [model]="model" [fields]="clonefield" [form]="form"></formly-form>
+            <div *ngIf="Collection && drawer.opened">
+              <app-aggrid-design [model]="model" [isformExtention]="true"></app-aggrid-design>
+            </div>
+
+            </form>
+
+
+
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <div style="display: flex;">
+        <button style="margin: 5px" mat-button  (click)="this.drawer.toggle()">Cancel</button>
+        <button style="margin: 5px" mat-button  (click)="applyData()" >Apply</button>
+      </div>
+    </mat-drawer>
+    <mat-drawer-content>
+      <div style="display: flex;flex-direction: row;">
+        <div class="page-sidebar" style="display: flex;flex-direction: column;height: 100dvh">
+          <div class="sidenav" [ngClass]=" collapsed ?'sidenav-collapsed':'sidenav-expanded'">
+          <div class="logo-container">
+            <div>
+              Select The Model Below
+            </div>
+            <mat-icon [ngClass]="collapsed ?'expand_icon_collapsed':'expand_icon_non_collapsed'"
+              (click)="togglecollapse()">chevron_right</mat-icon>
+          </div>
+     
+          <div (click)="togglecollapse(collapsed)" [ngClass]="collapsed ?'menu-items':'menu-items-noncollapsed'">
+            <ul *ngFor="let data of navItems" class="sidenav-nav">
+              <li class="sidenav-nav-item">
+                <!--? Single data without Child  -->
+                <a *ngIf="!data.children"  class="sidenav-nav-link"
+                >
+                  <span  class="sidenav-link"  draggable="true"
+                  (dragstart)="onDragStart($event, data)">{{ data.displayName }}</span>
+                </a>
+              </li>
+              <li *ngIf="data.children"  (click)="toggleSubsection(data)" class="sidenav-nav-item">
+                <a class="sidenav-nav-link" >
+                    <span  class="sidenav-link"  >{{ data.displayName }}  </span>
+                  <mat-icon  *ngIf="collapsed" style="margin-left: auto; margin-top: 3px; gap: 5px;">
+                    {{
+                    subsectionExpanded[data.displayName]
+                    ? 'expand_less' 
+                    : 'expand_more'
+                    }}
+                  </mat-icon>
+                </a>
+              </li>
+              <li *ngIf="subsectionExpanded[data.displayName] && data.children && collapsed == true" class="submenu-item">
+                <a class="sidenav-nav-link" mat-list-item 
+                  *ngFor="let subsection of data.children">
+                <!--? parent => child Data -->
+                  <div style="display: flex;flex-direction: row;"  >
+                      <span class="sidenav-link" style="margin-top: 3px;gap:5px;" draggable="true"
+                      (dragstart)="onDragStart($event, subsection)">{{
+                      subsection.displayName
+                      }}</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div> 
+        </div>
+        </div>
+  
+        <div class="body page-style " [ngClass]="class()">
+          <div   style="padding:10px">
+            <form [formGroup]="formGroup">
+              <div class="display-flex">
+              <div class="flex-6">
+                <mat-form-field>
+                  <mat-label>Form Id</mat-label>
+                  <input matInput placeholder="Form Id" formControlName="_id" required>
+                </mat-form-field>
+              </div>  
+
+               <div class="flex-6">
+                <mat-form-field>
+                  <mat-label>Form Name</mat-label>
+                  <input matInput placeholder="Form Name" formControlName="name" required>
+                </mat-form-field>
+              </div>
+              <div class="flex-6 "formGroupName="config">
+                <mat-form-field>
+                  <mat-label>Page Heading</mat-label>
+                  <input matInput placeholder="Page Heading" formControlName="pageHeading" required>
+                </mat-form-field>
+              </div>
+            </div>
+              <div class="display-flex" formGroupName="config">
+            
+              <div class="flex-6"  formGroupName="form">
+                <mat-form-field>
+                  <mat-label>Model Name(Save In)</mat-label>
+                <mat-select  formControlName="collectionName" required>
+                  <mat-option *ngFor="let val of selected" [value]="val['value']">{{ val['model_name'] }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              </div>
+
+              <div class="flex-6" >
+                <mat-form-field>
+                  <mat-label>Form Type</mat-label>
+                <mat-select  formControlName="formType" required>
+                   <mat-option value="simpleform" >Simple Form</mat-option>
+                  <mat-option value="master-detail">Master Detail </mat-option>
+                  <mat-option value="form-list">Form With List </mat-option>
+                </mat-select>
+              </mat-form-field>
+              </div>
+
+
+              <div class="flex-6">
+                <mat-form-field>
+                  <mat-label>Edit Mode</mat-label>
+                <mat-select  formControlName="editMode" required>
+                   <mat-option value="popup" >Pop Up</mat-option>
+                  <mat-option value="page"> Page </mat-option>
+                </mat-select>
+              </mat-form-field>
+              </div>
+             
+            </div>
+            <div class="display-flex" >
+              <div class="flex-6" formGroupName="config">
+                <mat-form-field>
+                <mat-label>On Cancel Route</mat-label>
+                <input matInput formControlName="onCancelRoute" required>
+              </mat-form-field>
+            </div>
+         
+          </div>
+          <section formGroupName="config">
+            <mat-checkbox formControlName="token_need_to_set" >User Token need to be set in form</mat-checkbox>
+          </section>
+          </form>
+
+
+
+            Formly Form Design
+            <div *ngIf="data.length == 0" class="dot-box"     (dragenter)="ondragEnter($event)"
+            (dragover)="onDragOver($event)"  (dragleave)="onDragleave($event)"  
+            (drop)="onDrop($event)">
+            </div>
+              <div class="parent-border"  (dragover)="onDragOver($event)" (dragleave)="onDragleave($event)"    *ngIf="data.length > 0" (drop)="onDrop($event)">
+              <app-display-data [data]="data" (action)="action($event)"   [onDragDrop]="onDragDrop$"> </app-display-data>
+            </div>
+            <div>
+              <button mat-button  color="primary"  (click)="preview()">
+                Show Preview
+              </button>
+              <button mat-button color="primary"  (click)="save()">
+                SAVE
+              </button>
+            </div>
+          </div>
+        </div>
+       </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+     
+
+
+  <ng-template #editViewPopup class="example-sidenav" mode="over" style="height: auto" let-data >
+    <mat-card style="width: 98%; margin: auto">
+      <div style="text-align-last: end">
+        <mat-icon (click)="this.dialogService.CloseALL()">close</mat-icon>
+      </div>
+      <mat-card-header style="flex: 1 1 auto;">
+        <div  style="width: 100%">
+          <h2 style="text-align: center;" class="page-title">{{ formGroup.get('config')?.get('pageHeading')?.value }}</h2>
+        </div>
+      </mat-card-header>
+    
+      <mat-card-content style="padding-top: 10px;">
+        <div style="height: 75dvh;">
+          <form [formGroup]="formlform">
+            <formly-form [model]="formlmodel" [fields]="formlyField" [form]="formlform" ></formly-form>
+          </form>
+        </div>
+      </mat-card-content>
+    </mat-card>
+   </ng-template>
+    <!-- <mat-drawer #drawer mode='over' position="end" class="example-sidenav" style="width: 40%; margin: auto;height: 100%;"   > -->
+
+<!-- 
+   <div id="sidebar" (mousedown)="onMouseDown($event)">
+    <span id="position"></span>
+    <div id="dragbar"></div>
+    sidebarid="drawer" 
+    (mousedown)="onMouseDown()" (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp()" 
+  </div> id="drawer" 
+    (mousedown)="onMouseDown()" (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp()" 
+  <div id="main">
+    main
+  </div> -->

@@ -1,0 +1,145 @@
+.example-sidenav {
+  width: 50%;
+  height:80px;
+}
+
+.drawer-container{
+  background-color: transparent !important;
+  position: inherit;
+}
+
+.example-drawer{
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* ::ng-deep.mat-drawer-backdrop.mat-drawer-shown {
+  visibility: visible !important;
+  background-color: transparent !important;
+} */
+:host {
+  display: flex;
+  flex-direction: column;
+  /* overflow: auto; */
+  flex: 1;
+}
+
+
+
+.ag-grid-wrapper {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.second-screen {
+  flex: 1;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.data-row {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10rem;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+}
+
+
+.data-row  > div {
+width: 200px;
+word-wrap: break-word;
+text-align: start;
+flex-wrap: wrap;
+}
+  .heading{
+    font-weight: normal;
+    font-size: 16px;
+    font-family: 'PT Sans Narrow';
+    color: gray;
+}
+
+
+
+/* ::ng-deep.mat-mdc-raised-button:disabled {
+  background-color: gray !important; 
+  color: white;         
+  cursor: not-allowed !important; 
+  } */
+
+.icon {
+  background-color: transparent;
+}
+
+.table-heading {
+  text-align: center;
+  font-weight: bold;
+  font-size: x-large;
+  flex: 1 1 auto;
+  color:var(--page-heading-color);
+  margin-bottom: 3px;
+}
+
+.add-container {
+  width: 100px;
+  float: right;
+  height:80px;
+}
+
+.my-center-text {
+  text-align: center;
+  width: 100%;
+}
+
+
+
+:host ::ng-deep .p-cell-editing {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+  text-align: left;
+  padding: 1rem 1rem;
+  border: 1px solid #e9ecef;
+  border-width: 0 0 1px 0;
+  font-weight: 600;
+  color: #495057;
+  background: #f8f9fa;
+  transition: box-shadow 0.2s;
+}
+
+:host ::ng-deep .ui-sortable-column-icon.pi.pi-fw.pi-sort .p-sortable-column-icon {
+  visibility: hidden;
+}
+
+.ui-datatable .ui-sortable-column-icon {
+  display: none !important;
+}
+
+.ag-body-horizontal-scroll-viewport {
+  overflow-x: hidden !important;
+}
+
+.btn-container {
+  width: 300px;
+}
+
+.align{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* height: 16px; */
+}
+
+.filter{
+  color: black;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+}
+
+

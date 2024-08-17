@@ -1,0 +1,80 @@
+{
+    "pageHeading": "Project Team",
+    "collectionName": "projectteam",
+    "editMode": "page",
+    "screenWidth": "80%",
+    "keyField": "_id",
+    "showbutton": true,
+    "actions": [
+        {
+            "label": "Edit",
+            "icon": "edit",
+            "formName": "projectteam"
+        },
+        
+        {
+            "label": "Delete",
+            "icon": "delete",
+            "formName": "entities/projectteam"
+        }
+    ],
+    "addRoute": "add/projectteam",
+    "editRoute": "edit/projectteam",
+    "columnDefs": [
+        {
+            "headerName": " Project Name",
+            "field": "projectname",
+            "sortable": true,
+            "filter": "agTextColumnFilter"
+        },
+        {
+            "headerName": "Project Team Id",
+            "field": "teamid",
+            "sortable": true,
+            "filter": "agTextColumnFilter"
+        },
+        {
+            "headerName": " Project Team Name",
+            "field": "teamname",
+            "sortable": true,
+            "filter": "agTextColumnFilter"
+        },
+        {
+            "headerName": "Project Team Description",
+            "field": "teamdes",
+            "sortable": true,
+            "filter": "agTextColumnFilter"
+        },
+      
+        {
+            "headerName": "Updated On",
+            "field": "updated_on",
+            "sortable": true,
+            "filter": "agDateColumnFilter",
+            "type": "date"
+        },
+        {
+            "headerName": "Updated By",
+            "field": "updated_by",
+            "sortable": true,
+            "filter": "agDateColumnFilter"
+            
+        },
+        {
+            "headerName": "Status",
+            "field": "status",
+            "sortable": true,
+            "filter": "agTextColumnFilter"
+        
+        },
+        {
+            "type": "rightAligned",
+            "headerName": "Actions",
+            "cellRenderer": "buttonRenderer",
+            "cellRendererParams": {
+                "onClick": "this.onBtnClick1.bind(this)",
+                "label": "Click 1"
+            }
+        }
+    ]
+}

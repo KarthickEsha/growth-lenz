@@ -1,0 +1,961 @@
+[
+    {
+      "fieldGroup": [  
+        {
+          "type": "select",
+          "key": "jsonName",
+          "className": "row",
+          "props": {
+            "label": "Multi Form Type",
+              "placeholder": "Multi Form Type" ,
+            "options":[
+              {
+                "label":"Tab",
+                "value":"tab-input"
+              },{
+                "label":"Stepper",
+                "value":"stepper"
+              } 
+              ]
+          },"defaultValue": "tab-input"
+        },{
+            "type": "select",
+            "key": "props.type",
+            "className": "row",
+            "props": {
+              "label": "Stepper Direction",
+                "placeholder": "Stepper Direction" ,
+              "options":[
+                {
+                  "label":"Horizontal",
+                  "value":"horizontal"
+                },{
+                  "label":"Vertical",
+                  "value":"vertical"
+                } 
+                ]
+            } ,
+            "hideExpression": "model?.jsonName != 'stepper'"
+          }, 
+          {
+            "type": "input",
+            "key": "hideExpression",
+            "className": "row",
+            "props": {
+              "label": "Hide Expression",
+              "placeholder": "Hide Expression" 
+            }
+          }
+      ],
+    "hideExpression": "model?.static != 'multiform'"
+    },
+    
+    {
+      "fieldGroup": [  
+        {
+          "type": "input",
+          "key": "props.label",
+          "className": "row",
+          "props": {
+            "label": "Group Name"
+          }
+        }
+      ],
+    "hideExpression": "model?.type !='multiform'"
+    }, 
+    
+    {
+      "fieldGroup": [  
+        {
+          "type": "input",
+          "key": "template",
+          "className": "row",
+          "props": {
+            "label": "Group Name",
+            "placeholder": "Group Name"
+          }
+        },    {
+          "type": "select",
+          "key": "className",
+          "className": "row",
+          "props": {
+            "label": "Class Name",
+              "placeholder": "Class Name" ,
+            "options":[
+              {
+                "label":"None",
+                "value":""
+              }, {
+                "label":"Flex",
+                "value":"display-flex"
+              },
+              {
+              "label":"flex 1",
+              "value":"flex-1"
+            }
+            ,{
+              "label":"flex 2",
+              "value":"flex-2"
+            },{
+              "label":"flex 3",
+              "value":"flex-3"
+            },{
+              "label":"flex 4",
+              "value":"flex-4"
+            },{
+              "label":"flex 5",
+              "value":"flex-5"
+            },{
+              "label":"flex 6",
+              "value":"flex-6"
+            },{
+              "label":"flex 7",
+              "value":"flex-7"
+            },{
+              "label":"flex 8",
+              "value":"flex-8"
+            },{
+              "label":"flex 9",
+              "value":"flex-9"
+            },{
+              "label":"flex 10",
+              "value":"flex-10"
+            },{
+              "label":"flex 11",
+              "value":"flex-11"
+            },{
+              "label":"flex 12",
+              "value":"flex-12"
+            }]
+          },"defaultValue": "display-flex"
+        }
+        ,{
+          "key": "isformArray",
+          "type": "checkbox",
+          "props": { "label": "Is FormArray" }
+          },
+          {
+      "type": "input",
+      "key": "formArraykey",
+      "className": "row",
+      "props": {
+        "label": "Form Array Key",
+        "placeholder": "Form Array Key"
+    }
+    }   ,{
+      "type": "input",
+      "key": "formArray.key",
+      "className": "row",
+      "props": {
+        "label": "Form Array Label",
+        "placeholder": "Form Array Label"
+    }
+    } ,{
+      "type": "input",
+      "key": "hideExpression",
+      "className": "row",
+      "props": {
+        "label": "Hide Expression",
+        "placeholder": "Hide Expression" 
+      }
+    }
+    ],
+    "hideExpression": "model?.jsonName !='formgroup'"
+    },
+    { "template": "<h2 style='text-align: center;' class='page-title'>Key Config</h2>" ,
+    "hideExpression": "model?.jsonName =='formgroup' ||  model?.multiform || model?.location"}
+    ,
+    {"fieldGroup": [
+      {
+        "fieldGroupClassName": "display-flex",
+        "fieldGroup": [
+          {
+            "type": "input",
+            "key": "key",
+            "className": "flex-6",
+            "props": {
+              "label": "Field Key",
+              "placeholder": "Field Key",
+              "required": true
+            }
+          },
+          {
+            "type": "input",
+            "key": "props.label",
+            "className": "flex-6",
+            "props": {
+              "label": "Display Label",
+              "placeholder": "Display Label",
+              "required": true
+            }
+          }
+        ]
+      },
+      {
+        "type": "input",
+        "key": "props.placeholder",
+        "className": "row",
+        "props": {
+          "label": "Placeholder"
+        }
+      },
+      {
+        "key": "props.required",
+        "type": "checkbox",
+        "props": {
+          "label": "Is Required"
+        }
+      },
+      {
+        "fieldGroupClassName": "display-flex",
+        "fieldGroup": [
+          {
+            "type": "select",
+            "key": "props.type",
+            "className": "flex-6",
+            "props": {
+              "label": "Data Type",
+              "placeholder": "Data Type",
+              "options": [
+                {
+                  "label": "Numeric",
+                  "value": "number"
+                },
+                {
+                  "label": "Text",
+                  "value": "text"
+                }
+              ]
+            },
+            "hideExpression": " ! (model?.jsonName =='input' || model?.jsonName =='input-text-enterkey' || model?.jsonName == 'matprefix-input' ) "
+          },
+          {
+            "type": "select",
+            "key": "className",
+            "className": "flex-6",
+            "props": {
+              "label": "Class Name",
+              "placeholder": "Class Name",
+              "options": [
+                {
+                  "label": "None",
+                  "value": ""
+                },
+                {
+                  "label": "Row",
+                  "value": "row"
+                },
+                {
+                  "label": "flex 1",
+                  "value": "flex-1"
+                },
+                {
+                  "label": "flex 2",
+                  "value": "flex-2"
+                },
+                {
+                  "label": "flex 3",
+                  "value": "flex-3"
+                },
+                {
+                  "label": "flex 4",
+                  "value": "flex-4"
+                },
+                {
+                  "label": "flex 5",
+                  "value": "flex-5"
+                },
+                {
+                  "label": "flex 6",
+                  "value": "flex-6"
+                },
+                {
+                  "label": "flex 7",
+                  "value": "flex-7"
+                },
+                {
+                  "label": "flex 8",
+                  "value": "flex-8"
+                },
+                {
+                  "label": "flex 9",
+                  "value": "flex-9"
+                },
+                {
+                  "label": "flex 10",
+                  "value": "flex-10"
+                },
+                {
+                  "label": "flex 11",
+                  "value": "flex-11"
+                },
+                {
+                  "label": "flex 12",
+                  "value": "flex-12"
+                }
+              ]
+            },
+            "defaultValue": "flex-6"
+          }
+        ]
+      },
+      {
+        "type": "input",
+        "key": "defaultValue",
+        "className": "row",
+        "props": {
+          "label": "Defualt Value"
+        }
+      },
+      {
+        "type": "input",
+        "key": "description",
+        "className": "row",
+        "props": {
+          "label": "Description"
+        }
+      },
+      {
+        "type": "input",
+        "key": "hideExpression",
+        "className": "row",
+        "props": {
+          "label": "Hide Expression",
+          "placeholder": "Hide Expression"
+        }
+      },
+      {
+        "fieldGroup": [
+          {
+            "type": "select-input",
+            "key": "props.optionsDataSource.collectionName",
+            "className": "row",
+    
+            "props": {
+              "label": "From Collection Name",
+    
+              "Collections": "model_config",
+              "labelProp": "model_name",
+              "valueProp": "collection_name",
+    
+              "multifilter_condition": {
+                "clause": "AND",
+                "conditions": [
+                  {
+                    "column": "is_collection",
+                    "operator": "EQUALS",
+                    "type": "string",
+                    "value": "Yes"
+                  }
+                ]
+              },
+              "placeholder": "From Collection Name"
+            }
+          },
+          {
+            "key": "labelChange",
+            "type": "checkbox",
+            "props": { "label": "Is the label in more than one field?" }
+          },
+          {
+            "key": "props.fullObject",
+            "type": "checkbox",
+            "props": { "label": "Does value need to be completely attached ?" }
+          },
+    
+          {
+            "type": "select-input",
+            "key": "props.labelProp",
+            "className": "row",
+            "parentKey": "props.optionsDataSource.collectionName",
+            "props": {
+              "label": "Display Value",
+              "placeholder": "Display Value",
+              "multifiltertype": "Simple",
+              "labelProp": "json_field",
+              "valueProp": "json_field",
+              "optionsDataSource": {
+                "collectionName": "data_model"
+              },
+              "multifilter_condition": {
+                "clause": "AND",
+                "conditions": [
+                  {
+                    "column": "model_name",
+                    "operator": "EQUALS",
+                    "type": "string",
+                    "value": ""
+                  }
+                ]
+              }
+            },
+            "hideExpression": "model?.labelChange"
+          },
+    
+          {
+            "type": "select-autocomplete",
+            "key": "props.labelPropTemplates",
+            "className": "row",
+            "props": {
+              "parent": {
+                "key": "props.optionsDataSource.collectionName",
+                "filter": [
+                  {
+                    "column": "model_name",
+                    "operator": "EQUALS",
+                    "valuetype": "get",
+                    "type": "string",
+                    "value": "props.optionsDataSource.collectionName"
+                  }
+                ]
+              },
+              "label": "Display Value",
+              "placeholder": "Display Value",
+              "ChildaddValue": "props.labelPropTemplate",
+              "multifiltertype": "Simple",
+              "labelProp": "json_field",
+              "valueProp": "json_field",
+              "optionsDataSource": {
+                "collectionName": "data_model",
+                "multiSelect": true
+              }
+            },
+            "hideExpression": "!model?.labelChange"
+          },
+          {
+            "type": "input",
+            "key": "props.labelPropTemplate",
+            "className": "row",
+            "props": {
+              "label": "Label Template"
+            },
+            "hideExpression": "!model?.labelChange"
+          },
+          {
+            "type": "select-input",
+            "key": "props.valueProp",
+            "className": "row",
+            "parentKey": "props.optionsDataSource.collectionName",
+            "props": {
+              "label": "Binding Value",
+              "placeholder": "Binding Value",
+    
+              "multifiltertype": "Simple",
+              "labelProp": "json_field",
+              "valueProp": "json_field",
+              "optionsDataSource": {
+                "collectionName": "data_model"
+              },
+              "multifilter_condition": {
+                "clause": "AND",
+                "conditions": [
+                  {
+                    "column": "model_name",
+                    "operator": "EQUALS",
+                    "type": "string",
+                    "value": ""
+                  }
+                ]
+              }
+            },
+            "hideExpression": "model?.props?.fullObject"
+          }
+        ],
+        "hideExpression": "!model?.optionsDataSource"
+      },
+      {
+        "fieldGroup": [
+          {
+            "type": "select-input",
+            "key": "props.searchCollectionName",
+            "className": "row",
+    
+            "props": {
+              "label": "Check Collection Name",
+    
+              "Collections": "model_config",
+              "labelProp": "model_name",
+              "valueProp": "collection_name",
+    
+              "multifilter_condition": {
+                "clause": "AND",
+                "conditions": [
+                  {
+                    "column": "is_collection",
+                    "operator": "EQUALS",
+                    "type": "string",
+                    "value": "Yes"
+                  }
+                ]
+              },
+              "placeholder": "Check Collection Name"
+            }
+          },
+          {
+            "type": "select-input",
+            "key": "props.seachColumn",
+            "className": "row",
+            "parentKey": "props.searchCollectionName",
+            "props": {
+              "label": "Check Value",
+              "placeholder": "Check Value",
+    
+              "multifiltertype": "Simple",
+              "labelProp": "json_field",
+              "valueProp": "json_field",
+              "optionsDataSource": {
+                "collectionName": "data_model"
+              },
+              "multifilter_condition": {
+                "clause": "AND",
+                "conditions": [
+                  {
+                    "column": "model_name",
+                    "operator": "EQUALS",
+                    "type": "string",
+                    "value": ""
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "hideExpression": "!model?.checkvalue"
+      },
+      {
+        "fieldGroup": [
+          {
+            "type": "select",
+            "key": "props.controlType",
+            "className": "flex-6",
+            "props": {
+              "label": "Control Type",
+              "placeholder": "Control Type",
+              "options": [
+                {
+                  "label": "Select",
+                  "value": "select"
+                },
+                {
+                  "label": "Auto Complete",
+                  "value": "autoComplete"
+                }
+              ]
+            },
+            "defaultValue": "autoComplete"
+          },
+          {
+            "type": "select-autocomplete",
+            "key": "props.optionsDataSource.collectionName",
+            "className": "row",
+            "props": {
+              "controlType": "autoComplete",
+              "label": "Check Collection Name",
+              "optionsDataSource": {
+                "collectionName": "model_config",
+                "infinityScroll": true
+              },
+              "filter": {
+                "fixed": {
+                  "column": "is_collection",
+                  "operator": "EQUALS",
+                  "type": "string",
+                  "value": "Yes"
+                }
+              },
+              "labelProp": "model_name",
+              "valueProp": "collection_name",
+              "placeholder": "Check Collection Name"
+            }
+          },
+          {
+            "fieldGroupClassName": "display-flex",
+            "fieldGroup": [
+              {
+                "key": "props.optionsDataSource.multiSelect",
+                "type": "checkbox",
+                "className": "flex-6",
+                "props": { "label": "Is Multi Select is Need" }
+              },
+              {
+                "key": "props.optionsDataSource.infinityScroll",
+                "type": "checkbox",
+                "className": "flex-6",
+                "props": { "label": "Is Virtual Scroll is Need" }
+              }
+            ]
+          },
+          {
+            "type": "select-autocomplete",
+            "key": "props.valueProp",
+            "className": "row",
+            "props": {
+              "label": "Bind Value",
+              "optionsDataSource": {
+                "collectionName": "data_model",
+                "infinityScroll": true
+              },
+              "parent": {
+                "key": "props.optionsDataSource.collectionName",
+                "filter": {
+                  "column": "model_name",
+                  "operator": "EQUALS",
+                  "type": "string",
+                  "value": "props.optionsDataSource.collectionName",
+                  "valuetype": "get"
+                }
+              },
+              "labelProp": "json_field",
+              "valueProp": "json_field",
+              "placeholder": "Bind Value"
+            }
+          },
+    
+          {
+            "type": "select-autocomplete",
+            "key": "props.labelProp",
+            "className": "row",
+            "props": {
+              "label": "Label Value",
+              "optionsDataSource": {
+                "collectionName": "data_model",
+                "infinityScroll": true
+              },
+              "parent": {
+                "key": "props.optionsDataSource.collectionName",
+                "filter": {
+                  "column": "model_name",
+                  "operator": "EQUALS",
+                  "type": "string",
+                  "value": "props.optionsDataSource.collectionName",
+                  "valuetype": "get"
+                }
+              },
+              "labelProp": "json_field",
+              "valueProp": "json_field",
+              "placeholder": "Label Value"
+            }
+          }
+        ],
+        "hideExpression": "!model?.autocomplete"
+      },
+      {
+        "type": "input",
+        "key": "parentKey",
+        "className": "row",
+        "props": {
+          "label": "Parent Key Name",
+          "placeholder": "Parent Key Name"
+        }
+      },
+      {
+        "fieldGroup": [
+          {
+            "type": "select",
+            "key": "props.prefixType",
+            "className": "flex-6",
+            "props": {
+              "label": "Prefix  Type",
+              "placeholder": "Prefix Type",
+              "options": [
+                {
+                  "label": "Icon",
+                  "value": "icon"
+                },
+                {
+                  "label": "Text",
+                  "value": "text"
+                }
+              ]
+            }
+          },
+          {
+            "key": "props.searchableField",
+            "type": "checkbox",
+            "props": { "label": "Is Value Need To Be Compare" }
+          },
+          {
+            "type": "select",
+            "key": "props.patchtype",
+            "className": "flex-6",
+            "props": {
+              "label": "Prefix Patch Type",
+              "placeholder": "Prefix Patch Type",
+              "options": [
+                {
+                  "label": "Simple",
+                  "value": "Simple"
+                },
+                {
+                  "label": "local",
+                  "value": "local"
+                },
+                {
+                  "label": "Linked",
+                  "value": "Linked"
+                }
+              ]
+            },
+            "hideExpression": "model?.props?.searchableField && ! model?.props?.searchableField"
+          },
+    
+          {
+            "fieldGroupClassName": "display-flex",
+            "hideExpression": "model?.props?.searchableField",
+            "fieldGroup": [
+              {
+                "type": "select-input",
+                "key": "props.searchCollectionName",
+                "className": "flex-6",
+    
+                "props": {
+                  "label": "Check Collection Name",
+    
+                  "Collections": "model_config",
+                  "labelProp": "model_name",
+                  "valueProp": "collection_name",
+    
+                  "multifilter_condition": {
+                    "clause": "AND",
+                    "conditions": [
+                      {
+                        "column": "is_collection",
+                        "operator": "EQUALS",
+                        "type": "string",
+                        "value": "Yes"
+                      }
+                    ]
+                  },
+                  "placeholder": "Check Collection Name"
+                }
+              },
+              {
+                "type": "select-input",
+                "key": "props.seachColumn",
+                "className": "flex-6",
+                "parentKey": "props.searchCollectionName",
+                "props": {
+                  "label": "Check Value",
+                  "placeholder": "Check Value",
+    
+                  "multifiltertype": "Simple",
+                  "labelProp": "json_field",
+                  "valueProp": "json_field",
+                  "optionsDataSource": {
+                    "collectionName": "data_model"
+                  },
+                  "multifilter_condition": {
+                    "clause": "AND",
+                    "conditions": [
+                      {
+                        "column": "model_name",
+                        "operator": "EQUALS",
+                        "type": "string",
+                        "value": ""
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "hideExpression": "!model?.prefixvalue"
+      },
+      {
+        "fieldGroupClassName": "display-flex",
+    
+        "fieldGroup": [
+          {
+            "type": "input",
+            "key": "props.max",
+            "className": "flex-6",
+            "props": {
+              "type": "number",
+              "label": "Max Number"
+            },
+            "hideExpression": "!model?.props?.type || model?.props?.type !== 'number'"
+          },
+          {
+            "type": "input",
+            "key": "props.min",
+            "className": "flex-6",
+            "props": {
+              "type": "number",
+              "label": "Min Number"
+            },
+            "hideExpression": "!model?.props?.type || model?.props?.type !== 'number'"
+          }
+        ]
+      },
+      {
+        "fieldGroupClassName": "display-flex",
+    
+        "fieldGroup": [
+          {
+            "type": "input",
+            "key": "props.minLength",
+            "className": "flex-6",
+            "props": {
+              "type": "number",
+              "label": "Max Length"
+            },
+            "hideExpression": "!model?.props?.type"
+          },
+          {
+            "type": "input",
+            "key": "props.maxLength",
+            "className": "flex-6",
+            "props": {
+              "type": "number",
+              "label": "Min Length"
+            },
+            "hideExpression": "!model?.props?.type"
+          }
+        ]
+      },
+      {
+        "type": "input",
+        "key": "props.pattern",
+        "className": "row",
+        "props": {
+          "label": "Validation Pattern"
+        },
+        "hideExpression": "!model?.props?.type"
+      },
+      {
+        "type": "checkbox",
+        "key": "props.readonly",
+        "className": "row",
+        "props": {
+          "label": "Is Readonly"
+        }
+      }
+    ],
+      "hideExpression": "model?.jsonName =='formgroup'|| model?.multiform"
+    },
+    {
+      "fieldGroupClassName": "row",
+      "hideExpression": "!model?.option",
+      "fieldGroup": [
+            {
+              "key": "props.options",
+              "type": "repeat",
+              "props":{
+            "label": "Options"
+              },
+              "fieldArray": {
+                "fieldGroupClassName": "display-flex",
+                "fieldGroup": [ 
+                      {
+                        "type": "input",
+                        "key": "label",
+                        "className": "flex-6",
+                        "props": {
+                          "label": "Display Value"
+                        }
+                      },{
+                        "type": "input",
+                        "key": "value",
+                        "className": "flex-6",
+                        "props": {
+                          "label": "Binding Value"
+                        }
+                      } 
+                ]
+              }
+            }]
+    },    { "template": "<h2 style='text-align: center;' class='page-title'>Date Configuration</h2>" ,
+    "hideExpression": "!model?.dateattributes"},
+    {
+    
+      "fieldGroupClassName": "row",
+      "hideExpression": "!model?.dateattributes",
+      "fieldGroup": [
+        {
+          "type": "select",
+          "key": "props.attributes.hide",
+          "className": "row",
+          "props": {
+            "label": "Custom Validation To Hide", 
+            "options":[
+              {
+                "label":"None",
+                "value":""
+              },{
+                "label":"Past Days",
+                "value":"past_date"
+              },{
+                "label":"Future Days",
+                "value":"future_date"
+              },{
+                "label":"D.O.B",
+                "value":"dob"
+              }
+              ]
+          }
+          },{
+            "type": "input",
+            "key": "props.attributes.add_days",
+            "className": "row",
+            "props": {
+              "label": "Add Number of Date", 
+              "type":"number"
+            }
+            }
+      ]
+    },  { "template": "<h2 style='text-align: center;' class='page-title'>Time Configuration</h2>" ,
+    "hideExpression": "!model?.timeattributes"},
+    {
+    
+    "fieldGroupClassName": "row",
+    "hideExpression": "!model?.timeattributes",
+    "fieldGroup": [
+     {
+      "type": "select",
+      "key": "props.timeFormat",
+      "className": "row",
+      "props": {
+        "label": "Choose Time Format", 
+        "options":[
+          {
+            "label":"None",
+            "value":""
+          }, {
+            "label":"12 Hrs",
+            "value":12
+          },{
+            "label":"24 Hrs",
+            "value":24
+          }
+          ]
+      },"defaultValue":12
+      },
+      
+    {
+    "fieldGroupClassName": "display-flex",
+    "fieldGroup": [
+      {
+        "type": "time-input",
+        "key": "props.attributes.min",
+        "className":"flex-6",
+        "props": {
+        "label": "Start Time",
+        "width":"150px",
+        "height":"20px"
+        }
+      },
+      {
+        "type": "time-input",
+        "key": "props.attributes.max",
+        "className":"flex-6",
+        "props": {
+        "label": "End Time",
+        "width":"150px",
+        "height":"20px"
+        }
+      }
+      ]
+    }
+    ]
+    }]

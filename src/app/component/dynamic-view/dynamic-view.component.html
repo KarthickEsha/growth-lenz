@@ -1,0 +1,20 @@
+
+<div style="text-align: left;">
+    <mat-icon (click)="goBack()">keyboard_backspace</mat-icon>
+    <!-- <button style="float: right;margin-right: 40px;"  matTooltip="Edit Project"  class="submitbtn"
+mat-raised-button
+color="warn" (click)="edit()">Edit</button> -->
+<mat-icon *ngIf="!(this.user_type == 'SAAS' && this.config.hideForSaas)" style="float: right;margin-right: 40px;"  matTooltip="{{ tooltip }}" (click)="edit()">edit</mat-icon>
+    </div>
+
+    <div *ngIf="config?.logo"  style="width: 100%;margin-bottom: 20px;display: flex;align-items: center;">
+        <img width="200" height="133" style="object-fit:contain" [src]="showLogo"  
+        /> 
+     <h2 style="text-align: center; margin-left: 10px;" class="page-title">{{this.view}} - {{this.viewId}}</h2>
+    </div>
+    <div  *ngIf="!config?.logo" style="width: 100%;margin-bottom: 20px;" >
+        <h2 style="text-align: center" class="page-title">{{this.view}} - {{this.viewId}}</h2>
+    </div>
+  
+<formly-form [model]="selectedModel" [fields]="fields"></formly-form>
+ 

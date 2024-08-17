@@ -1,0 +1,140 @@
+
+
+<div class="table-heading">{{ pageHeading |uppercase }} LIST</div>
+<div class="example-sidenav-content" *ngIf="isConfigLoaded">
+  <div class="align">
+  <div *ngIf="filterOptions">
+  <app-dynamic-filter [filterOptions]="filterOptions"  [showdefaultFilter]="showdefaultFilter"   [config]="config" (onClick)="getList($event)"
+  (filterValue)="getList($event)" ></app-dynamic-filter>
+  </div>
+  <div style="margin-left:auto;">
+  <div *ngIf="this.button==true" >
+    <button mat-button matTooltip="Advanced filter" style="text-transform: uppercase;margin-top: 30px;"  (click)="onAddButonClick()">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+<div *ngIf="this.showbutton == true || (this.user_type != 'SAAS' && this.config.hideForSaas == true)" >
+  <button
+    class="icon"
+    matTooltip="Add"
+    mat-mini-fab
+    (click)="onAddButonClick()"
+    style="margin-right: 20px; background-color: #B0B0B0;   color: #080201;margin-bottom: 4px;"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+  
+</div>
+<div style="margin-bottom: 5px;" *ngIf="this.config?.download_sample_excel==true" >
+  
+  <button
+      mat-raised-button
+    (click)="downloadexcel()"
+    style="margin-right: 20px;color: #080201;width: 240px;"
+  >
+   DOWNLOAD SAMPLE EXCEL
+  </button>
+  
+</div>
+
+
+</div>
+</div>
+  <ag-grid-angular 
+    #agGrid  *ngIf="isVisible" 
+    style="width: 100%; height: calc(100vh - 120px); flex: 1 1 auto;"
+    class="ag-theme-alpine"
+    [headerHeight]="40"
+    [defaultColDef]="defaultColDef"
+    [columnDefs]="columnDefs"
+    [rowSelection]="'multiple'"
+    [pagination]="true"
+    [context]="context" 
+    [gridOptions]="gridOptions"
+    [components]="components"
+    (gridReady)="onGridReady($event)"
+    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+    [getRowId]="getRowId"
+    [getContextMenuItems]="getContextMenuItems"
+    [suppressRowClickSelection]="true"
+   
+  ></ag-grid-angular>
+</div>
+
+<!-- (selectionChanged)="onSelectionChanged($event)"    [gridOptions]="gridOptions"
+-->
+ 
+<ng-template
+  #editViewPopup
+  class="example-sidenav"
+  mode="over"
+  style="height: auto"
+>
+<div style="text-align-last: end" *ngIf="formAction == 'view'">
+  <mat-icon matTooltip="{{tooltip}}" (click)="edit()">edit</mat-icon>
+  <mat-icon (click)=this.dialogService.closeModal()>close</mat-icon>
+</div>
+
+  <div  class="page">
+    <div *ngIf="formAction != 'view'" class="page-content">
+      <app-dynamic-form
+        [formName]="formName"
+        [model]="selectedModel"
+        [mode]="'popup'"
+        (onClose)="close($event)"
+      ></app-dynamic-form>
+    </div>
+  </div>
+  <div
+    class="center"
+    style="width: 100%; margin: 5px"
+    *ngIf="formAction == 'view'"
+  >
+ 
+    <h2 *ngIf="!viewHeading1" style="text-align: center;"class="page-title"> {{this.selectedModel[viewHeading]}}</h2>
+    <h2  *ngIf="viewHeading1" style="text-align: center;"class="page-title"> {{this.selectedModel[viewHeading][viewHeading1]}}</h2>
+    <h2  *ngIf="this.config_view.pageHeading" style="text-align: center;"class="page-title"> {{this.config_view.pageHeading}}</h2>
+    <formly-form [model]="selectedModel" [fields]="fields"></formly-form>
+  </div>
+</ng-template>
+
+
+
+
+<!-- template creation  -->
+
+<ng-template
+  #Popup
+  class="example-sidenav"
+  mode="over"
+  style="height: auto" let-data
+>
+<div style="text-align-last: end">
+  <mat-icon (click)=this.dialogService.closeModal()>close</mat-icon>
+</div>
+<div  style="width: 100%">
+  <h2 style="text-align: center;" class="page-title">{{ this.config1.pageHeading }}</h2>
+</div>
+<div style="margin: 5px 10px 0px 10px">
+<formly-form
+            [form]="form"
+            [model]="model"
+            [fields]="fields"
+           >
+          </formly-form>
+        </div>
+
+          <div style="margin: 5px;text-align-last: center;display:flex;justify-content:center;gap: 10px;">
+          <button mat-raised-button  class="btn btn-primary" style="margin-right: 10px;" style="border-radius: 40px;height:35px;width:150px;" > SUBMIT</button>
+        </div>
+
+  
+</ng-template>
+
+
+
+
+
+
+
+

@@ -1,0 +1,130 @@
+<div class="container">
+  <div *ngIf="showdefaultFilter == true" >
+   <mat-form-field>
+     <input
+       matInput
+       type="text"
+       placeholder="Search"
+       (keyup)="applyFilter($event)"
+     />
+   </mat-form-field>
+ </div> 
+<span *ngIf="filterOptions" style="display: flex;column-gap: 10px">
+ <span *ngFor="let fo of filterOptions" >
+   <mat-form-field *ngIf="fo.type == 'select'">
+     <mat-label>{{ fo.label }}</mat-label>
+     <mat-select
+       [(ngModel)]="fo.selectedValue"
+       [name]="fo.columnName"
+       [multiple]="fo.multiSelection && fo.multiSelection == true"
+     >
+       <mat-option value="" (onSelectionChange)="toggleSelectAll($event)"
+         >All {{ fo.label }}</mat-option
+       >
+       <mat-option *ngFor="let row of fo.options" [value]="row[fo.valueProp]">
+         {{ row[fo.labelProp] }}
+       </mat-option>
+     </mat-select>
+   </mat-form-field>
+   <!--AutoComplete-->
+   <mat-form-field *ngIf="fo.type == 'autocomplete'">
+     <mat-label>{{fo.label}}</mat-label>
+     <input type="text" [(ngModel)]="fo.selectedValue" [name]="fo.columnName" matInput
+       (input)="filteredData(fo.selectedValue)" [matAutocomplete]="auto">
+     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+       <mat-option *ngFor="let row of filteredOptions" [value]="row[fo.valueProp]">
+         {{row[fo.labelProp]}} -{{row[fo.valueProp]}}
+       </mat-option>
+     </mat-autocomplete>
+   </mat-form-field>
+
+   <mat-form-field *ngIf="fo.type == 'datepicker'">
+     <mat-label>{{ fo.label }}</mat-label>
+     <input
+       matInput
+       (dateChange)="currentPeriodClicked($event)"
+       [(ngModel)]="fo.selectedValue"
+       [min]="fo.minDate"
+       [max]="fo.maxDate"
+       [matDatepicker]="picker"
+     />
+     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+     <mat-datepicker #picker></mat-datepicker>
+   </mat-form-field>
+
+
+   <mat-form-field *ngIf="fo.type == 'text'">
+     <input
+       matInput
+       [(ngModel)]="fo.selectedValue"
+       type="text"
+       placeholder="{{ fo.label }}"
+     />
+   </mat-form-field>
+
+
+   <mat-form-field *ngIf="fo.type == 'data'">
+     <input
+       matInput
+       [(ngModel)]="fo.selectedValue"
+       type="text"
+       placeholder="{{ fo.label }}"
+     />
+   </mat-form-field>
+
+    <!-- cascading dropdown -->
+   <mat-form-field *ngIf="fo.type == 'cascading_dropdown'">
+     <mat-label>{{ fo.label }}</mat-label>
+     <mat-select  [(ngModel)]="fo.selectedValue" [name]="fo.labelProp">
+       <mat-option *ngFor="let row of fo.options" [value]="row[fo.valueProp]" (click)="onchange(row,fo)">
+         {{ row[fo.labelProp] }}
+       </mat-option>
+     </mat-select>
+   </mat-form-field>
+
+
+    <!-- Array of object dropdown -->
+    <mat-form-field *ngIf="fo.type == 'array_of_object'">
+      <mat-label>{{ fo.label }}</mat-label>
+      <mat-select  [(ngModel)]="fo.selectedValue" [name]="fo.labelProp">
+        <mat-option *ngFor="let row of fo.options" [value]="row[fo.valueProp]" (click)="onchange(row,fo)">
+          {{ row[fo.array_column][fo.object_column] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+ </span>
+ <span style="display: flex;margin-top: 15px;">
+   <button mat-raised-button color="secondary" style="text-transform: uppercase;width: 100px;" (click)="triggerFilter()">
+     <mat-icon >view_list</mat-icon>
+     Filter
+   </button>
+
+  
+ </span>
+ 
+
+ <!-- <span *ngIf="this.button==true">
+</span> -->
+ <span *ngIf="config['showPrintButton']">
+   <button mat-raised-button color="secondary" (click)="generatePdf()">
+     <mat-icon>print</mat-icon>
+     Print
+   </button>
+ </span>
+
+ <span *ngIf="config['showLaserPrintButton']">
+   <button mat-raised-button color="secondary">
+     <mat-icon>print</mat-icon>
+     Print Laser
+   </button>
+ </span>
+
+ <span *ngIf="config['showLaserPlainPaperButton']">
+   <button mat-raised-button color="secondary">
+     <mat-icon>print</mat-icon>
+     Print Laser Plain Paper
+   </button>
+ </span>
+ 
+</span>
+</div>

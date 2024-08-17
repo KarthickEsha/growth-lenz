@@ -1,0 +1,24 @@
+.section-top {
+    background: #000;
+    display: flex;
+    justify-content: center;
+    /*items are centered along the line*/
+    /* padding: 20px 0; */
+    color: #fff;
+  }
+
+  .col {
+    margin: 0 15px;
+    width: 25%
+      /*optional*/
+  }
+
+
+
+.section-bottom {
+    background: #fff;
+    text-align: center;
+    padding: 15px 0;
+    color: #000;
+  }
+  

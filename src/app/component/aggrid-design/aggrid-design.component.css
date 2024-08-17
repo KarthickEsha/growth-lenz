@@ -1,0 +1,22 @@
+/* .d-flex{
+    display: flex;align-items: flex-end;justify-content: right;margin: 5px;float: right;
+} */
+.border.dotter{
+    min-height: 100px;
+    display: flex;
+    width: 100dvw;
+  
+}
+.add{
+    /* align-items: flex-end; */
+    margin: 5px;
+    float: right;
+
+    /* flex-direction: row;
+    width: 100dvw; */
+}
+
+.parent {
+    display: flex;
+    flex-flow: row wrap;
+  }

@@ -1,0 +1,63 @@
+{
+    "pageHeading": "Modules",
+    "collectionName": "modules",
+    "editMode": "popup",
+    "showbutton":true,
+    "screenWidth":"50%",
+    "actions": [
+      {
+        "label":"Edit",
+        "icon":"edit",
+        "formName":"modules"
+      },
+      {
+        "label": "Delete",
+        "icon": "delete",
+        "formName":"entities/modules"
+      }
+    ],
+    "addRoute": "add/modules",
+    "editRoute": "edit/modules",
+    "columnDefs": [
+      {
+        "headerName": "Module Id",
+        "field": "moduleid",
+        "sortable": true,
+        "filter": "agTextColumnFilter"
+      },
+      {
+        "headerName": "Module Name",
+        "field": "modulename",
+        "sortable": true,
+        "filter": "agTextColumnFilter"
+      },
+      {
+        "headerName": "Parent Module Name",
+        "field": "parentmodulename",
+        "sortable": true,
+        "filter": "agTextColumnFilter"
+      },
+      {
+        "headerName": "Start Date",
+        "field": "startdate",
+        "sortable": true,
+        "filter": "agTextColumnFilter"
+      },
+      {
+        "headerName": "End Date",
+        "field": "enddate",
+        "sortable": true,
+        "filter": "agTextColumnFilter"
+      },
+      {
+        "type": "rightAligned",
+        "headerName": "Actions",
+        "cellRenderer": "buttonRenderer",
+        "lockPosition": "right",
+        "cellRendererParams": {
+          "onClick": "this.onBtnClick1.bind(this)",
+          "label": "Click 1"
+        }
+      }
+    ]
+  }

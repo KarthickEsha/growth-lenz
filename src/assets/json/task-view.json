@@ -1,0 +1,174 @@
+{
+  "pageHeading": "Functional Testing",
+  "formType": "master-detail",
+  "mapColumnDiff":true,
+  "mapColumnfield":"project_id",
+  "form": {
+    "collectionName": "project",
+    "fields": [
+      {
+        "type": "label-view",
+        "key": "client_id",
+        "props": {
+          "label": "Client Name",
+          "label_width": 100,
+          "value_width": 200,
+          "value_in_next_row": false,
+          "placeholder": "Client Name",
+          "required": true
+        }
+      }, {
+        "type": "label-view",
+        "key": "project_name",
+        "props": {
+          "label": "Project Name",
+          "label_width": 100,
+          "value_width": 200,
+          "value_in_next_row": false,
+          "placeholder": "Project Name",
+          "required": true
+        }
+      }, 
+      {
+        "type": "label-view",
+        "key": "status",
+        "props": {
+          "label_width": 100,
+          "value_width": 200,
+          "value_in_next_row": true,
+          "label": "Project Status",
+          "placeholder": "Project Status",
+          "required": true
+        }
+      }
+    ],
+    "buttons": {
+      "start": false,
+      "newEntry": false
+    }
+  },
+  "detailForm": {
+    "customfilter":true,
+    "customkey":"project_id",
+    "mapColumn":"project_id",
+    "collectionName": "regression",
+    "keyColumn": "_id",
+    "isPopupEdit": true,
+    "fields": [
+      {
+        "fieldGroupClassName": "display-flex",
+        "fieldGroup": [
+          {
+            "type": "input",
+            "key": "regression_id",
+            "className": "flex-6",
+            "props": {
+            "label": "Regression Name/ID",
+            "placeholder": "Regression Name/ID",
+            "required": true,
+            "maxLength": 10,
+            "pattern": "^[a-zA-Z0-9]+$"
+            },
+            "hideExpression": "model.isEdit " 
+          },		]},
+      
+      
+      
+      
+      {
+        "type": "html-input",
+        "key": "description",
+        "className": "flex-6",
+        "props": {
+          "label": "Regression Description"
+          ,"required":true
+        }
+      }
+    ]
+    
+  },
+  "detailListConfig": {
+    "sectionHeading": "Project Team",
+    "actions": [
+      {
+        "label": "Edit",
+        "icon": "edit",
+        "formName": "project"
+      },  
+      {
+        "label": "Delete",
+        "icon": "delete",
+        "formName": "delete",
+        "formAction":"delete"
+      }
+    ],
+    "addRoute": "add/regression",
+    "editRoute": "edit/regression",
+    "fields": [
+      {
+        "headerName": "Regression Id",
+        "field": "regression_id",
+        "sortable": true,
+        "filter": "agTextColumnFilter"
+      },
+      {
+        "headerName": "Sprint Id",
+        "field": "sprint_id",
+        "sortable": true,
+        "filter": "agTextColumnFilter"
+      },
+      
+      {
+        "headerName": "Employee Name",
+        "field": "employee_name",
+        "sortable": true,
+        "filter": "agTextColumnFilter"
+      },{
+        "headerName": "Schedule Start Date",
+        "field": "startdate",
+        "sortable": true,
+        "filter": "agDateColumnFilter",
+        "type": "date"
+            },
+      {
+        "headerName": "Schedule End Date",
+        "field": "enddate",
+        "sortable": true,
+        "filter": "agDateColumnFilter",
+        "type": "date"
+      },{
+        "headerName": "Test Case Count",
+        "field": "status",
+        "sortable": true,
+        "filter": "agTextColumnFilter"
+      },
+      {
+        "headerName": "Positive Result",
+        "field": "positive_result",
+        "sortable": true,
+        "filter": "agTextColumnFilter"
+      },
+      {
+        "headerName": "Negative Result",
+        "field": "negative_result",
+        "sortable": true,
+        "filter": "agTextColumnFilter"
+      },
+      
+      {
+        "type": "rightAligned",
+        "headerName": "Actions",
+        "cellRenderer": "buttonRenderer",
+        "cellRendererParams": {
+          "onClick": "this.onBtnClick1.bind(this)",
+          "label": "Click 1"
+        }
+      }
+    ],
+    "filterOptions": [],
+    "defaultFilter": []
+  },
+  "designConfig": {
+    "leftPanelWidth": "320px"
+  }
+}

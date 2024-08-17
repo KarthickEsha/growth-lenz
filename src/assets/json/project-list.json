@@ -1,0 +1,84 @@
+{
+    "pageHeading": "Project",
+    "collectionName": "project",
+    "editMode": "popup",
+    "screenWidth": "80%",
+    "keyField": "_id",
+    "showbutton": true,
+    "actions": [
+        {
+            "label": "Edit",
+            "icon": "edit",
+            "formName": "project"
+        },
+        {
+            "label": "Modules",
+            "icon": "view_module",
+            "formName": "project"
+        },
+        {
+            "label": "ProjectTeam",
+            "icon": "view_module",
+            "formName": "projectteam"
+        },
+        {
+            "label": "Delete",
+            "icon": "delete",
+            "formName": "entities/project"
+        }
+    ],
+    "addRoute": "add/project",
+    "editRoute": "edit/project",
+    "moduleRoute": "module/project",
+    "projectteamRoute": "projectteam/project",
+    
+    "columnDefs": [
+        {
+            "headerName": " Project Id",
+            "field": "projectid",
+            "sortable": true,
+            "filter": "agTextColumnFilter"
+        },
+        {
+            "headerName": "Project Name",
+            "field": "projectname",
+            "sortable": true,
+            "filter": "agTextColumnFilter"
+        },
+        {
+            "headerName": "Project Type",
+            "field": "projecttype",
+            "sortable": true,
+            "filter": "agTextColumnFilter"
+        },
+        {
+            "headerName": "Schedule Start Date",
+            "field": "startdate",
+            "sortable": true,
+            "filter": "agTextColumnFilter",
+            "type": "date"
+        },
+        {
+            "headerName": "Schedule End Date",
+            "field": "enddate",
+            "sortable": true,
+            "filter": "agTextColumnFilter",
+            "type": "date"
+        },
+        {
+            "headerName": "Project Status",
+            "field": "status",
+            "sortable": true,
+            "filter": "agTextColumnFilter"
+        },
+        {
+            "type": "rightAligned",
+            "headerName": "Actions",
+            "cellRenderer": "buttonRenderer",
+            "cellRendererParams": {
+                "onClick": "this.onBtnClick1.bind(this)",
+                "label": "Click 1"
+            }
+        }
+    ]
+}

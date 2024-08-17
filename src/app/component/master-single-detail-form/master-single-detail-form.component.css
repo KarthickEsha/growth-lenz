@@ -1,0 +1,47 @@
+
+.ngx-datatable.material {
+  box-shadow:none !important;
+  width:98%;
+}
+
+.form-container {
+  width:95% !important;
+}
+
+.back {
+  margin-left: 5px;
+  margin-bottom: 0px;
+  margin-top: -40px;
+  width:120px;
+  float: left;
+}
+
+.table-container {
+  margin-left: 20px;
+  flex: auto;
+}
+
+.search-container {
+  width:100px;
+  float:left
+}
+
+.add-container {
+  width:100px;
+  float:right;
+  padding: 10px;
+}
+
+.heading{
+  text-align: center;
+  font:25px  large bold ;
+}
+
+
+
+.delete{
+  height:48px !important;
+    width:48px !important;
+    font-size:48px !important;
+}
+

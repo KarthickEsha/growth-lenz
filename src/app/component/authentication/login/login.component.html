@@ -1,0 +1,87 @@
+<div class="box">
+  <div class="container1" >
+    <mat-card class="mat-card" layout-align="center center">
+      <mat-card-content style="width: 100%">
+        <form [formGroup]="frmLogin" class="example-form" fxLayout="column"  autocomplete="off" class="formGroup">
+          <div>
+            <div style="text-align: center;">
+              <div>
+                <img width="314" height="90" 
+                src="https://kriyatec.com/wp-content/uploads/2020/03/KriyaTec-Logo-Small.png" 
+                 alt="KriyaTec logo" decoding="async" 
+                 srcset="https://kriyatec.com/wp-content/uploads/2020/03/KriyaTec-Logo-Small.png 314w, https://kriyatec.com/wp-content/uploads/2020/03/KriyaTec-Logo-Small-300x86.png 300w"
+                  sizes="(max-width: 314px) 100vw, 314px" />
+              
+                    <!-- <img
+                  width="400px"
+                  height="200px"
+                  class="center"
+                  src="https://kriyatec.com/wp-content/uploads/2020/03/KriyaTec-Logo-Small.png" 
+                />             -->
+                </div>
+            </div>
+            <div  >
+              <mat-form-field style="width: 100%" appearance="outline">
+                <mat-label>Email Id</mat-label>
+
+                <input
+                  matInput
+                  type="text"
+                  class="formControl"
+                  formControlName="id"
+                  placeholder="Email"
+                  required
+                  #userName 
+                />
+    
+                <mat-error
+                  *ngIf="
+                    frmLogin.controls['id'].touched &&
+                    frmLogin.controls['id'].hasError('required')
+                  "
+                  class="help-block text-danger mat-error"
+                >
+                  User Id is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div >
+          
+              <mat-form-field style="width: 100%" appearance="outline">
+                <mat-label>Password</mat-label>
+
+                <input
+                  matInput
+                  formControlName="password"
+                  placeholder="Password"
+                  [type]="hide ? 'password' : 'text'"
+                  type="password"
+                  autocomplete="off"
+                  required
+                  #userPassword
+                  class="formControl"
+    
+                /><mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error
+                  *ngIf="
+                    frmLogin.controls['password'].touched &&
+                    frmLogin.controls['password'].hasError('required')
+                  "
+                  class="help-block text-danger mat-error"
+                >
+                  Password is required
+                </mat-error>
+              </mat-form-field>
+          
+          </div>
+            <div class="login-button">
+              <button mat-raised-button  (click)="login()">
+                Login
+              </button>
+            </div>
+      </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div> 
+</div>

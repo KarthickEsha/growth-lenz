@@ -1,0 +1,53 @@
+[
+	{
+    "displayName": "Production",
+    "iconName": "group",
+    "children": [
+      {
+        "displayName": "Screen Configuration",
+        "iconName": "edit",
+        "route": "/list/screen"
+      },{
+        "displayName": "Data Model Configuration",
+        "iconName": "edit",
+        "route": "/list/model_config"
+      },{
+        "displayName": "Form Design",
+        "iconName": "group",
+        "route": "/formdesign"
+      }
+    ]
+  },	
+  {
+    "displayName": "Master",
+    "iconName": "perm_identity",
+    "children": [
+      {
+        "displayName": "Client",
+        "iconName": "assignment_ind",
+        "route": "/list/client"
+      },
+      {
+        "displayName": "Project",
+        "iconName": "assignment_ind",
+        "route": "/list/project"
+      },
+      
+      {
+        "displayName": "Employee",
+        "iconName": "assignment_ind",
+        "route": "/list/employee"
+      }, 
+      {
+        "displayName": "Origin",
+        "iconName": "assignment_ind",
+        "route": "/list/origin"
+      },
+      {
+        "displayName": "Project Role",
+        "iconName": "assignment_ind",
+        "route": "/list/project_role"
+      }
+    ]
+  }
+]

@@ -1,0 +1,48 @@
+{
+    "pageHeading": "Project Role",
+    "collectionName": "projectteam",
+    "editMode": "popup",
+    
+    "keyField": "_id",
+     
+    "actions": [
+        {
+            "label": "Edit",
+            "icon": "edit",
+            "formName": "projectrole"
+        },
+        
+        {
+            "label": "Delete",
+            "icon": "delete",
+            "formName": "entities/projectrole"
+        }
+    ],
+    "addRoute": "add/projectrole",
+    "editRoute": "edit/projectrole",
+    "columnDefs": [
+        {
+            "headerName": " Project Role Id",
+            "field": "projectroleid",
+            "sortable": true,
+            "filter": "agTextColumnFilter"
+        },
+        {
+            "headerName": "Project Role Name",
+            "field": "projectrolename",
+            "sortable": true,
+            "filter": "agTextColumnFilter"
+        },
+        
+         
+        {
+            "type": "rightAligned",
+            "headerName": "Actions",
+            "cellRenderer": "buttonRenderer",
+            "cellRendererParams": {
+                "onClick": "this.onBtnClick1.bind(this)",
+                "label": "Click 1"
+            }
+        }
+    ]
+}

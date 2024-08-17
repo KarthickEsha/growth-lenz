@@ -1,0 +1,43 @@
+.form-container {
+  width:100%;
+  margin: 0;
+}
+
+.mat-radio-button {
+margin-right: 15px !important;
+}
+
+.form-main-container {
+  width: 90%;
+  margin: auto;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  overflow:auto;
+  flex: 1;
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled)  {
+  background-color: white;
+  width: 100%;
+}
+
+.container {
+  width: 100vw;
+  /* height: 100vh; */
+  /* overflow: none; */
+}
+.solution {
+padding: 15px;
+overflow:auto;
+}
+
+.center{
+  text-align: center !important;
+}
+
+mat-icon{
+  color: black;
+}

@@ -1,0 +1,368 @@
+.body {
+    height: 100vh;
+    margin-left: 7rem;
+    z-index: 0;
+    position: relative;
+    top: 0;
+    transition: all .5s ease;
+    background: white;
+    /* ! it give one rem space int top padding: 1rem; */
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+                                                                               
+  /* Additional styles for other screen sizes */
+  .body-trimmed { 
+    margin-left: 20rem;
+  }
+  /* .page-style{
+    overflow-y: auto;
+    height: 100%;
+    width: 100%;
+  } */
+  .body-md-screen {
+    width: 89%;
+    margin-left: 14rem;
+  }
+  
+  .default {
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+  }
+  
+  .dot-box{
+    /* margin: 10px solid; */
+    height: 100px;
+    border: 1px solid #ccc;
+    
+    }
+  .sidenav {
+      background-image: linear-gradient(121deg,#91a4c0,#a7cdd2);
+      /* background-color: var(--sidenav-color); */
+      z-index: 1;
+      top: 0;
+      width: 7rem;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .logo {
+    
+      min-width: 2rem;
+      cursor: pointer;
+      margin: 8px 2px 0px -5px;
+      text-align: center;
+      border-radius: 0.313rem;
+      padding: 12px -9px;
+      font-size: 24px;
+      font-weight: 900;
+      border: none;
+    }
+    
+    .logo-container {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      position: relative;
+    }
+    
+    .sidenav-collapsed .logo-container .expand_icon_collapsed {
+      position: absolute;
+      top: 50%;
+      right: -13px;
+      transform: translateY(-50%);
+      height: 25px;
+      width: 25px;
+      background: white;
+      border-radius: 50%;
+      z-index: 7;
+    }
+    
+    .sidenav .logo-container .expand_icon_non_collapsed {
+      position: absolute;
+      top: 50%;
+      left: 86%;
+      transform: translateY(15%) rotate(180deg);
+      height: 25px;
+      width: 25px;
+      background: white;
+      border-radius: 50%;
+    }
+    
+    .btn-close {
+      margin-left: auto;
+      cursor: pointer;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background-color: transparent;
+      border: none;
+    
+    
+    
+    }
+    
+    
+    
+    
+    .image   {
+      width: 100%;
+      text-align: center;
+      cursor: pointer;
+    }
+    
+    .close-icon {
+      color: white;
+    }
+    
+    
+    .sidenav-collapsed {
+      width: 14rem;
+      max-width: 20rem;
+    }
+    
+    
+    
+    
+    .sidenav-nav {
+      list-style: none;
+      padding: 1px 2px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: calc(100% - 3.65 rem);
+      cursor: pointer;
+    
+    
+    }
+    
+    
+    
+    
+    
+    .sidenav-link-text {
+      margin-left: 4px;
+      color: #fff;
+      font-style: italic;
+      line-height: normal;
+      margin-top: 2px;
+      gap: 12px;
+    
+    
+    }
+    
+    .sidenav-link-text:hover {
+      background-color: #fff;
+      cursor: pointer;
+      color: black;
+    }
+    
+    .sidenav-nav-link:hover .imgsvg {
+      filter: brightness(0);
+      /* Change the filter to adjust the brightness or other visual effects */
+    }
+    
+    .menu-signout-noncollapsed .sidenav-nav-link {
+      /* margin-left: 1px; */
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+      font-size: 15px;
+    
+    }
+    
+    
+    .sidenav-nav-link {
+      display: flex;
+      flex-direction: row;
+      align-items: self-start;
+      /* height: 40px; */
+       text-decoration: none;
+      transition: color .3s ease;
+      /* row-gap: 8px; */
+      margin-top: 2px;
+      font-family: 'PT Sans Narrow';
+      font-size: 20px;
+      min-height: 30px;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+    
+    .sidenav-nav-link:hover {
+      background-color: #fff;
+      color: black;
+    }
+    
+    .sidenav-nav-item {
+      width: 100%;
+      cursor: pointer;
+    }
+    
+    /* .sidenav.sidenav-expanded {
+      width: 200px;
+    } */
+    
+    .menu-items {
+      position: relative;
+      margin: 10px 5px;
+    }
+    
+    .menu-items-noncollapsed {
+      position: relative;
+      margin: 40px 5px;
+      text-align: center;
+    }
+    
+    .menu-items-noncollapsed .sidenav-nav .sidenav-nav-item svg {
+      width: 20px;
+      height: 20px;
+      margin: 0;
+    }
+    
+    .menu-items-noncollapsed .sidenav-nav .sidenav-nav-item span {
+      display: flow-root;
+      font-size: 15px;
+    }
+    
+    
+    .menu-items-noncollapsed .sidenav-nav-link {
+      /* display: flex; */
+      flex-direction: column;
+    }
+    .parent-border, .parent-border:hover {
+      border-color: #2196F3 !important;
+  }
+  .parent-border, .parent-border:hover {
+      color: #000 !important;
+      background-color: #ddffff !important;
+  }
+  .parent-border {
+      border-left: 6px solid #ccc !important;
+      /* padding-left: 10px; */
+      width: 100%;
+      padding:20px 0px 20px 10px;
+      gap: 10px;
+      display: flex;
+      flex-direction: column;
+      
+  }
+    /* .parent-border {
+      border: 5px ;
+      padding: 10px; 
+    } */
+    
+    .logout {
+      margin-top: auto;
+      padding: 0px 8px;
+    }
+    
+    .submenu-item {
+      text-decoration: none;
+      width: 100%;
+      padding-left: 20px;
+      flex-direction: column;
+      display: flex;
+      /* row-gap:5px; */
+      overflow-y: auto;
+      max-height: 350px;
+      min-height: fit-content;
+      margin-bottom: 10px;
+    }
+    
+    
+    
+    .sidenav-link-icon {
+      font-size: 22px;
+      width: 2rem;
+      min-width: 2rem;
+      margin: 2 0.5rem;
+      vertical-align: middle;
+      color: white;
+      text-align: center;
+    }
+    
+    
+    .sidenav-link-icon.sidenav-link-text {
+      opacity: 0;
+    }
+    
+    .sidenav-link-icon.sidenav-link-text:hover {
+      cursor: pointer;
+      background-color: #fff;
+      color: black;
+    }
+    
+    
+    .subitems-link-text {
+      margin: 1px 1px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+    
+    }
+    
+    .subitems-link-text:hover {
+      cursor: pointer;
+      background-color: #fff;
+      color: black;
+      border-radius: 2px;
+    }
+    
+    .submenu-item::-webkit-scrollbar {
+      width: 6px;
+      height: 100%;
+      border-radius: 30%;
+    }
+    
+    .submenu-item::-webkit-scrollbar-track {
+      background-color: #f1f1f1 !important;
+    }
+    
+    .submenu-item-webkit-scrollbar-thumb {
+      background-color: #cccaca;
+    }
+    /* 
+           #main{
+                                                                                      background-color: BurlyWood;
+                                                                                      float: right;
+                                                                                      position: absolute;
+                                                                                      height:200px;
+                                                                                      right: 0;
+                                                                                      left:200px;
+                                                                                      margin-top:10px;
+                                                                                        
+                                                                                    }
+                                                                                    #sidebar{
+                                                                                      background-color: IndianRed;
+                                                                                        
+                                                                                      margin-top:10px;
+                                                                                      width:200px;
+                                                                                      float: left;
+                                                                                      position: absolute;
+                                                                                      height:200px;
+                                                                                      overflow-y: hidden;
+                                                                                    }
+
+                                                                                    #dragbar{
+                                                                                      background-color:black;
+                                                                                      height:100%;
+                                                                                      float: right;
+                                                                                      width: 3px;
+                                                                                      cursor: col-resize;
+                                                                                      z-index:999
+                                                                                    }
+                                                                                    #ghostbar{
+                                                                                        width:3px;
+                                                                                        background-color:#000;
+                                                                                        opacity:0.5;
+                                                                                        position:absolute;
+                                                                                        cursor: col-resize;
+                                                                                        z-index:999
+                                                                                      }
+                                                                                      
+                                                                                      */

@@ -1,0 +1,91 @@
+{
+    "pageHeading": "Team Members",
+    "formType": "simple",
+    "editMode": "popup",
+    "form": {
+        "collectionName": "team_specification",
+        "fields": [
+            {
+                "fieldGroupClassName": "display-flex",
+                "fieldGroup": [
+                    {
+                        "type": "select-input",
+                        "key": "user_id",
+                        "className": "flex-6",
+                        "props": {
+                            "label": "User Name",
+                            "placeholder": "User Name",
+                            "labelPropTemplate": " {{first_name}}",
+                            "multifilter": true,
+                            "optionsDataSource": {
+                                "collectionName": "employee"
+                            },
+                            "labelProp": "first_name",
+                            "valueProp": "employee_id",
+                            "required": true
+                        }
+                    },
+                    {
+                        "type": "select-input",
+                        "key": "role_id",
+                        "className": "flex-6",
+                        "props": {
+                            "label": "Role Name",
+                            "placeholder": "Role Name",
+                            "labelPropTemplate": " {{name}}",
+                            "multifilter": true,
+                            "optionsDataSource": {
+                                "collectionName": "project_role"
+                            },
+                            "labelProp": "name",
+                            "valueProp": "_id",
+                            "required": true
+                        }
+                    } , {
+                        "type": "select-input",
+                        "key": "approved_by",
+                        "className": "flex-6",
+                        "props": {
+                            "label": "Approved By Whom?",
+                            "placeholder": "Approved By Whom?",
+                            "labelPropTemplate": " {{first_name}}",
+                            "multifilter": true,
+                            "optionsDataSource": {
+                                "collectionName": "employee"
+                            },
+                            "labelProp": "first_name",
+                            "valueProp": "employee_id",
+                            "required": true
+                        }
+                    }
+                ]
+            },
+            {
+                "fieldGroupClassName": "display-flex",
+                "fieldGroup": [
+                    {
+                        "key": "scheduled_start_date",
+                        "type": "date-input",
+                        "className": "flex-6",
+                        "props": {
+                            "label": "Scheduled Start Date",
+                            "placeholder": "Scheduled Start Date"
+                        }
+                    },
+                    {
+                        "key": "scheduled_end_date",
+                        "type": "date-input",
+                        "className": "flex-6",
+                        "parentKey": "scheduled_start_date",
+                        "parentCollectionName": "task",
+                        "props": {
+                            "label": "Scheduled End Date",
+                            "placeholder": "Scheduled End Date"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "onCancelRoute": "/list/teammembers"
+}

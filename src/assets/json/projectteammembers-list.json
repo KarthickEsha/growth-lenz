@@ -1,0 +1,50 @@
+{
+	"pageHeading":"Role",
+	"collectionName": "role",
+	"editMode":"popup",
+	"addRoute" : "/add/role",
+	"editRoute": "/edit/role",
+	"showbutton":true,
+	"rolebased":true,
+	"role_based":true,
+	"actions": [
+		
+		{
+			"label": "Role Based ACL",
+			"formAction": "components",
+			"icon": "open_in_new",
+			"route": "role/acl/"
+		},
+		{
+			"label": "Edit",
+			"formAction": "edit",
+			"icon": "edit"
+		},
+		{
+			"label": "Delete",
+			"formAction": "delete",
+			"icon": "delete"
+		}
+	],
+	"columnDefs": [
+		
+		{ 
+			"headerName": "Role Name", "field": "name" 
+		},
+	  { 
+		"headerName": "Role ID", "field": "_id" 
+	},
+	  { 
+		"headerName": "status", "field": "status" 
+	},{
+		"type": "rightAligned",
+		"headerName": "Actions",
+		"cellRenderer": "buttonRenderer",
+		"lockPosition": "right",
+		"cellRendererParams": {
+			"onClick": "this.onBtnClick1.bind(this)",
+			"label": "Click 1"
+		}
+	}
+	]
+  }

@@ -1,0 +1,614 @@
+  <form [formGroup]="formGroup" style="padding: 20px;height: auto;" (contextmenu)="handleContextMenu($event)">
+  
+    <div class="d-flex" *ngIf="isformExtention==false">
+  <div>
+    <!-- Page Heading -->
+    <div class="display-flex">
+      <div class="flex-6">
+      <mat-form-field>
+        <mat-label>Page Heading </mat-label>
+        <input matInput formControlName="pageHeading" required/>
+      </mat-form-field>
+      </div>
+      <div class="flex-6">
+        <mat-form-field>
+          <mat-label>Is Add Button is Need ?</mat-label>
+          <mat-select formControlName="showbutton" required>
+            <mat-option [value]='true'>Yes</mat-option>
+            <mat-option [value]='false'>No</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    
+    <!-- Route -->
+    <div class="display-flex">
+      <div class="flex-6">
+      <mat-form-field>
+        <mat-label>Add Route</mat-label>
+        <input matInput formControlName="addRoute" />
+      </mat-form-field>
+      </div>
+      <div class="flex-6">
+        <mat-form-field>
+        <mat-label>Edit Route</mat-label>
+        <input matInput formControlName="editRoute" />
+        </mat-form-field>
+      </div>
+    </div>
+    
+    
+    <!-- Form Edit mode -->
+    <div class="display-flex">
+      <div class="flex-6">
+        <mat-form-field>
+          <mat-label>Is Add Button is Need ?</mat-label>
+          <mat-select formControlName="editMode" required>
+            <mat-option value='popup'>Pop up</mat-option>
+            <mat-option value='page'>Page</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="flex-6">
+        <mat-form-field>
+          <mat-label>By clicking the Table Form Should Display From ?</mat-label>
+          <mat-select formControlName="screenEditMode" >
+            <mat-option value=''>None</mat-option>
+            <mat-option value='popup'>Pop up</mat-option>
+            <mat-option value='page'>Page</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    
+    
+    
+
+      
+    </div>
+   
+    </div>
+
+
+
+
+    <div class="d-flex" *ngIf="isformExtention==true">
+    <mat-radio-group formControlName="fetch" >
+      <mat-label>Data Fetch Type</mat-label>
+      <mat-radio-button value="staic" (click)="dataFetchMethod('staic')">Static</mat-radio-button>
+      <mat-radio-button value="dynamic" (click)="dataFetchMethod('dynamic')">Dynamic (Api Method)</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div *ngIf="formGroup.get('fetch')?.value=='dynamic' || !isformExtention">
+    <div class="d-flex">
+      <mat-radio-group formControlName="methodType" (ngModelChange)="methodChange()">
+        <mat-label>Api Method </mat-label>
+        <mat-radio-button value="post">Post</mat-radio-button>
+        <mat-radio-button value="get">Get</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+<div *ngIf="formGroup?.get('methodType')?.value =='post'" class="parent">
+  <div class="flex-6">
+    <mat-form-field>
+      <mat-label>End Point From</mat-label>
+      <mat-select formControlName="postendPoint" required (selectionChange)="modelNameGet($event)">
+        <mat-option value="filter">Filter</mat-option>
+        <mat-option value="dataset">DataSet</mat-option>
+        <mat-option value="other">Other</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="flex-6" *ngIf="formGroup?.get('postendPoint')?.value != 'other'">
+    <mat-form-field>
+      <mat-label>{{formGroup.get('postendPoint')?.value == 'dataset' ? 'From Which Dataset ?' :' From Which Model ? '}}</mat-label>
+      <mat-select formControlName="collectionName"  required (selectionChange)="getColumns($event)">
+        <mat-option *ngFor="let val of selected"  [value]="val[valueProp]">{{ changelabel(val[labelProp]) }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+    
+
+    <mat-form-field class="d-flex"   *ngIf="formGroup?.get('postendPoint')?.value =='other' || formGroup?.get('methodType')?.value =='get'">
+      <mat-label>Api Endpoint </mat-label>
+      <input matInput formControlName="endPoint" (blur)="endpoinParamerterCatcher()" />
+      <mat-error *ngIf="formGroup.get('endPoint')?.touched && formGroup.get('endPoint')?.hasError('dupilcate')"
+        class="help-block text-danger mat-error">
+        Should Not Duplicate the Key
+      </mat-error>
+    </mat-form-field>
+ 
+    <div *ngIf="isformExtention==true && formGroup?.get('methodType')?.value == 'post'">
+    <section>
+      <mat-checkbox formControlName="labelChange">Is the label in more than one field?</mat-checkbox>
+      <br>
+      <mat-checkbox  formControlName="fullObject">Does value need to be completely attached ?</mat-checkbox>
+    </section>
+    
+    <div *ngIf="formGroup.get('labelChange')?.value==false">
+      <mat-form-field>
+        <mat-label>Label</mat-label>
+        <!-- <mat-select formControlName="labelProp">
+          <mat-option *ngFor="let option of columnOptions" [value]="option[optionvalue]" >
+            {{option[optionvalue]}}
+          </mat-option>
+        </mat-select> -->
+        <input matInput (keyup)="labelAutocomple($event)" [matAutocomplete]="label"   formControlName="labelProp" />
+        <mat-autocomplete autoActiveFirstOption #label="matAutocomplete">
+          <mat-option *ngFor="let option of labelOptions" [value]="option?.[optionvalue]">
+            {{option?.[optionlabel]}}
+          </mat-option>
+        </mat-autocomplete> 
+      </mat-form-field>
+    </div>
+
+    <div  *ngIf="formGroup.get('labelChange')?.value==true">
+      <!-- <mat-form-field>
+        <mat-label>Display Labels</mat-label>
+        <mat-select formControlName="labelPropTemplates" multiple (selectionChange)="chnage($event)">
+          <mat-option *ngFor="let option of columnOptions" [value]="option[optionvalue]" >
+            {{option[optionvalue]}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+      <ng-select
+            [items]="columnOptions"  [clearSearchOnAdd]="true" [multiple]="true"
+            appearance="outline"   [bindLabel]="optionvalue" formControlName="labelPropTemplates" (change)="chnage($event)"
+            placeholder="Select a Label"  [closeOnSelect]="false"   >
+            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                  <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" [ngModelOptions]="{standalone: true}"/>
+                  <span style="margin-left:5px" [innerHTML]="item[optionvalue]"></span>
+              </ng-template> 
+              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+              <div class="ng-value" *ngFor="let item of items | slice:0:2">
+                  <span class="ng-value-label"> {{$any(item)[optionvalue]}}</span>
+                  <span class="ng-value-icon right" (click)="clear(item)"  aria-hidden="true">×</span>
+              </div>
+              <div class="ng-value" *ngIf="items.length > 2">
+                  <span class="ng-value-label">{{items.length - 2}} more...</span>
+              </div>
+            </ng-template>
+          </ng-select>
+    </div>
+
+    <div  *ngIf="formGroup.contains('labelPropTemplate')">
+      <mat-form-field>
+        <mat-label>Label Template</mat-label> 
+        <input type="text" formControlName="labelPropTemplate" matInput>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="formGroup.get('fullObject')?.value==false">
+      <mat-form-field>
+        <mat-label>Value</mat-label>
+        <!-- <mat-select formControlName="valueProp">
+       <mat-option *ngFor="let option of columnOptions" [value]="option[optionvalue]" >
+            {{option[optionvalue]}}
+          </mat-option>
+        </mat-select> -->
+        <input matInput (keyup)="valueAutocomple($event)" [matAutocomplete]="value"   formControlName="valueProp" />
+        <mat-autocomplete autoActiveFirstOption #value="matAutocomplete">
+          <mat-option *ngFor="let option of labelOptions" [value]="option?.[optionvalue]">
+            {{option?.[optionlabel]}}
+          </mat-option>
+        </mat-autocomplete> 
+
+      </mat-form-field>
+    </div>
+ 
+  </div>
+
+
+    <div class="borderdotter" *ngIf="formGroup?.get('methodType')?.value =='post' || formGroup?.get('methodType')?.value =='get'">
+    <!-- ? GET -->
+      <div formArrayName="conditions"  *ngIf="formGroup?.get('methodType')?.value === 'get'   && formGroup?.value?.['conditions']?.length!=0  ">
+        <div *ngFor="let conditions = index;let customColumn of CustomColumn('conditions')?.controls;let last=last">
+          <div formGroupName="{{conditions}}">
+            <div style="display: flex;align-items: center;">
+              <div style="margin: 10px;max-width: 33%;width: 33%;">
+                <mat-form-field>
+                  <mat-label>Param (Paramerters)</mat-label>
+                  <input matInput formControlName="params" readonly />
+                </mat-form-field>
+              </div>
+
+              <mat-form-field style="margin: 10px;max-width: 33%;width: 33"
+                *ngIf="formGroup?.get('methodType')?.value !='get'">
+                <mat-label>Operator</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let option of operatorOptions[conditions]" [value]="option">{{ option?.label
+                    }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div style="margin: 10px;max-width: 33%;width: 33%;">
+                <mat-form-field>
+                  <mat-label>Value From</mat-label>
+                  <mat-select formControlName="valueType" required>
+                    <mat-option value="staic">Static</mat-option>
+                    <mat-option value="parent" *ngIf="isformExtention && model?.parentkey">Value from Parent</mat-option>
+                    <mat-option value="variable">Variable</mat-option>
+                    <mat-option value="get">Value from Form / Model / Local</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div style="margin: 10px;max-width: 33%;width: 33%;"
+                *ngIf="customColumn.get('valueType')?.value=='variable'">
+                <mat-form-field>
+                  <mat-label>Value</mat-label>
+                  <mat-select formControlName="value" required>
+                    <mat-option value="today_date">Today Date</mat-option>
+                    <mat-option value="today_date_time">Today Date And Time</mat-option>
+                    <mat-option value="today_time">Today Time</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div style="margin: 10px;max-width: 33%;width: 33%;"
+                *ngIf="customColumn.get('valueType')?.value!='variable' && customColumn.get('valueType')?.value != null">
+                <mat-form-field class="d-flex">
+                  <mat-label>Value</mat-label>
+                  <input matInput formControlName="value" />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--  ? Dataset Query Parameter -->
+      <div formArrayName="filterParams" *ngIf="formGroup.contains('filterParams')">
+        DataSet Query Parameters
+        <div *ngFor="let filterparams of CustomColumn('filterParams')?.controls; let filterparam=index; let lastCondition=last">
+            <div class="parent"  [formGroupName]="filterparam">
+              <!-- ? With Auto Complete For Prediefind Value -->
+              <div class="flex-6"> 
+                <mat-form-field>
+                  <mat-label>Param (Parameters)</mat-label>
+                  <input matInput   formControlName="parmasName"  readonly/>
+                </mat-form-field>
+              </div>
+              <div class="flex-6">
+                <mat-form-field>
+                  <mat-label>Data Type</mat-label>
+                  <mat-select formControlName="parmsDataType" required  >
+                    <mat-option value="number">Number</mat-option>
+                    <mat-option value="string">String</mat-option>
+                    <mat-option value="time.Time">Date and Time</mat-option>
+                    <!-- <mat-option value="time.Time">Time</mat-option>  -->
+                    <mat-option value="boolean">Boolean</mat-option> 
+                  </mat-select>
+                </mat-form-field>
+              </div> 
+              <div class="flex-6">
+                <mat-form-field>
+                  <mat-label>Value From</mat-label>
+                  <mat-select formControlName="valueType" required>
+                    <mat-option value="static">Static</mat-option>
+                    <mat-option value="parent" *ngIf="isformExtention && model?.parentkey">Value from Parent</mat-option>
+                    <mat-option value="variable">Variable</mat-option>
+                    <mat-option value="get">Value from Form / Model / Local</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="flex-6" *ngIf="filterparams?.get('valueType')?.value === 'variable'">
+                <mat-form-field>
+                  <mat-label>Value</mat-label>
+                  <mat-select formControlName="value" required>
+                    <mat-option value="today_date">Today Date</mat-option>
+                    <mat-option value="today_date_time">Today Date And Time</mat-option>
+                    <mat-option value="today_time">Today Time</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="flex-6" *ngIf="filterparams.get('parmsDataType')?.value == 'time.Time' && filterparams.get('valueType')?.value == 'static' && filterparams.get('valueType')?.value !== 'parent' " >
+                <mat-form-field>
+                  <mat-label>Choose a Date </mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="value">
+                   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="flex-6" *ngIf="filterparams.get('parmsDataType')?.value != 'time.Time'  && filterparams.get('valueType')?.value !== null  
+                 && filterparams.get('valueType')?.value !== 'parent' ">
+                <mat-form-field class="d-flex">
+                  <mat-label>Value</mat-label>
+                  <input matInput formControlName="value" />
+                </mat-form-field>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <!-- ? POST -->
+        
+        <p *ngIf="formGroup.contains('filter')">Filter</p>
+      <div *ngIf="(this.formGroup.get('collectionName')?.value && this.formGroup.get('postendPoint')?.value) 
+       || formGroup?.get('postendPoint')?.value =='other' && checkIfNotEmpty(columnOptions) && formGroup.contains('filter')"
+        style="border: 1px dotted black;padding: 15px;"
+         (mouseenter)="toggleButtonVisibility(true,'OverallFilter')"  (mouseleave)="toggleButtonVisibility(false,'OverallFilter')"  >
+        <span style="float: right; margin: -11px;visibility:hidden" id="OverallFilter">
+            <i class="fa-solid fa-plus"  matTooltip="Add Filter" (click)="addClauesInsideFilter()"  ></i>
+        </span>
+         <div formArrayName="filter" >
+              <div *ngFor="let filterControl of CustomColumn('filter')?.controls; let parentIndex=index; let last=last">
+                  <div formGroupName="{{parentIndex}}" 
+                  (mouseenter)="toggleButtonVisibility(true,'filter'+parentIndex+ 'fieldbutton')"
+                  (mouseleave)="toggleButtonVisibility(false,'filter'+parentIndex+ 'fieldbutton')"
+                  style="border-radius: 10px;border: 2px dotted grey;margin: 5px 0px;z-index: 3;padding: 5px;" >
+               <span style="float: right;margin-right: 15px;visibility:hidden" [id]="'filter'+parentIndex+ 'fieldbutton'"  >
+                <i class="fa-solid fa-plus"   matTooltip="Add conditions" style="padding:5px"
+                 (click)="addconsiditionInsideClaues('filter.'+parentIndex+'.conditions',parentIndex,getCount('filter.'+parentIndex+'.conditions'))"
+                ></i>
+                  <i style="padding:5px" class="fa-solid fa-trash-can"  matTooltip="Delete {{parentIndex+1}} Filter"
+                    (click)="handleAction('Delete',parentIndex)" style="color: #776666" ></i>
+                </span>
+
+                <mat-radio-group formControlName="clause">
+                      <mat-label>Clasue</mat-label>
+                      <mat-radio-button value="AND">And</mat-radio-button>
+                      <mat-radio-button value="OR">Or</mat-radio-button>
+                </mat-radio-group>
+                    <!-- ? Conditons -->
+                    <div formArrayName="conditions">
+                      <div *ngFor="let conditions of CustomColumn('filter.'+parentIndex+'.conditions')?.controls; let childIndex=index; let lastCondition=last">
+                        <div formGroupName="{{childIndex}}">
+                          <div class="parent"
+                          (mouseenter)="toggleButtonVisibility(true,'filter'+parentIndex+ 'fieldbutton'+childIndex+'child')"
+                          (mouseleave)="toggleButtonVisibility(false,'filter'+parentIndex+ 'fieldbutton'+childIndex+'child')"
+                          >
+                            <!-- ? With Auto Complete For Prediefind Value -->
+                            <div class="flex-6" *ngIf="formGroup?.get('postendPoint')?.value !== 'other' "> 
+                              <mat-form-field>
+                                <mat-label>Param (Parameters)</mat-label>
+                                <input matInput (keyup)="autocomplete($event,parentIndex,childIndex)" [matAutocomplete]="auto"   formControlName="column" />
+                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                  <mat-option *ngFor="let option of column_autoComplete?.[parentIndex]?.[childIndex]" [value]="option?.[optionvalue]" (click)="getOperators(option, parentIndex,childIndex,option['type'])">
+                                    <!-- <mat-option *ngFor="let option of column_autoComplete?.[parentIndex]?.[childIndex]" [value]="option?.[optionvalue]" (click)="formvalueset(parentIndex,childIndex,option);getOperators(option, parentIndex,childIndex)"> -->
+                                    {{option?.[optionlabel]}}
+                                  </mat-option>
+                                </mat-autocomplete> 
+                              </mat-form-field>
+                            </div>
+                            <!-- ? With New Value -->
+                            <div class="flex-6" *ngIf="formGroup?.get('postendPoint')?.value == 'other' ">
+                              <mat-form-field>
+                                <mat-label>Param (Parameters)</mat-label>
+                                <input matInput   formControlName="column" />
+                              </mat-form-field>
+                            </div>
+                            <!-- <div class="flex-6">
+                              <mat-form-field>
+                                <mat-label>Data Type</mat-label>
+                                <mat-select formControlName="type" required (selectionChange)="getOperators($event, parentIndex,childIndex)">
+                                  <mat-option value="number">Number</mat-option>
+                                  <mat-option value="string">String</mat-option>
+                                  <mat-option value="time.Time">Date and Time</mat-option>
+                                  <mat-option value="boolean">Boolean</mat-option> 
+                                </mat-select>
+                              </mat-form-field>
+                            </div> -->
+                            <div class="flex-6">
+                            <mat-form-field  *ngIf="! ( this.formGroup.get('filter.'+parentIndex+'.conditions.'+childIndex+'.filterparams')?.value ==false) " >
+                              <mat-label>Operator</mat-label>
+                              <mat-select formControlName="operator">
+                                <mat-option *ngFor="let option of operatorOptions?.[parentIndex]?.[childIndex]" value="{{option['value'] | uppercase}}">{{ option?.label }}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+            
+                            <div class="flex-6">
+                              <mat-form-field>
+                                <mat-label>Value From</mat-label>
+                                <mat-select formControlName="valueType" required>
+                                  <mat-option value="static">Static</mat-option>
+                                  <mat-option value="parent" *ngIf="!isformExtention && model?.parentkey">Value from Parent</mat-option>
+                                  <mat-option value="variable">Variable</mat-option>
+                                  <mat-option value="get">Value from Form / Model / Local</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+            
+                            <div class="flex-6" *ngIf="conditions.get('valueType')?.value === 'variable' && conditions.get('valueType')?.value !== 'parent' ">
+                              <mat-form-field>
+                                <mat-label>Value</mat-label>
+                                <mat-select formControlName="value" required>
+                                  <mat-option value="today_date">Today Date</mat-option>
+                                  <mat-option value="today_date_time">Today Date And Time</mat-option>
+                                  <mat-option value="today_time">Today Time</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+            
+                            <div class="flex-6" *ngIf="conditions.get('valueType')?.value !== 'variable' && conditions.get('valueType')?.value !== 'parent' && conditions.get('valueType')?.value !== null">
+                              <mat-form-field class="d-flex">
+                                <mat-label>Value</mat-label>
+                                <input matInput formControlName="value" />
+                              </mat-form-field>
+                            </div>
+                            
+                            <span   style="visibility:hidden;  padding-top: 14px; padding-left: 8px;" [id]="'filter'+parentIndex+ 'fieldbutton'+childIndex+'child'"  >
+                                <i style="padding:5px" class="fa-solid fa-trash-can"  matTooltip="Delete {{childIndex+1}} Conditons"
+                                  (click)="handleAction('Delete',parentIndex,childIndex)" style="color: #776666" ></i>
+                              </span>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    
+                  </div>
+              </div>
+        </div>
+
+      </div>
+      
+    </div>
+
+
+  </div>
+
+
+  <div *ngIf="formGroup.get('fetch')?.value=='staic' && formGroup.contains('options')">
+   <div>
+    <span class="p-15 margin-10"> Select Options</span>
+    <button mat-mini-fab color="primary" class="add" (click)="addOption()">
+      <mat-icon>add</mat-icon>
+    </button>
+   </div>
+    <br>
+    <div formArrayName="options">
+      <div *ngFor="let option of optionContol?.['controls']; let i = index" >
+        <div class="parent" [formGroupName]="i">
+          <div class="flex-6">
+            <mat-form-field>
+              <mat-label>Display Name</mat-label>
+              <input matInput formControlName="label"/>
+            </mat-form-field>
+          </div>
+          <div class="flex-6">
+            <mat-form-field>
+              <mat-label>Binding Value</mat-label>
+              <input matInput formControlName="value"/>
+            </mat-form-field>
+          </div>
+
+          <button mat-icon-button class="add" (click)="removeOption(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+
+<div *ngIf="isformExtention == false">
+  <button mat-raised-button color="primary" (click)="Preview()" style="margin: 5px; justify-content: center; align-items: center;">
+    Show Preview
+  </button>
+
+  <button mat-raised-button color="primary" (click)="save()" style="margin: 5px; justify-content: center; align-items: center;">
+    Save
+  </button>
+</div>
+</form>
+
+
+
+<ng-template #contextMenupop let-field>
+  <section class="context_menu">
+    <div (click)="handleAction(field, 'settings')">
+      <!-- <i class="fa-solid fa-pen fa-bounce"></i> -->
+      <i class="fa-solid fa-filter"></i>
+      <span style="padding-left: 10px">Add Filter</span>
+    </div>
+    <hr>
+    <div (click)="handleAction(field, 'settings')">
+      <!-- <i class="fa-solid fa-pen fa-bounce"></i> -->
+      <i class="fa-solid fa-filter"></i>
+      <span style="padding-left: 10px">Add Fixed Filter</span>
+    </div>
+    <hr>
+    <div (click)="handleAction(field, 'settings')">
+      <!-- <i class="fa-solid fa-pen fa-bounce"></i> -->
+      <i class="fa-solid fa-filter"></i>
+      <span style="padding-left: 10px">Add Default Filter</span>
+    </div>
+    <hr>
+
+    <div (click)="handleAction(field, 'settings')">
+      <!-- <i class="fa-solid fa-pen fa-bounce"></i> -->
+      <i class="fa-solid fa-filter-circle-xmark"></i>
+      <span style="padding-left: 10px">Clear Filter</span>
+    </div>
+    <hr>
+    <div (click)="handleAction(field, 'settings')">
+      <!-- <i class="fa-solid fa-pen fa-bounce"></i> -->
+      <i class="fa-solid fa-filter-circle-xmark"></i>
+      <span style="padding-left: 10px">Clear Fixed Filter</span>
+    </div>
+    <hr>
+    <div (click)="handleAction(field, 'settings')">
+      <!-- <i class="fa-solid fa-pen fa-bounce"></i> -->
+      <i class="fa-solid fa-filter-circle-xmark"></i>
+      <span style="padding-left: 10px">Clear Default Filter</span>
+    </div>
+    <hr>
+  </section>
+ 
+</ng-template>
+
+<ng-template #previewGrid mode="over" style="height: auto" let-data>
+  <div style="text-align-last: end">
+    <mat-icon (click)="this.dialogService.closeModal();">close</mat-icon>
+  </div>
+  <div class="page">
+  <mat-card style="width: 98%; margin: auto">
+    <mat-card-header style="flex: 1 1 auto;">
+      <div  style="width: 100%">
+        <h2 style="text-align: center;" class="page-title">Select the Column To Show ( Preview Screen )  </h2>
+      </div>
+    </mat-card-header>
+    <mat-card-content style="padding-top: 10px">   
+        <div>
+        <ag-grid-angular
+            style="width: 100%; height: 60vh;"
+            class="ag-theme-alpine"     
+            [columnDefs]="aggridStructure"
+            [pagination]="true"
+             [sideBar]="sideBar"
+             [suppressAutoSize]='true'
+            (gridReady)="onGridReady($event)"
+            [paginationPageSize]="20"
+            [rowData]="rowData"
+        ></ag-grid-angular>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div style="text-align-last: end; width: 100%">
+        <button style="margin: 5px" mat-button (click)="this.dialogService.closeModal()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="SaveColumns()" style="margin: 5px; justify-content: center; align-items: center;">
+          Save Selected List
+        </button>
+      
+      </div>
+    </mat-card-actions>
+</mat-card>    
+  </div>
+
+</ng-template>
+
+
+<ng-template #getrequest mode="over" style="height: auto" let-data>
+  <div style="text-align-last: end">
+    <mat-icon (click)="this.dialogService.closeModal();">close</mat-icon>
+  </div>
+  <div class="page">
+  <mat-card style="width: 98%; margin: auto">
+    <mat-card-header style="flex: 1 1 auto;">
+      <div  style="width: 100%">
+        <h2 style="text-align: center;" class="page-title">Select the List Key Details</h2>
+      </div>
+    </mat-card-header>
+    <mat-card-content style="padding-top: 10px">   
+      <div style="max-height: 300px; overflow-y: auto;overflow-x: hidden;scrollbar-width: thin;">
+        <div [innerHTML]="model"></div>
+          </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div style="text-align-last: end; width: 100%">
+        <button style="margin: 5px" mat-button (click)="this.dialogService.closeModal()">Cancel</button>
+        <button mat-raised-button color="primary"  style="margin: 5px; justify-content: center; align-items: center;">
+          Save
+        </button>
+      
+      </div>
+    </mat-card-actions>
+</mat-card>    
+  </div>
+
+</ng-template>

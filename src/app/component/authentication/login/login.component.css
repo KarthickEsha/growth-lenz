@@ -1,0 +1,141 @@
+
+
+
+img {
+  vertical-align: middle;
+  width: inherit;
+
+  margin: 0 auto
+}
+
+.heading{
+  font-size: 20px;
+  font-weight: 300;
+  margin-top: 15px;
+}
+.img-url {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height:93vh;
+  /* background: url('../../../../assets/images/img123.jpg') repeat center center fixed; */
+}
+
+
+
+
+.box {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: auto !important;
+}
+
+.container1{
+  width: 50%;
+  text-align: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.mat-card{
+  height: 70%;
+  margin: 0 auto;
+  width: 53%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+
+  /* display: inline-block;
+  vertical-align: middle; */
+  /* Center horizontally*/
+}
+
+.container2{
+  width: 50%;
+  background-color:var(--primary1-color);
+ /* background:linear-gradient(90deg,#003588,#373a3a),linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)) */
+}
+
+.flex{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.bg-image{
+background: url(https://assets-global.website-files.com/5b6df8bb681f89ec20b48f37/5c672585540aaedcff21798d_bg2.svg) !important;
+}
+
+.text{
+  display: flex;
+  flex-direction: column !important;
+  height: 100%;
+
+}
+.item{
+padding: 10px;
+height: 35.5%;
+}
+
+/* .login-button{
+  width: 60px;
+  margin-top: 35px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  text-transform: uppercase;
+} */
+
+.mat-raised-button{
+width: 50px;
+}
+
+
+.text-font{
+  color: aliceblue;
+  font-weight: 700;
+  font-size: x-large;
+  text-align: center;
+  margin: auto 0;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+.pwd{
+  cursor: pointer;
+}
+
+@media (max-width: 960px) {
+ 
+  .box{
+    grid-template-columns: 100% 0%;
+  }
+
+
+  .container1{
+    width: 100%;
+    padding-left: 1px;
+    padding-right: 1px;
+  }
+
+  .container2{
+    display: none;
+  }
+
+  .mat-card{
+    height: auto;
+    width: auto;
+  }
+  
+
+
+}

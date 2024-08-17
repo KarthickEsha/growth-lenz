@@ -1,0 +1,152 @@
+
+<div fxLayout="column" fxLayoutAlign="center center" style="width:100%">
+  <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100%" style="width:100%">
+    <div fxLayout="column" fxFlex="5%" class="back">
+      <!-- onclick="window.history.go(-1); return false;" -->
+
+      <mat-icon style="font-size:35px;margin-top: 30px;" (click)="goBack()">keyboard_backspace</mat-icon>
+    </div>
+    <div fxLayout="column" fxFlex="95%" fxLayoutAlign="center center" style="margin-top: 10px;">
+      <h2 class="page-title">{{config['pageHeading']}}</h2>
+      <!-- <h2 class="page-title">{{config['pageHeading']}} - {{formAction}}</h2> -->
+      
+    </div>
+  </div>
+
+  <div fxLayout="row" *ngIf="!isDataError" class="form-container">
+      <!-- Left Panel-->
+      <div [ngStyle]="{'width': config.designConfig ? config.designConfig.leftPanelWidth : '20%' }" fxLayout="column">
+        <!-- Master/Parent Form -->
+        <div>
+          <form [formGroup]="form" *ngIf="formName">
+          <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
+            <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="15px" *ngIf="fields">
+              <button mat-raised-button color="primary" type="submit" (click)="frmStart($event)" *ngIf="!isFormDataLoaded && config.form.buttons.start">Start</button>
+              <button mat-raised-button color="secondary" type="reset"  *ngIf="isFormDataLoaded && config.form.buttons.newEntry">New Entry</button>
+            </div>
+          </form>
+        </div>
+      <!-- Detail / Child Form -->
+        <div *ngIf="!isPopupEdit">
+            <form [formGroup]="detailForm" *ngIf="formName && isFormDataLoaded">
+              <formly-form [model]="detailModel" [fields]="detailFields" [options]="options" [form]="detailForm"></formly-form>
+              <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="20px" *ngIf="detailFields">
+                <button mat-button type="reset" (click)="this.formService.resetDetailModel(this)" *ngIf="isDetailEditMode">Cancel</button>
+                <button mat-raised-button type="submit" color="primary" (click)="frmDetailSubmit($event);">{{(isDetailEditMode?'Update':'Save')}}</button>
+              </div>
+            </form>
+       </div>
+
+      </div>
+      <!-- Left Panel End -->
+      <!-- Dynamic Data Table-->
+      <div class="table-container" style="width:80%" *ngIf="config && config?.detailListConfig">
+        <div fxLayout="column">
+          <div fxFlex="auto">
+            <!-- Column filter-->
+            <div fxLayout="row">
+              <div fxFlex="1 0 auto">
+                <app-dynamic-filter  [showdefaultFilter]="showdefaultFilter" (filterValue)=" ' ' "></app-dynamic-filter>
+              </div>
+              <div style="float:right;" fxLayout="column" fxFlex="10%">
+                {{this?.listData?.length}} Record(s) found
+              </div>
+              <div>
+                <!-- <mat-icon *ngIf="config['printScreen']" (click)="printTable('table')">print</mat-icon> -->
+              <div fxLayout="column" fxFlex="5%">
+                <!-- <mat-icon *ngIf="config['pdfPrint']" (click)="generatePDF()">print</mat-icon> -->
+              </div>
+              <div class="add-container" *ngIf="!config['hideAddButton'] || isEditMode">
+                <button mat-raised-button color="primary"
+                  (click)="addForm('add')">
+                  <mat-icon>add</mat-icon>
+                  Add</button>
+                </div>
+            </div>
+          </div>
+          <div *ngIf="listData" >
+            <!-- [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+            [getRowId]="getRowId"
+            [gridOptions]="gridOptions" -->
+<ag-grid-angular
+      #agGrid
+      style="width: 100%; height: calc(100vh - 250px); flex: 1 1 auto"
+      class="ag-theme-alpine"
+      [defaultColDef]="defaultColDef"
+      [columnDefs]="detailListFields"
+      [rowData]="listData"
+      [rowSelection]="'single'"
+      [pagination]="true"
+      [getRowId]="getRowId"
+      [paginationPageSize]="15"
+      (gridReady)="onGridReady($event)"
+      [components]="components"
+      [context]="context"
+      (selectionChanged)="onSelect($event)"
+    ></ag-grid-angular>
+        </div>
+        </div>
+      </div>
+      </div>
+      
+      <!-- Dynamic Data Table end -->
+      <div *ngIf="isDataError">
+        <mat-icon color="warn" aria-label="Given ID is not valid">error</mat-icon>
+        <span>Given ID is not valid</span>
+      </div>
+</div>
+<ng-template #popupEdit let-data>
+  
+  <div style="margin: 10px;">
+    <div style="margin: 10px; justify-content: end;" class="row">
+      <button mat-icon-button (click)="closePopup(data)" class="close-button" [mat-dialog-close]="true">
+        <mat-icon class="close-icon">close</mat-icon>
+      </button>
+      </div>
+      <h2 class="page-title" style="display: flex;justify-content: center;">{{config['pageHeading']}} - {{(isDetailEditMode?'Update':'Add')}}</h2>
+
+      <div style="margin: 20px;">
+      <form [formGroup]="detailForm" *ngIf="formName && isFormDataLoaded">
+        <formly-form immutable [model]="data"  [fields]="detailFields" [options]="options" [form]="detailForm"></formly-form>
+      </form>
+    </div>
+          <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="20px" *ngIf="detailFields">
+            <!-- here this button is should not in ngif  -->
+          <button mat-button type="reset" (click)="closePopup(data)">Cancel</button>
+          <button mat-raised-button type="submit" color="primary" (click)="frmDetailSubmit($event);">{{(isDetailEditMode?'Update':'Save')}}</button>
+    </div>
+</div>
+</ng-template> 
+
+
+
+
+<ng-template #otherpopupEdit let-data>
+  
+  <div style="margin: 10px;">
+    <div style="margin: 10px;justify-content: end;" class="row">
+
+      <button mat-icon-button  (click)="closePopup(data)" class="close-button" [mat-dialog-close]="true">
+        <mat-icon class="close-icon">close</mat-icon>
+      </button>
+      </div>
+    <h2 class="page-title" style="display: flex;justify-content: center;">{{otherdetails.pageHeading+"- Add"}}</h2>
+
+<!-- <div style="justify-content:left;">
+  <h5 style="font-size: 20px; margin: 10px 0;">Facility Name: {{ data.facility_name }}</h5>
+</div> -->
+      <div style="margin: 20px;">      
+        <form [formGroup]="valueformGrupo">
+          <formly-form immutable [model]="value" [fields]="otherdetails.form.fields"   [options]="options" [form]="valueformGrupo" >
+          </formly-form>
+        </form>
+    </div>
+          <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="20px" >
+            <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="20px" >
+              <button mat-button [mat-dialog-close]="true" >Cancel</button>
+              <button mat-raised-button (click)="saveChild(otherdetails,data,value)"  >Save</button>
+            </div>
+    </div>
+</div>
+</ng-template> 
+

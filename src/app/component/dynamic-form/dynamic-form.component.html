@@ -1,0 +1,38 @@
+<mat-card style="width: 98%; margin: auto">
+  <div style="text-align-last: end" *ngIf="config.editMode == 'popup'">
+    <mat-icon (click)="cancel()">close</mat-icon>
+  </div>
+  <mat-card-header style="flex: 1 1 auto">
+    <div style="width: 100%">
+      <h2 style="text-align: center" class="page-title">
+        {{ pageHeading }} - {{ formAction }}
+      </h2>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content style="padding-top: 10px">
+    <div>
+      <form [formGroup]="form" *ngIf="config">
+        <formly-form [model]="model" [fields]="fields" [form]="form" [options]="options"></formly-form>
+      </form>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <div style="text-align-last: end; width: 100%">
+      <button style="margin: 5px" mat-button (click)="cancel()" [disabled]="butonflag" *ngIf="config.onCancelRoute">
+        Cancel
+      </button>
+      <button style="margin: 5px" mat-button (click)="resetBtn('reset')" [disabled]="butonflag" *ngIf="!this.id">
+        Reset
+      </button>
+      <button style="margin: 5px; background: rgb(59, 146, 155)" mat-raised-button color="warn" [disabled]="butonflag"
+        (click)="butonflag = true; frmSubmit($event)">
+        {{ butText }}
+      </button>
+    </div>
+  </mat-card-actions>
+</mat-card>
+<div *ngIf="isDataError">
+  <mat-icon color="warn">error</mat-icon>
+  <span>Given ID is not valid</span>
+</div>

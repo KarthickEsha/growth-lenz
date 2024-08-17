@@ -1,0 +1,218 @@
+{
+    "pageHeading": "ds",
+    "formType": "simpleform",
+    "onCancelRoute": "dd",
+    "editMode": "popup",
+    "token_need_to_set": false,
+    "form": {
+      "collectionName": "screen",
+      "fields":[
+		{
+		  "className": "section-label",
+		  "template": "<h5>Personal data</h5>"
+		},
+		{
+		  "fieldGroupClassName": "row",
+		  "fieldGroup": [
+			{
+			  "key": "name",
+			  "type": "time-input",
+			  "className": "col-md-6",
+			  "props": {
+				"label": "Name",
+				"required": true
+			  }
+			},
+			{
+			  "key": "surname",
+			  "type": "time-input",
+			  "className": "col-md-6",
+			  "props": {
+				"label": "Surname",
+				"required": true
+			  }
+			}
+		  ]
+		},{
+			"key": "investments",
+			"type": "aggrid",
+			"className": "ag-theme-balham",
+			"props": {
+			  "height": "200px",
+			  "gridOptions": {
+				"rowHeight": 42,
+				"columnDefs": [
+				  {
+					"headerName": "Task Name",
+					"field": "task_name",
+					"sortable": true,
+					"width": 350
+				  },
+				  {
+					"headerName": "Task Type",
+					"field": "task_type",
+					"sortable": true,
+					"width": 100
+				  },
+				  {
+					"headerName": "Start Date",
+					"field": "scheduled_start_date"
+				  },
+				  {
+					"headerName": "End Date",
+					"field": "scheduled_end_date"
+				  },
+				  {
+					"headerName": "Allocated Hrs",
+					"field": "allocated_hours"
+				  },
+				  {
+					"headerName": "Assigned To",
+					"field": "assigned_to"
+				  }
+				]
+			  }
+			},
+			"fieldArray": {
+			  "fieldGroup": [
+				{
+					"fieldGroupClassName": "display-flex",
+					"fieldGroup": [		{
+				  "type": "input",
+					  "className": "flex-9",
+					  "key": "task_name",
+				  "props": {
+					"label": "Task Name",
+					"placeholder": "Task Name",
+					"pattern": "^[a-zA-Z&>/;,:-_/]+( [a-zA-Z&>/;,:-_/!@-]+)*$",
+					"required": true
+				  },
+				  "expressions": {
+					"props.readonly": "model.isEdit"
+				  }
+				},{
+					"type": "select",
+					  "className": "flex-5",
+					  "key": "task_type",
+					"props": {
+						"label": "Task Type",
+						"options": [
+							{
+								"label": "UI/UX",
+								"value": "UI/UX"
+							},{
+								"label": "API",
+								"value": "API"
+							},{
+								"label": "Testing",
+								"value": "Testing"
+							},
+							{
+								"label": "UI Development",
+								"value": "UI Development"
+							}
+						],
+						"required": true
+					
+					},
+					"expressions": {
+					  "props.readonly": "model.isEdit"
+					}
+				  }
+				
+				]},
+				{
+				  "fieldGroupClassName": "display-flex",
+				  "fieldGroup": [
+					{
+					  "key": "scheduled_start_date",
+					  "type": "date-input",
+					  "className": "flex-6",
+		  
+					  "props": {
+						"label": "Scheduled Start Date",
+						"attributes":{
+							"hide":"past_date"
+						},
+						"placeholder": "Scheduled Start Date",
+						"required": true
+					  }
+					},
+					{
+					  "key": "scheduled_end_date",
+					  "type": "date-input",
+					  "className": "flex-6",
+		  
+					  "parentKey": "scheduled_start_date",
+					  "parentCollectionName": "task",
+					  "props": {
+						"label": "Scheduled End Date",
+						"placeholder": "Scheduled End Date",
+						"required": true
+					  }
+					}
+				  ]
+				},
+				{
+				  "fieldGroupClassName": "display-flex",
+				  "fieldGroup": [
+					{
+					  "type": "number",
+					  "key": "allocated_hours",
+					  "className": "flex-6",
+		  
+					  "props": {
+						"label": "Allocated Hours",
+						"placeholder": "Allocated Hours",
+						"pattern": "^(?:|[1-9][0-9]*)$",
+						"max":40,
+						"required": true
+					  }
+					},
+		  
+					{
+					  "type": "select-input",
+					  "key": "assigned_to",
+					  "className": "flex-6",
+		  
+					  "props": {
+						"label": "Assigned To",
+						"placeholder": "Assigned To",
+						"lookup": true,
+						"endPoint": "team_specification",
+						"multifiltertype": "local",
+						"local_name": "project_id",
+						"multifilter_condition": {
+						  "clause": "AND",
+						  "conditions": [
+							{
+							  "column": "project_id",
+							  "operator": "EQUALS",
+							  "type": "string",
+							  "value": ""
+							},  {
+							  "column": "user_id",
+							  "operator": "EXISTS",
+							  "type": "string",
+							  "value": true
+							}
+						  ]
+						},
+						"labelProp": "employe_name",
+						"valueProp": "user_id",
+						"required": true
+					  },
+					  "expressions": {
+						"hide": "model.isEdit"
+					  }
+					}
+				  ]
+				}
+			  ]
+			}
+		  }
+	 
+	  ]
+	  
+    }
+  }

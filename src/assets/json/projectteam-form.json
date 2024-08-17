@@ -1,0 +1,105 @@
+{
+    "pageHeading": "Project Team",
+    "formType": "simple",
+    "editMode": "page",
+    "keyField": "_id",
+    "form": {
+        "collectionName": "projectteam",
+        "fields": [
+            {
+                "fieldGroupClassName": "display-flex",
+                "fieldGroup": [
+                    {
+                        "type": "select-input",
+                        "key": "projectname",
+                        "className": "flex-2",
+                        "props": {
+                            "label": "Project Name",
+                            "placeholder": "Project Name",
+                             
+                            "labelPropTemplate": " {{projectname}}",
+                            "optionsDataSource": {
+                                "collectionName": "clients/project"
+                            },
+                            "labelProp": "projectname",
+                            "valueProp": "projectname",
+                            "required": true
+                        } 
+                    },
+                    {
+                        "type": "input",
+                        "key": "teamid",
+                        "className": "flex-2",
+                        "props": {
+                            "label": "Team Id",
+                            "placeholder": "Team Id",
+                            "pattern": "^[a-zA-Z0-9-_]*$",
+                            "required": true
+                        },
+                        
+                        "expressions": {
+                       
+                            "props.readonly": "model.isEdit"
+                        }
+                    },
+                     
+                    {
+                        "type": "select",
+                        "key": "status",
+                        "className": "flex-2",
+                        "props": {
+                            "label": "Team Status",
+                            "options": [
+                                {
+                                    "label": "Active",
+                                    "value": "Active"
+                                },
+                                {
+                                    "label": "Inactive",
+                                    "value": "Inactive"
+                                }
+                                 
+                            ],
+                            "placeholder": "Team Status",
+                            "required": true
+                        },
+                    
+                        "expressions": {
+                            "hide": "!model.isshow"
+                        }
+                        }
+                ]
+            },
+            {
+                "type": "html-input",
+                "key": "teamdes",
+                "className": "flex-2",
+                "props": {
+                    "label": "Team Description",
+                    "required": true,
+                     
+                    "maxlength": 500
+                }
+            },
+           
+            {
+                "type": "button-input",
+                "key": "teammembers",
+                "props": {
+                    "label": "Team Members",
+                    "labelPropTemplate": "{{teammembers}}",
+                    "attributes": "teammembers"
+                    
+                }
+            }
+        ],
+        "defaultValues": [
+            {
+              "colName": "status",
+              "type": "string",
+              "value": "Active"
+            }
+          ]
+    },
+    "onCancelRoute": "/list/projectteam"
+}

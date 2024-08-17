@@ -1,0 +1,257 @@
+<div *ngIf="!(options.length==0)">
+    <div  style=" display: flex;
+    justify-content: flex-end;
+    align-items: center;">
+     <span style="  border: 2px solid black;
+     background-color:rgb(179, 232, 17);margin: 10px;padding: 5px;width: 50px;
+     color: black;" ><b>AND</b></span> 
+      <span style="
+  border: 2px solid black;margin: 10px;margin-left: 15px;
+  background-color: rgb(255, 236, 199);padding: 5px;width: 50px;    display: flex;
+    justify-content: center;
+  color: black;"><b>OR</b></span>
+   </div>
+   
+   <div style="overflow-y: scroll;display: block;max-height: 400px;">
+     <!-- ! Parent level Group  -->
+  
+   
+     <div *ngFor="let values of grp; let i = index ;let last=last">
+      <!--! SubParrent array -->
+      <div *ngFor="let val of values ; let index = index ">
+      
+      <div  style="display: flex;align-items: center;margin-left: 5px;" *ngIf="val.flag==true">
+       <mat-form-field style="display: flex;align-items: start;justify-content: left;float: left;margin: 5px;">
+         <mat-label>Field</mat-label>
+         <mat-select [(ngModel)]="field[i][index]">
+           <mat-option *ngFor="let option of options"  (click)="setflag(option,i,index);getOperators(option,i,index)" [value]="option">{{ option?.name }}</mat-option>
+         </mat-select>
+       </mat-form-field>
+    
+       <mat-form-field *ngIf="field[i][index]!=undefined" style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;">
+        <mat-label>Value Type </mat-label>
+        <mat-select [(ngModel)]="value_type[i][index]">
+          <mat-option value="constant"> Constant</mat-option>
+          <mat-option value="custom_Variable" *ngIf="field[i][index].type=='time.Time'"> Custom Varaiable</mat-option>
+          <mat-option value="filter_Paramas" *ngIf="!(filterParms.length==0)" > Filter Parms </mat-option>
+        </mat-select>
+      </mat-form-field>  
+    
+       <mat-form-field *ngIf="field[i][index]!=undefined" style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;">
+         <mat-label>Operator</mat-label>
+         <mat-select [(ngModel)]="operator[i][index] ">
+           <mat-option *ngFor="let option of operatorOptions[i][index] " (click)="opertorchange(option,i,index)" [value]="option">{{ option?.label }}</mat-option>
+         </mat-select>
+       </mat-form-field>  
+      <!-- Normal value -->
+       <!-- <ng-container *ngIf="flag[i][index]==false&&inputflag[i][index]==false &&value_type[i][index]=='constant' &&field[i][index].type!=='time.Time' " >
+         <mat-form-field>
+           <mat-label>Value</mat-label>
+           <input matInput [(ngModel)]="orbitalValue[i][index]" />
+         </mat-form-field>
+       </ng-container>
+  -->
+
+  <mat-form-field *ngIf="field[i][index]!=undefined&&operator[i][index]!=undefined && field[i][index].type=='bool' && value_type[i][index]=='constant' " style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;">
+    <mat-label>Value </mat-label>
+    <mat-select [(ngModel)]="orbitalValue[i][index]">
+      <mat-option [value]='true'> True</mat-option>
+      <mat-option [value]='false'>False</mat-option>
+      </mat-select>
+  </mat-form-field>  
+
+  <!-- Normal value -->
+   <ng-container *ngIf="flag[i][index]==false&&inputflag[i][index]==false &&value_type[i][index]=='constant' &&field[i][index].type!=='time.Time'&&field[i][index].type!=='bool' " >
+     <mat-form-field>
+       <mat-label>Value</mat-label>
+       <input matInput [(ngModel)]="orbitalValue[i][index]" />
+     </mat-form-field>
+   </ng-container>
+    <!-- If field Type is Data VAlue Type is Constatnt -->
+       <ng-container *ngIf="flag[i][index]==false&&inputflag[i][index]==false &&value_type[i][index]=='constant' &&field[i][index].type==='time.Time' ">
+        <mat-form-field>
+          <mat-label *ngIf=" operator[i][index].value!== 'within'">Choose a date</mat-label>
+          <mat-label *ngIf=" operator[i][index].value=== 'within'">Choose a Date From</mat-label>
+    
+          <input matInput [matDatepicker]="picker"  [(ngModel)]="orbitalValue[i][index]">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </ng-container>
+    <!-- If field Type is Data VAlue Type is Constant Variable  -->
+      
+       <ng-container *ngIf="flag[i][index]==false&&inputflag[i][index]==false &&value_type[i][index]=='custom_Variable'" >
+        <mat-form-field>
+          <mat-label>Type the Custom Variable</mat-label>
+          <input matInput [(ngModel)]="orbitalValue[i][index]" placeholder="The Format Should be 1d 1m 1y / 4w"/>
+          <mat-hint>The Format Should be 1d 1m 1y(i.e 1 Day from 1 Month from 1 Year) / 4 w(i.e 4 weeks) </mat-hint>
+        </mat-form-field>
+      </ng-container>  
+    
+       <ng-container *ngIf="flag[i][index]==false&&inputflag[i][index]==false&&value_type[i][index]=='filter_Paramas'" >
+        <mat-form-field>
+          <mat-label>Filter Parms</mat-label>
+          <!-- <input matInput  /> -->
+          <mat-select [(ngModel)]="orbitalValue[i][index]">
+            <mat-option *ngFor="let Prasms of filterParms"  [value]="Prasms">{{ Prasms?.ParamsName }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+    <!-- ! this contain two or more input box -->
+       <ng-container *ngIf="inputflag[i][index]=='any'" style="display: flex;align-items: center;margin-left: 5px;">
+       
+       <div *ngIf="value_type[i][index]=='constant' && field[i][index].type!=='time.Time' ">
+          <mat-form-field style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;" >
+            <mat-label>Another MIN Value</mat-label>
+            <input matInput [(ngModel)]="orbitalValue[i][index]" />
+          </mat-form-field >
+          <mat-form-field  style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;">
+            <mat-label>Another Max Value</mat-label>
+            <input matInput [(ngModel)]="anotherfield[i][index]" />
+          </mat-form-field>
+        </div>
+      
+      
+        <div *ngIf="value_type[i][index]=='constant' && field[i][index].type==='time.Time'" style="display: flex;align-items: center;margin-left: 5px;">
+          <mat-form-field  style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;">
+            <mat-label>Choose a From date</mat-label>
+            <input matInput [matDatepicker]="picker"  [(ngModel)]="orbitalValue[i][index]">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+    
+          <mat-form-field  style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;">
+            <mat-label>Choose a To date</mat-label>
+            <input matInput [matDatepicker]="picker1" [min]="orbitalValue[i][index]" [(ngModel)]="anotherfield[i][index]" >
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+    
+        </div>
+      
+        <div *ngIf="value_type[i][index]=='custom_Variable'  &&( operator[i][index].value=== 'between_age' || operator[i][index].value=== 'in_between' )&& field[i][index].type==='time.Time' " style="display: flex;align-items: center;margin-left: 5px;">
+          <mat-form-field style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;" >
+            <mat-label *ngIf=" operator[i][index].value=== 'between_age'">Age Range From</mat-label>
+            <mat-label *ngIf=" operator[i][index].value=== 'in_between'">Date Format</mat-label>
+    
+            <input matInput [(ngModel)]="orbitalValue[i][index]" />
+            <mat-hint *ngIf=" operator[i][index].value=== 'between_age'"><b>Exampe From Age Range :</b> 20 </mat-hint>
+            <mat-hint *ngIf="operator[i][index].value=== 'in_between' ">The Format Should be 1d 1m 1y / 4 w(i.e 4 weeks) </mat-hint>
+    
+          </mat-form-field >
+          <mat-form-field  style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;">
+            <mat-label *ngIf=" operator[i][index].value=== 'between_age'">Age Range To</mat-label>
+            <mat-label *ngIf=" operator[i][index].value=== 'in_between'">Date Format</mat-label>
+            <input matInput [(ngModel)]="anotherfield[i][index]" />
+            <mat-hint *ngIf=" operator[i][index].value=== 'between_age'"><b>Exampe To Age Range :</b> 40 </mat-hint>
+            <mat-hint *ngIf="operator[i][index].value=== 'in_between' ">The Format Should be 1d 1m 1y / 4 w(i.e 4 weeks) </mat-hint>
+    
+          </mat-form-field>
+        </div>
+        <div *ngIf="value_type[i][index]=='custom_Variable'  && operator[i][index].value=== 'within' && field[i][index].type==='time.Time' ">
+    
+          <mat-form-field style="display: flex;align-items: end;justify-content: right;margin: 5px;float: right;" >
+            <mat-label>With in Custom Date Format</mat-label>
+            <input matInput [(ngModel)]="orbitalValue[i][index]" />
+            <mat-hint>The Format Should be 1d 1m 1y(i.e 1 Day from 1 Month from 1 Year) / 4 w(i.e 4 weeks) </mat-hint>
+    
+            </mat-form-field >
+        </div>
+      </ng-container>
+      
+       <!-- <ng-container *ngIf="flag[i][index]==true &&inputflag[i][index]==true">
+         <mat-form-field style="display: flex;align-items: start;justify-content: left;float: left;margin: 5px;">
+           <mat-label>Orbital Value</mat-label>
+           <mat-select [(ngModel)]="orbitalValue[i][index]">
+             <mat-option *ngFor="let option of orbitalOptions[i][index]"[value]="option.value">{{ option?.label }}</mat-option>
+           </mat-select>
+         </mat-form-field>
+       </ng-container> -->
+      
+      <button mat-icon-button (click)="removeField(i,index)" style="margin-bottom: 5px;">
+       <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button  (click)="convertdata_into_string(i,index)" style="margin-bottom: 5px;">
+       <mat-icon>check</mat-icon>
+      </button>
+      
+      </div>
+      <!-- !this used for the String Conversion -->
+      <div *ngIf="val.flag == false" style="display: flex; align-items: center; " [style.margin-left]="i > 0 ? '20px' : '0px'">
+       <h6 [style.background-color]="val.operator === 'AND' ? '#b3e811' : '#ffecc7'"  style="border-radius: 50px; font-size: medium; padding: 5px;">
+         <!-- <span style="margin-left: 20px; margin-right: 20px">{{ "    " + val?.filter + "    " }}</span> -->
+         <span style="color: black;"><b>{{ "    " + val?.field + "    " }}</b></span>
+         <span style="color: rgb(119, 106, 106);">{{ "    " + val?.operators + "    " }}</span>
+         <span style="color: black;"><b>{{ "    " + val?.value + "    " }}</b></span>
+    
+       </h6>
+      
+      <button mat-icon-button (click)="removePArentField(i)"*ngIf="index==0" style="margin-bottom: 5px;">
+       <mat-icon>delete_forever</mat-icon>
+     </button>
+    
+    
+      <button mat-icon-button (click)="removeField(i,index)" *ngIf="!(index==0)" style="margin-bottom: 5px;">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button (click)="addgrp(i,index)" *ngIf="index==0" style="margin-bottom: 5px;">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button (click)="Grp_undo_edit(i,index)" style="margin-bottom: 5px;">
+        <mat-icon>edit</mat-icon>
+      </button>
+      </div>
+      
+      </div>
+      
+      <div *ngIf="last">
+       <!-- !IF Need Undo -->
+       <!-- <button mat-raised-button color="primary" (click)="Parent_Conditons(false,'Conditions',i)" style="margin: 5px; justify-content: center; align-items: center;">
+         <mat-icon>add</mat-icon>
+         Conditions
+       </button> 
+        -->
+       <button mat-raised-button color="primary" (click)="Parent_Conditons(true,'AND',i)" style="margin: 5px; justify-content: center; align-items: center;">
+         <mat-icon>add</mat-icon>
+         AND Group
+       </button>
+       
+       <button mat-raised-button color="primary" (click)="Parent_Conditons(true,'OR',i)" style="margin: 5px; justify-content: center; align-items: center;">
+         <mat-icon>add</mat-icon>
+         OR Group
+       </button>
+       <button mat-raised-button color="primary" (click)="savegrp()" style="margin: 5px; justify-content: center; align-items: center;">
+         <mat-icon>save_alt</mat-icon>
+         Save
+       </button>
+      </div>
+      </div>
+      
+  
+  </div>
+  <div *ngIf="button_Flag==false">
+  <!-- <button mat-raised-button color="primary" (click)="Parent_Conditons(false,'Conditions')" style="margin: 5px; justify-content: center; align-items: center;">
+  <mat-icon>add</mat-icon>
+  Conditions
+  </button>
+  -->
+  <button mat-raised-button color="primary" (click)="button_Flag=true;Parent_Conditons(true,'AND',0)" style="margin: 5px; justify-content: center; align-items: center;">
+  <mat-icon>add</mat-icon>
+  AND Group
+  </button>
+  
+  <button mat-raised-button color="primary" (click)="button_Flag=true;Parent_Conditons(true,'OR',0)" style="margin: 5px; justify-content: center; align-items: center;">
+  <mat-icon>add</mat-icon>
+  OR Group
+  </button>
+
+  <button mat-raised-button color="primary" (click)="savegrp()" style="margin: 5px; align-items: left;">
+    <mat-icon>close</mat-icon>
+    Cancel
+   </button>
+  </div>
+       
+  </div>

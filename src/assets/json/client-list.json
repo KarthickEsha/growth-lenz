@@ -1,0 +1,338 @@
+{
+	"pageHeading": "Minutes of Meeting",
+	"formType": "simple",
+	"form": {
+	  "collectionName": "mom",
+	  "fields": [
+		{
+		  "fieldGroupClassName": "display-flex",
+		  "fieldGroup": [
+			{
+			  "type": "label-view",
+			  "key": "name",
+			  "className": "flex-3",
+			  "props": {
+				"label": "Meeting Name",
+				"label_width": 100,
+				"value_width": 200,
+				"value_in_next_row": false
+			  }
+			},
+			{
+			  "type": "label-view",
+			  "key": "meeting_date",
+			  "className": "flex-3",
+			  "props": {
+				"label": "Meeting Date",
+				"label_width": 100,
+				"value_width": 200,
+				"value_in_next_row": false,
+				"inputType":"date" 
+			  }
+			}
+		  ],
+		  "hideExpression": "!model.isEdit"
+		},
+		{
+		  "fieldGroupClassName": "display-flex",
+		  "fieldGroup": [
+			{
+			  "type": "input",
+			  "key": "name",
+			  "className": "flex-6",
+			  "props": {
+				"label": "Meeting Name",
+				"placeholder": "Meeting Name",
+				"required": true
+			  }
+			},
+			{
+			  "key": "meeting_date",
+			  "type": "date-input",
+			  "className": "flex-3",
+			  "props": {
+				"label": "Meeting Date",
+				"placeholder": "Meeting Date",
+				"attributes": {
+				  "today": true
+				},
+				"required": true
+			  }
+			}
+		  ],
+		  "hideExpression": "model?.isEdit"
+		},
+	
+		{
+		  "key": "attendee",
+		  "type": "text-to-chips",
+		  "props": {
+			"label": "Attendee",
+			"placeholder": "Attendee",
+			"required": true
+		  },
+		  "expressions": {
+			"props.readonly": "model?.isEdit",
+			"props.placeholder": "model?.isEdit ? '' : 'Attendee Email ID '"
+		  }
+		},
+		{
+			"fieldGroupClassName": "display-flex",
+			"fieldGroup": [
+			  {
+				"type": "time-input",
+				"key": "start_time",
+				"className": "flex-6",
+				"props": {
+				  "timeFormat": 12,
+				  "label": "Start Time",
+				  "required": true
+				},
+				"defaultValue": ""
+			  },
+			  {
+				"type": "time-input",
+				"key": "end_time",
+				"className": "flex-6",
+				"props": {
+				  "timeFormat": 12,
+				  "label": "End Time",
+				  "required": true
+				},
+				"defaultValue": ""
+			  },{
+				"type": "select",
+				"key": "mode_of_participation",
+				"defaultValue": "Online","className": "flex-6",
+				"props": {
+				  "label": "Mode of Participation",
+				  "options": [
+					{
+					  "label": "Online",
+					  "value": "Online"
+					},
+					{
+					  "label": "Offline",
+					  "value": "Offline"
+					}
+				  ]
+				}
+			  }
+			]
+		  },
+		{
+		  "type": "html-input",
+		  "key": "summary_discuss",
+		  "props": {
+			"label": "Summary of discussion"
+		  }
+		} ,{
+			"key": "action_point",
+			"type": "aggrid",
+			"className": "ag-theme-balham",
+			"props": {
+			  "height": "200px",
+			  "gridOptions": {
+				"rowHeight": 42,
+				"columnDefs": [
+				  {
+					"headerName": "Task Name",
+					"field": "task_name",
+					"sortable": true,
+					"width": 350
+				  },
+				  {
+					"headerName": "Task Type",
+					"field": "task_type",
+					"sortable": true,
+					"width": 100
+				  },
+				  {
+					"headerName": "Start Date",
+					"field": "scheduled_start_date"
+				  },
+				  {
+					"headerName": "End Date",
+					"field": "scheduled_end_date"
+				  },
+				  {
+					"headerName": "Allocated Hrs",
+					"field": "allocated_hours"
+				  },
+				  {
+					"headerName": "Assigned To",
+					"field": "assigned_to"
+				  }
+				]
+			  }
+			},
+			"fieldArray": {
+			  "fieldGroup": [
+				{
+					"fieldGroupClassName": "display-flex",
+					"fieldGroup": [		{
+				  "type": "input",
+					  "className": "flex-9",
+					  "key": "task_name",
+				  "props": {
+					"label": "Task Name",
+					"placeholder": "Task Name",
+					"pattern": "^[a-zA-Z&>/;,:-_/]+( [a-zA-Z&>/;,:-_/!@-]+)*$",
+					"required": true
+				  },
+				  "expressions": {
+					"props.readonly": "model.isEdit"
+				  }
+				},{
+					"type": "select",
+					  "className": "flex-5",
+					  "key": "task_type",
+					"props": {
+						"label": "Task Type",
+						"options": [
+							{
+								"label": "UI/UX",
+								"value": "UI/UX"
+							},{
+								"label": "API",
+								"value": "API"
+							},{
+								"label": "Testing",
+								"value": "Testing"
+							},
+							{
+								"label": "UI Development",
+								"value": "UI Development"
+							}
+						],
+						"required": true
+					
+					},
+					"expressions": {
+					  "props.readonly": "model.isEdit"
+					}
+				  }
+				
+				]},
+				{
+				  "fieldGroupClassName": "display-flex",
+				  "fieldGroup": [
+					{
+					  "key": "scheduled_start_date",
+					  "type": "date-input",
+					  "className": "flex-6",
+		  
+					  "props": {
+						"label": "Scheduled Start Date",
+						"attributes":{
+							"hide":"past_date"
+						},
+						"placeholder": "Scheduled Start Date",
+						"required": true
+					  }
+					},
+					{
+					  "key": "scheduled_end_date",
+					  "type": "date-input",
+					  "className": "flex-6",
+		  
+					  "parentKey": "scheduled_start_date",
+					  "parentCollectionName": "task",
+					  "props": {
+						"label": "Scheduled End Date",
+						"placeholder": "Scheduled End Date",
+						"required": true
+					  }
+					}
+				  ]
+				},
+				{
+				  "fieldGroupClassName": "display-flex",
+				  "fieldGroup": [
+					{
+					  "type": "number",
+					  "key": "allocated_hours",
+					  "className": "flex-6",
+		  
+					  "props": {
+						"label": "Allocated Hours",
+						"placeholder": "Allocated Hours",
+						"pattern": "^(?:|[1-9][0-9]*)$",
+						"max":40,
+						"required": true
+					  }
+					},
+		  
+					{
+					  "type": "select-input",
+					  "key": "assigned_to",
+					  "className": "flex-6",
+		  
+					  "props": {
+						"label": "Assigned To",
+						"placeholder": "Assigned To",
+						"lookup": true,
+						"endPoint": "team_specification",
+						"multifiltertype": "local",
+						"local_name": "project_id",
+						"multifilter_condition": {
+						  "clause": "AND",
+						  "conditions": [
+							{
+							  "column": "project_id",
+							  "operator": "EQUALS",
+							  "type": "string",
+							  "value": ""
+							},  {
+							  "column": "user_id",
+							  "operator": "EXISTS",
+							  "type": "string",
+							  "value": true
+							}
+						  ]
+						},
+						"labelProp": "employe_name",
+						"valueProp": "user_id",
+						"required": true
+					  },
+					  "expressions": {
+						"hide": "model.isEdit"
+					  }
+					}
+				  ]
+				}
+			  ]
+			}
+		  },
+		{
+		  "type": "select",
+		  "key": "status",
+		  "props": {
+			"label": "Status",
+			"options": [
+			  {
+				"label": "Active",
+				"value": "A"
+			  },
+			  {
+				"label": "Inactive",
+				"value": "I"
+			  }
+			]
+		  },
+		  "expressions": {
+			"hide": "!model.isEdit"
+		  }
+		}
+	  ],
+	  "defaultValues": [
+		{
+		  "colName": "status",
+		  "value": "A",
+		  "type": "string"
+		}
+	  ]
+	},
+	"onCancelRoute": "list/naveen"
+  }
+  

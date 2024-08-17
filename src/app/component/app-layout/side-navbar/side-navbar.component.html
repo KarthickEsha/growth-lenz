@@ -1,0 +1,98 @@
+<div class="sidenav" [ngClass]="collapsed ?'sidenav-collapsed':'sidenav-expanded'">
+  <div class="logo-container">
+    <!-- <button class="logo" (click)="togglecollapse()"><mat-icon>menu</mat-icon></button> -->
+    <div class="image" (click)="dashboard()" *ngIf="collapsed">
+        <img *ngIf="this.logo_image"  style="object-fit:contain;   width: 100%;padding: 15px 20px 15px 20px;height: 150px;"   src={{this.logo_image}} />
+    </div>
+    <mat-icon [ngClass]="collapsed ?'expand_icon_collapsed':'expand_icon_non_collapsed'"
+      (click)="togglecollapse()">chevron_right</mat-icon>
+  </div>
+  <div (click)="togglecollapse(collapsed)" [ngClass]="collapsed ?'menu-items':'menu-items-noncollapsed'">
+    <ul *ngFor="let data of navItems" class="sidenav-nav">
+      <li class="sidenav-nav-item">
+        <a *ngIf="!data.children" href="" class="sidenav-nav-link" [routerLink]="[data.route]">
+           <!-- <svg  class="sidenav-link" width="22" height="22" style="margin: 3px 5px 5px 0px; gap: 5px; font-size: 22px;"  >
+            <image class="imgsvg" x="0" y="0" class="imgsvg" width="100%" height="100%" [attr.xlink:href]="data.iconName" />
+          </svg> -->
+          <span  class="sidenav-link">{{ data.displayName }}</span>
+        </a>
+      </li>
+      <li *ngIf="data.children" (click)="toggleSubsection(data)" class="sidenav-nav-item">
+        <a class="sidenav-nav-link" >
+          <!-- <mat-icon class="sidenav-link" style="margin-top: 3px; gap: 5px; font-size: 22px;">{{ data.iconName
+            }}</mat-icon> -->
+            <!-- <svg class="sidenav-link" width="22" height="22" style="margin: 3px 5px 5px 0px; gap: 5px; font-size: 22px;"  >
+              <image x="0" y="0" class="imgsvg" width="100%" height="100%" [attr.xlink:href]="data.iconName" />
+            </svg>          -->
+          <span  class="sidenav-link">{{ data.displayName }}  </span>
+          <mat-icon  *ngIf="collapsed" style="margin-left: auto; margin-top: 3px; gap: 5px;">
+            {{
+            subsectionExpanded[data.displayName]
+            ? 'expand_less'
+            : 'expand_more'
+            }}
+          </mat-icon>
+        </a>
+      </li>
+      <li *ngIf="subsectionExpanded[data.displayName] && data.children && collapsed == true" class="submenu-item">
+        <a class="sidenav-nav-link" mat-list-item [routerLink]="[subsection.route]"
+          *ngFor="let subsection of data.children">
+          <div style="display: flex;flex-direction: row;">
+              <!-- <img class="sidenav-link" style=" margin-top: 3px; gap: 5px; font-size: 22px;height: 8%; width: 8%;" [src]="subsection.iconName" alt=""> -->
+              <!-- <svg class="sidenav-link" width="22" height="22" style="margin: 3px 5px 5px 0px; gap: 5px; font-size: 22px;">
+                <image class="imgsvg" x="0" y="0" width="100%" height="100%" [attr.xlink:href]="subsection.iconName" alt=""/>
+              </svg>               -->
+              <span class="sidenav-link" style="margin-top: 3px;gap:5px;">{{
+              subsection.displayName
+              }}</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- <div [ngClass]="collapsed ?'menu-signout':'menu-signout-noncollapsed'" class="logout">
+    <a href="" class="sidenav-nav-link" (click)="logout()">
+      <svg class="sidenav-link" width="22" height="22" style="margin: 3px 5px 5px 0px; gap: 5px; font-size: 22px;">
+        <image class="imgsvg" x="0" y="0" width="100%" height="100%" xlink:href="assets/images/Sign out.svg#icon-name" alt=""/>
+      </svg>  
+      <span class="sidenav-link">Sign Out</span>
+    </a>
+  </div> -->
+  <div [ngClass]="collapsed ?'menu-signout':'menu-signout-noncollapsed'" class="logout" style = "cursor: pointer;">
+    <a  class="sidenav-nav-link" (click)="logout()">
+      <svg class="sidenav-link" width="22" height="22" style="margin: 3px 5px 5px 0px; gap: 5px; font-size: 22px;">
+        <image class="imgsvg" x="0" y="0" width="100%" height="100%" xlink:href="assets/images/Sign out.svg#icon-name" alt=""/>
+      </svg> 
+      <span class="sidenav-link">Sign Out</span>
+    </a>
+  </div>
+
+</div>
+
+
+<ng-template #confirmationDialog>
+  <div style="text-align-last: end">
+      <mat-icon (click)="cancel()">close</mat-icon>
+    </div>
+  <h6 style="text-align: center;font-weight: bold;font-size: initial;" >Are you sure want to Sign Out?</h6>
+ 
+<div style="text-align: center; width: 100%; margin-top:15px">
+  <button
+    style="margin: 5px"
+    mat-button
+    (click)="cancel()"
+    class="cancelbtn"
+    mat-raised-button
+  >
+    Cancel
+  </button>
+  <button
+    style="margin: 5px;"
+    mat-raised-button
+    color="warn"
+    (click)="logout1()"
+  >OK
+  </button> 
+</div>
+</ng-template>

@@ -1,0 +1,21 @@
+{
+  "headerName": "Status",
+  "field": "status",   "maxWidth":100,
+  "filter": "agTextColumnFilter",
+  "sortable": true
+}, 
+{
+"type": "rightAligned",
+"headerName": "Actions",
+"menuTabs": [],    "maxWidth":85,
+
+"lockPosition": "right",
+"lockPinned": true,
+"pinned":"right",
+"cellRenderer": "buttonRenderer",
+"cellRendererParams": {
+"onClick": "this.onBtnClick1.bind(this)",
+"label": "Click 1"
+},
+"filter":false,"sortable":false
+}

@@ -1,0 +1,281 @@
+<div
+  cdkDropList
+  dragAndDropManagerRoot
+  [cdkDropListData]="data"
+  [id]="data.id ? data.id  :'parent' "
+  [ngClass]="data.className ? data.className : parentclass ? parentclass :'' "
+  (cdkDropListDropped)="onDragDrop$.next($event)"
+>
+
+ <!-- parent   {{data | json}} -->
+  <div
+    *ngFor="let field of data"
+    [ngStyle]="{ padding: field?.parentId ? '0px 0px 0px 1px' : '5px 0px 5px 5px', 'z-index': 'inherit', display: field.className ? '' : 'inherit' }"
+    [ngClass]="field?.className ? field?.className : 'noclass'"
+    [id]="field?.id"
+    cdkDrag
+    [cdkDragData]="field"
+    cdkDropList
+    [cdkDropListData]="field?.fieldGroup ? field?.fieldGroup : field"
+    dragAndDropManager
+    [id]="field.id"[cdkDropListEnterPredicate]="isallowedtoEnter"
+    (cdkDropListDropped)="onDragDrop$.next($event)"
+    (dragenter)="ondragEnter($event,field?.fieldGroup)"
+  > 
+    <!--     [cdkDropListEnterPredicate]="isallowedtoEnter"
+ -->
+    <mat-card
+      *ngIf="!field?.fieldGroup"
+      [id]="field?.id"
+      fxLayoutGap="20px"
+      draggable="true"
+      style="width: 100%;border: 3px dotted lightgray;"
+    [ngClass]="field?.className ? field?.className : 'noclass'"
+    (contextmenu)="open($event, field); $event.preventDefault()"
+      (mouseenter)="toggleButtonVisibility(true, field.id, 'fieldbutton')"
+      (mouseleave)="toggleButtonVisibility(false, field.id, 'fieldbutton')"
+    >
+      <span style="width: 90%" [id]="field?.id" >
+        {{ field?.props?.label ? field?.props?.label : field.templateName !='' ? field.templateName : field?.props?.label }}
+      </span>
+
+      <span
+        style="padding-left: 10px; position: absolute; right: 19px"
+        [id]="field?.id + 'fieldbutton'"
+      >
+        <i
+          class="fa-solid fa-wrench"
+          (click)="handleAction(field, 'settings')"  matTooltip="Change the Setting"
+          style="color: #776666; padding-right: 10px"
+        ></i>
+        <i
+          class="fa-solid fa-trash-can"  matTooltip="Delete "
+          (click)="handleAction(field, 'delete')"
+          style="color: #776666"
+        ></i>
+      </span>
+
+    </mat-card> 
+
+
+    <!-- 
+      Grrey :: Form Group
+      black :: Tab input
+      red :: Stepper
+     -->
+
+     <!--? CONTINER -->
+    <mat-card   
+      *ngIf="field?.fieldGroup && ( ! ( parentGroup == 'stepper' || parentGroup == 'tab-input' ) || ( field.jsonName == 'stepper' || field.jsonName == 'tab-input') )"  [id]="field?.id"
+      style="width: 100%; padding: 25px 2px 5px 5px"
+      [ngStyle]="{'border-radius':'5px', 'border': (parentGroup == 'tab-input' || field.jsonName == 'tab-input') ?  '3px dotted black' : (parentGroup == 'stepper' || field.jsonName == 'stepper')   ?  '3px dotted red' : '3px dotted gray'} "
+      (contextmenu)="open($event, field); $event.preventDefault()"
+      (mouseenter)="toggleButtonVisibility(true, field.id, 'myButton')"
+      (mouseleave)="toggleButtonVisibility(false, field.id, 'myButton')"
+      (dragleave)="onDragleave($event)"   (dragover)="onDragOver($event)"
+    >
+<!-- ? TAB -->
+    <mat-tab-group   *ngIf="(parentGroup == 'tab-input' && parentGroup != 'stepper')|| (field.jsonName != 'stepper'&& field.jsonName == 'tab-input') " [id]="field?.id" style="z-index: 2;">
+      <div *ngFor="let tab of field?.fieldGroup; let index = index">
+        <mat-tab [label]="tab?.props?.label || 'Tab' + index "   style="z-index: 3;" >
+          <span style="padding-left: 10px; position: absolute; right: 19px; top: 0px;visibility:hidden" [id]="tab?.id + 'myTab'">
+    
+            <i class="fa-solid fa-folder-plus" *ngIf="tab.multiforms"  style="color: #776666; padding-right: 10px" (click)="handleAction(tab, 'addsubform')" matTooltip="Add Tab"></i>
+              <i
+                class="fa-solid fa-wrench"
+                (click)="handleAction(tab, 'settings')" matTooltip="Change Tab Setting"
+                style="color: #776666; padding-right: 10px"
+              ></i>
+              <i
+                class="fa-solid fa-trash-can" matTooltip="Delete the Tab"
+                (click)="handleAction(tab, 'delete')"
+                style="color: #776666"
+              ></i>
+            </span>
+      <!-- <ng-container *ngTemplateOutlet="iconActions; context: { $implicit:tab  }"></ng-container> -->
+
+          <div style="min-height: 100px;padding-top: 21px;" [ngClass]=" tab?.className ? ''  : {  'row-layout': tab?.className,  'column-layout': !tab?.className  }"
+          [id]="tab?.id" (mouseenter)="toggleButtonVisibility(true, tab.id, 'myTab')"
+          (cdkDropListDropped)="onDragDrop$.next($event)"
+          (dragenter)="ondragEnter($event,tab?.fieldGroup)"
+          cdkDropList cdkDrag
+          [cdkDropListData]="tab?.fieldGroup ? tab?.fieldGroup : tab"
+          dragAndDropManager [cdkDragData]="tab"  
+          (mouseleave)="toggleButtonVisibility(false, tab.id, 'myTab')">
+
+              <div [ngClass]=" tab?.className ? tab?.className : {  'child-row': tab?.className, 'child-column': !tab?.className }"
+                [id]="tab?.id" style=" width: 100%; align-items: end;padding-top: 10px;" > 
+
+                <app-display-data
+                  [data]="tab.fieldGroup"
+                  (action)="this.action.emit($event)"
+                  [id]="data.id ? data.id  :'parent' "
+                  [onDragDrop]="onDragDrop$"
+                  [parentclass]="tab.className ? tab.className : '' "
+                  [ngClass]="data.className ? data.className  :'' "
+                  style="width: 100%;"
+                ></app-display-data>
+                
+              </div>
+        </div>
+        </mat-tab>
+      </div>
+   
+    </mat-tab-group>
+<!-- ? STEPPER -->
+    
+    <mat-stepper *ngIf="(parentGroup == 'stepper'&& parentGroup != 'tab-input')||(field.jsonName == 'stepper'&& field.jsonName != 'tab-input')" [id]="field?.id">
+    
+   <div *ngFor="let stepper of field?.fieldGroup; let index = index">
+   
+    <mat-step [label]="stepper?.props?.label || 'Stepper' + index"   >
+     
+      <!-- <ng-container *ngTemplateOutlet="iconActions; context: { $implicit:stepper  }"></ng-container> -->
+
+      <div style="min-height: 100px;padding-top: 21px;"
+      [ngClass]=" stepper?.className ? ''  : {  'row-layout': stepper?.className,  'column-layout': !stepper?.className  }"
+      [id]="stepper?.id"   >
+   
+      <div [ngClass]=" stepper?.className ? stepper?.className : { 
+          'child-row': stepper?.className, 'child-column': !stepper?.className
+         }"
+        [id]="stepper?.id"
+        style="z-index: 1; width: 100%; align-items: end;min-height: 100px;"
+        (mouseenter)="toggleButtonVisibility(true, stepper?.id, 'mystepper')"
+        (mouseleave)="toggleButtonVisibility(false, stepper?.id, 'mystepper')" 
+      (cdkDropListDropped)="onDragDrop$.next($event)"
+      (dragenter)="ondragEnter($event,stepper?.fieldGroup)"
+      cdkDropList cdkDrag
+      [cdkDropListData]="stepper?.fieldGroup ? stepper?.fieldGroup : stepper"
+      dragAndDropManager [cdkDragData]="stepper"  
+      
+      >
+      <span style="padding-left: 10px ; text-align: end;display: block;visibility:hidden" [id]="stepper?.id + 'mystepper'">
+        <i class="fa-solid fa-folder-plus" *ngIf="stepper.multiforms"  style="color: #776666; padding-right: 10px" (click)="handleAction(stepper, 'addsubform')" matTooltip="Add Stepper"></i>
+          <i
+            class="fa-solid fa-wrench"
+            (click)="handleAction(stepper, 'settings')" matTooltip="Change Stepper Setting"
+            style="color: #776666; padding-right: 10px"
+          ></i>
+        <i
+          class="fa-solid fa-trash-can" matTooltip="Delete Stepper"
+          (click)="handleAction(stepper, 'delete')"
+          style="color: #776666"
+        ></i>
+      </span>
+        <app-display-data
+          [data]="stepper.fieldGroup"
+          (action)="this.action.emit($event)"
+          [id]="data.id ? data.id  :'parent' "
+          [onDragDrop]="onDragDrop$"
+          [parentclass]="stepper.className ? stepper.className : '' "
+          [ngClass]="data.className ? data.className  :'' "
+          style="width: 100%;"
+        ></app-display-data>
+        
+      </div>
+    </div>
+    </mat-step>
+   </div> 
+    </mat-stepper> 
+<!-- ? FORM GRoup -->
+    <div  *ngIf="!(parentGroup == 'stepper' && parentGroup == 'tab-input')||(field.jsonName == 'stepper'&& field.jsonName == 'tab-input')" >
+      <h2
+      style="text-align: center"
+      class="page-title"
+      *ngIf="field.template && field.template != ''"
+    >
+      {{ field.template }}
+    </h2>
+    <div 
+    [ngClass]=" field?.className ? ''  : {  'row-layout': field?.className,  'column-layout': !field?.className  }"
+    [id]="field?.id" >
+    <div
+      [ngClass]=" field?.className ? field?.className : { 
+        'child-row': field?.className, 'child-column': !field?.className
+      }"
+      [id]="field?.id"
+      style="z-index: 1; width: 100%; align-items: end"
+    > 
+      <app-display-data
+        [data]="field.fieldGroup"
+        (action)="this.action.emit($event)"
+        [id]="data.id ? data.id  :'parent' "
+        [onDragDrop]="onDragDrop$"
+        [parentclass]="field.className ? field.className : '' "
+        [ngClass]="data.className ? data.className  :'' "
+        [parentGroup]="field.jsonName"
+        style="width: 100%;"
+      ></app-display-data>
+    </div>
+    </div>
+    </div>
+
+<!-- <ng-container *ngTemplateOutlet="iconActions; context: { $implicit: field  }"></ng-container> -->
+      <!--  -->
+
+      <span style="padding-left: 10px; position: absolute; right: 19px; top: 0px;visibility:hidden" [id]="field?.id + 'myButton'">
+    
+      <i class="fa-solid fa-folder-plus" *ngIf="field.multiform"  style="color: #776666; padding-right: 10px" (click)="handleAction(field, 'addsubform')" matTooltip="Add The Sub Form"></i>
+        <i
+          class="fa-solid fa-wrench"
+          (click)="handleAction(field, 'settings')" matTooltip="Change the Setting"
+          style="color: #776666; padding-right: 10px"
+        ></i>
+        <i
+          class="fa-solid fa-trash-can" matTooltip="Delete "
+          (click)="handleAction(field, 'delete')"
+          style="color: #776666"
+        ></i>
+      </span>
+
+    </mat-card>
+    
+   
+  </div>
+</div>
+
+<ng-template #contextMenupop let-field>
+  <section class="context_menu">
+    <div (click)="handleAction(field, 'settings')">
+      <!-- <i class="fa-solid fa-pen fa-bounce"></i> -->
+      <i class="fa-solid fa-wrench"></i>
+      <span style="padding-left: 10px">Setting</span>
+    </div>
+    <hr>
+    <div (click)="handleAction(field, 'delete')">
+      <i class="fa-regular fa-trash-can"></i>
+      <span style="padding-left: 10px">Delete</span>
+    </div>
+    <hr  *ngIf="field.multiform">
+    <div (click)="handleAction(field, 'addsubform')" *ngIf="field.multiform">
+      <i class="fa-solid fa-folder-plus"  ></i>
+      <span style="padding-left: 10px">Add Sub Form</span>
+
+    </div>
+  </section>
+</ng-template>
+<!-- 
+<ng-template #iconActions let-data="data">
+  <span style="padding-left: 10px; position: absolute; right: 19px; top: 0px" [id]="data.id + 'myButton'">
+    <i class="fa-solid fa-folder-plus" *ngIf="data.multiforms" style="color: #776666; padding-right: 10px" (click)="handleAction(data, 'addsubform')" matTooltip="Add"></i>
+    <i class="fa-solid fa-wrench" (click)="handleAction(data, 'settings')" matTooltip="Change Setting" style="color: #776666; padding-right: 10px"></i>
+    <i class="fa-solid fa-trash-can" matTooltip="Delete" (click)="handleAction(data, 'delete')" style="color: #776666"></i>
+  </span>
+</ng-template> -->
+
+
+<!-- <mat-menu #modulemenu="matMenu" >
+  <button mat-menu-item (click)="handleAction(field,'edit')">
+    <mat-icon>edit</mat-icon>
+    <span>Edit</span>
+  </button>
+  <button mat-menu-item (click)="handleAction(field,'settings')">
+    <mat-icon>settings</mat-icon>
+    <span>Setting</span>
+  </button>
+  <button mat-menu-item (click)="handleAction(field,'delete')">
+    <mat-icon>delete</mat-icon>
+    <span>Delete</span>
+  </button>
+</mat-menu> -->

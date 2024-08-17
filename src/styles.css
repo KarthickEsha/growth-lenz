@@ -1,0 +1,1489 @@
+
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "~font-awesome/css/font-awesome.css";
+/* @import "~bootstrap/dist/css/bootstrap.css"; */
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-alpine.css';
+@import "~@ng-select/ng-select/themes/material.theme.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+
+* {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+
+.mat-drawer-backdrop.mat-drawer-shown {
+  height: 130vh !important;
+}
+
+.mat-mdc-outlined-button.mat-primary {
+    --mdc-outlined-button-label-text-color: #195f4a !important;
+}
+
+.mat-calendar-body-cell:hover {
+    background-color: #195f4a !important;
+    color: white;
+    border-radius: 20px;
+  }
+ngx-mat-timepicker form .ngx-mat-timepicker-table .ngx-mat-timepicker-tbody tr td .mat-mdc-icon-button .mat-icon:hover {
+    opacity: 0;
+    text-decoration: none;
+    color: transparent;
+}
+.ngx-mat-timepicker form .ngx-mat-timepicker-table .ngx-mat-timepicker-tbody tr td .mat-mdc-icon-button {
+    height: 1px;
+    width: 30px;
+    line-height: 24px;
+    margin-left: 23px;
+}
+  .mat-datepicker-content .mat-timepicker {
+   color: red;
+    margin-top: 10px;
+  }
+  .mat-datepicker-content .mat-timepicker .mat-timepicker-input {
+    /* Add your styles here */
+    color: red;
+    margin-top: 10px;
+  }
+  
+  .mat-datepicker-content .mat-timepicker .mat-timepicker-clock {
+    /* Add your styles here */
+    color: red;
+    margin-top: 10px;
+  }
+  .mat-calendar-body-selected {
+    background-color: #195f4a !important;
+    color: white;
+    border-radius: 20px;
+  }
+
+  .mat-calendar-body-disabled {
+    cursor: default;
+    opacity: 0.2;
+}
+
+.p-button {
+    background: #195f4a !important;
+    border: 1px solid #195f4a !important;
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+    background-color: #e3e3e5;
+    color: #020202;
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon {
+    color: rgb(0 0 0 / 54%);
+    /* padding-right: 6px; */
+    padding-left: 10px;
+}
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon:hover {
+    color: rgb(0 0 0 / 54%);
+    /* padding-right: 6px; */
+    padding-left: 10px;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected {
+     background: transparent;
+    color: #3f51b5;
+}
+
+/* Radio Button Style changed */
+
+.mat-mdc-form-field-infix .mat-mdc-radio-button .mdc-radio{
+    height: auto !important;
+    padding: 0;
+    padding-left:  1px; 
+    padding-right: 2px;
+    display: flex;
+    justify-content:space-between;
+  }
+
+  .mat-mdc-form-field-infix .mat-mdc-radio-button .mdc-label{
+    padding-right:  10px; 
+   }
+   
+   .mat-mdc-form-field-icon-prefix {
+    /* margin-top: 16px; */
+    margin-left: 10px;
+   }
+
+
+  
+
+
+ 
+/* 
+.mdc-checkbox__native-control .mdc-checkbox--selected{
+margin: 2px 0px 0px 0px ;
+}  */
+/* .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
+    z-index: 1;
+    position: absolute;
+    /* margin: -3px 4px; */
+   
+
+/* .material-icons {
+ font-family: 'Material Icons';
+ font-weight: normal;
+ font-style: normal;
+ font-size: 24px;
+ display: inline-block;
+ line-height: 1;
+ text-transform: none;
+ letter-spacing: normal;
+ word-wrap: normal;
+ white-space: nowrap;
+ direction: ltr;
+ -webkit-font-smoothing: antialiased;
+ text-rendering: optimizeLegibility;
+ -moz-osx-font-smoothing: grayscale;
+} */
+
+
+.main-container {
+ display: flex;
+ flex-direction: column;
+ flex: 1 0 auto;
+}
+
+
+.mat-raised-button.mat-primary {
+ background-color:var(--primary1-color);
+ color: #FFFFFF;
+}
+
+
+.display-none {
+ display: none;
+}
+
+.mat-mdc-raised-button[disabled][disabled] {
+ color: white;
+}
+.mat-mdc-raised-button {
+ color: white;
+}
+.mat-mdc-raised-button:not(:disabled) {
+ color: white !important;
+ cursor: pointer;
+}
+
+
+/* button color: ; */
+.mat-mdc-raised-button{
+ background-color: var(--submit-button)!important;
+ border-radius: 16px !important;
+}
+
+
+.filterbtn{
+ background-color: var(--filter-button) !important;
+}
+
+.mat-icon {
+ cursor: pointer;
+}
+
+.page-title {
+ font-size: 24px;
+ font-weight: 700;
+ line-height: 29px;
+ letter-spacing: 0em;
+ text-align: left;
+
+ /* font-size: 18px;
+ font-weight: 700;
+ color: #132c9b; */
+}
+
+
+/* 
+.mat-tab-body-content {
+ overflow: hidden !important;
+} */
+
+/*datatable*/
+.datatable-header-cell {
+ /* font-size: 18px; */
+ font-weight: 700;
+}
+
+.width-100 {
+ width: 100%;
+}
+
+.margin-10 {
+ margin: 10px;
+}
+
+.mat-error {
+ color: darkred;
+}
+
+
+
+/*End of datatable*/
+
+ul.has-error {
+ padding: 0px;
+}
+
+.btnsize {
+ width: 100px;
+ margin-right: 5px;
+}
+
+.btn-check {
+ color: #6d6d6d;
+ background-color: #b5b9bd;
+}
+
+.btn-check .active {
+ color: #fff;
+ background-color: #0069d9;
+}
+
+.edit-popup .modal-content {
+ margin-top: 110px;
+ width: 448px;
+ font-weight: 400;
+ font-style: normal;
+ font-size: 16px;
+ color: #666666;
+ text-align: left;
+ line-height: 26px;
+ border-radius: 1px;
+ overflow-x: hidden;
+ margin-left: 8px;
+ margin-right: 2px;
+ border-top: 1px solid #00c5ab;
+ border: none !important;
+ height: 100%;
+}
+
+.edit-popup .modal-header {
+ background: #016559;
+ border: 1px solid #016559;
+ color: #fff;
+}
+
+.edit-popup h4 {
+ margin-left: -300% !important;
+}
+
+.edit-popup .modal-body {
+ background: white;
+}
+
+.edit-popup .close {
+ font-weight: 400;
+ font-style: normal;
+ color: #fff;
+ opacity: 1;
+ font-weight: normal;
+ font-size: 30px;
+ margin-left: 85%;
+}
+
+html,
+body {
+ height: 100%;
+ font-family: sans-serif, Verdana,Tahoma !important;
+}
+
+.edit-popup .modal-footer {
+ border-top: 0px;
+ font-weight: 400;
+ font-style: normal;
+ font-size: 18px;
+ color: #ffffff;
+ background: white;
+ text-align: center;
+ padding-top: 0px !important;
+}
+
+.edit-popup .modal-body input {
+ font-weight: 400;
+ font-style: normal;
+ font-size: 16px;
+ text-decoration: none;
+ color: #4d80d6;
+ text-align: left;
+}
+
+.contactpopup .modal-content {
+ margin-top: 110px;
+ width: 720px;
+ margin-left: -100px;
+ border: none !important;
+}
+
+.contactpopup .modal-header {
+ background: #016559;
+ border: 1px solid #016559;
+ color: #fff;
+ padding: 10px !important;
+}
+
+.contactpopup h4 {
+ margin-left: -350% !important;
+}
+
+.contactpopup .modal-body {
+ background: white;
+}
+
+.contactpopup .close {
+ font-weight: 400;
+ font-style: normal;
+ color: #fff;
+ opacity: 1;
+ font-weight: normal;
+ font-size: 30px;
+ margin-left: 85%;
+}
+
+/* Style For Realized Popup */
+
+.realizedPopup .modal-content {
+ margin-top: 110px;
+ width: 616px;
+ color: #666666;
+ text-align: left;
+ line-height: 26px;
+ border-radius: 1px;
+ overflow-x: hidden;
+ margin-left: 8px;
+ margin-right: 2px;
+ border-top: 1px solid #00c5ab;
+ border: none !important;
+ height: 100%;
+ overflow: inherit !important;
+}
+
+.realizedPopup .modal-header {
+ background: #016559;
+ border: 1px solid #016559;
+ color: #fff;
+ padding: 10px !important;
+}
+
+.realizedPopup h4 {
+ margin-left: -300% !important;
+}
+
+.realizedPopup .modal-body {
+ background: white;
+}
+
+.realizedPopup .modal-footer {
+ border-top: 0px;
+ font-weight: 400;
+ font-style: normal;
+ font-size: 18px;
+ color: #ffffff;
+ background: white;
+ text-align: center;
+ padding-top: 0px !important;
+}
+
+.realizedPopup .modal-body input {
+ font-weight: 400;
+ font-style: normal;
+ font-size: 16px;
+ text-decoration: none;
+ text-align: left;
+}
+
+.realizedPopup .close {
+ font-weight: 400;
+ font-style: normal;
+ color: #fff;
+ opacity: 1;
+ font-weight: normal;
+ font-size: 30px;
+ margin-left: 85%;
+}
+
+.logoutmsg .modal-content {
+ width: 721px !important;
+ margin-left: -130px;
+}
+
+.contactpopup .modal-footer {
+ border-top: 0px;
+ font-weight: 400;
+ font-style: normal;
+ font-size: 18px;
+ color: #ffffff;
+ background: white;
+ text-align: center;
+ padding-top: 0px !important;
+}
+
+[src="./assets/images/calendar-icon.svg"] {
+ height: 1rem;
+ width: 1.2rem;
+}
+
+.padding {
+ padding-bottom: 25px;
+}
+
+.margin {
+ margin-left: 15px;
+}
+
+.margincon {
+ margin-left: 15px;
+ padding-bottom: 5px;
+}
+
+.droppad {
+ padding-bottom: 30px;
+}
+
+.paddingless {
+ padding-bottom: 10px;
+}
+
+.reqmargin {
+ margin-bottom: -13px !important;
+}
+
+.margin_chk {
+ margin-left: -15px !important;
+}
+
+.hidden {
+ display: none;
+}
+
+button {
+ cursor: pointer;
+}
+
+.grade {
+ padding: 1px 1px;
+}
+
+.chart-legend {
+  margin-top: 20px !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: white !important;
+}
+
+.mat-mdc-text-field-wrapper {
+  background-color: white !important;
+}
+/* .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+} */
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border-bottom-color: white !important;
+}
+
+.chart-legend .legend-title-text {
+  color: black !important;;
+}
+
+/* CSS for NavMenu */
+
+/* adds some margin below the link sets */
+
+.navbar .dropdown-menu div[class*="col"] {
+ margin-bottom: 1rem;
+}
+
+@media (min-width: 1200px) {
+ .container {
+ max-width: 1368px !important;
+ }
+}
+
+.bg-color[_ngcontent-c1] {
+ background-color: #222 !important;
+}
+
+.navbar[_ngcontent-c1] .dropdown-menu[_ngcontent-c1] {
+ border: none;
+ background-color: #44474a !important;
+}
+
+/* breakpoint and up - mega dropdown styles */
+
+@media screen and (min-width: 992px) {
+
+ /* remove the padding from the navbar so the dropdown hover state is not broken */
+ .navbar {
+ padding-top: 0px;
+ padding-bottom: 0px;
+ }
+
+ /* remove the padding from the nav-item and add some margin to give some breathing room on hovers */
+ .navbar .nav-item {
+ padding: 0.5rem 0.5rem;
+ margin: 0 0.25rem;
+ }
+
+ /* makes the dropdown full width */
+ .navbar .dropdown {
+ position: static;
+ }
+
+ .navbar .dropdown-menu {
+ width: 100%;
+ left: 0;
+ right: 0;
+ /* height of nav-item */
+ top: 45px;
+ }
+
+ /* shows the dropdown menu on hover */
+ .navbar .dropdown:hover .dropdown-menu,
+ .navbar .dropdown .dropdown-menu:hover {
+ display: block !important;
+ }
+
+ .navbar .dropdown-menu {
+ border: 1px solid rgba(0, 0, 0, 0.15);
+ background-color: #fff;
+ margin-top: 5px;
+ }
+}
+
+.navbar[_ngcontent-c1][_ngcontent-c1] .dropdown-menu[_ngcontent-c1][_ngcontent-c1] {
+ border: none;
+ background-color: white !important;
+ border: 1px solid rgba(0, 0, 0, 0.15) !important;
+ border-radius: 4px !important;
+ border-top-left-radius: 0 !important;
+ border-top-right-radius: 0 !important;
+}
+
+.navbar-dark .navbar-nav .content {
+ color: black !important;
+ font-size: 14px !important;
+ font-weight: 100 !important;
+}
+
+.navbar-dark .navbar-nav .content:hover {
+ color: rgb(30, 16, 230) !important;
+ font-size: 16px !important;
+ font-weight: 300 !important;
+}
+
+@media screen and (min-width: 992px) {
+ .navbar[_ngcontent-c1] .nav-item[_ngcontent-c1] {
+ padding: 0px !important;
+ margin: 0 0.25rem;
+ }
+}
+
+#navbar .ulstyle {
+ list-style-type: none !important;
+ margin-left: -48px !important;
+}
+
+#navbar .menustyle {
+ list-style-type: none !important;
+}
+
+#navbar .navmenustyle {
+ list-style-type: none !important;
+ right: 0;
+ left: auto;
+}
+
+#navbar .dropdown-header {
+ color: #dc3545 !important;
+ font-size: 17px !important;
+ padding: 0px !important;
+ margin-left: 10px;
+}
+
+.navbar-dark .navbar-nav .show>.nav-link {
+ color: #fff !important;
+ background-color: #080808 !important;
+}
+
+.ahover:hover {
+ color: #fff !important;
+ background-color: #080808 !important;
+}
+
+.ahover {
+ font-size: 15px;
+ margin-left: 10px;
+ margin-right: 10px;
+}
+
+.dropdownmenu {
+ position: relative !important;
+}
+
+#navbar .navdropmenu {
+ margin-top: -33px;
+ min-width: 200px !important;
+}
+
+#navbar .dropmenu {
+ margin-top: -33px;
+ min-width: 256px !important;
+}
+
+.navbar {
+ background-color: #222 !important;
+}
+
+.dropdown-menu {
+ margin-top: 16px;
+}
+
+@media (min-width: 768px) {
+ .dropdown-header {
+ margin-left: 1px !important;
+ }
+}
+
+fieldset.tpc-scheduler-border {
+ border: 1px groove #ddd !important;
+ padding: 0 1.4em 1.4em 1.4em !important;
+ margin: 0 0 1.5em 0 !important;
+ -webkit-box-shadow: 0px 0px 0px 0px #000;
+ box-shadow: 0px 0px 0px 0px #000;
+}
+
+legend.tpc-scheduler-border {
+ font-size: 1.1em !important;
+ font-weight: bold !important;
+ text-align: left !important;
+ width: inherit;
+ /* Or auto */
+ padding: 0 10px;
+ /* To give a bit of padding on the left and right */
+ border-bottom: none;
+}
+
+/*Style for forgot popup*/
+
+.forgot-popup .modal-header {
+ background: #016559;
+ color: #fff;
+}
+
+.forgot-popup h4 {
+ margin-left: -462% !important;
+}
+
+.forgot-popup .close {
+ font-weight: 400;
+ font-style: normal;
+ color: #fff;
+ opacity: 1;
+ font-weight: normal;
+ font-size: 30px;
+ margin-left: 85%;
+}
+
+.forgot-popup .modal-content {
+ width: 527px;
+ height: 273px;
+ font-weight: 400;
+ font-style: normal;
+ font-size: 18px;
+ color: #666666;
+ text-align: left;
+ line-height: 26px;
+ border-radius: 1px;
+ border: none !important;
+}
+
+.forgot-popup .modal-body {
+ background: white;
+}
+
+.forgot-popup .modal-footer {
+ border-top: 0px;
+ font-weight: 400;
+ font-style: normal;
+ font-size: 18px;
+ color: #ffffff;
+ background: white;
+ line-height: 29px;
+ text-align: center;
+ padding-top: 0px !important;
+}
+
+.invalid-feedback {
+ display: none;
+ margin-top: 0.25rem;
+ font-size: 1.275rem !important;
+ color: #dc3545;
+}
+
+.margintop {
+ margin-top: 10px;
+}
+
+::-webkit-input-placeholder {
+ text-transform: initial;
+}
+
+:-moz-placeholder {
+ text-transform: initial;
+}
+
+::-moz-placeholder {
+ text-transform: initial;
+}
+
+:-ms-input-placeholder {
+ text-transform: initial;
+}
+
+.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+ white-space: normal !important;
+}
+
+/*Style for table text wrap*/
+.col {
+ overflow-wrap: break-word;
+}
+
+
+.page::-webkit-scrollbar {
+ width: 6px;
+ height: 100%;
+}
+
+.page::-webkit-scrollbar-track {
+ background-color: #f1f1f1;
+}
+
+.page-webkit-scrollbar-thumb {
+ background-color: #cccaca;
+}
+
+.page {
+ height: 100%;
+ display: flex;
+ flex-direction: column;
+ margin-top: 0px;
+ overflow-y: auto !important;
+}
+
+.page-header {
+ flex: 0 0 auto;
+ background-color: #dcdcdc;
+}
+
+.page-sidebar {
+ flex: 0 0 auto;
+ position: absolute;
+}
+.page-content {
+ /* flex: 1 1 auto;
+ position: relative; */
+ margin: 10px 10px;
+ /* need this to position inner content */
+ overflow-y: auto;
+ color: #000;
+ /* overflow-x: hidden; */
+}
+
+.page-style{
+ overflow-y: auto;
+ height: 100%;
+}
+
+.page-style::-webkit-scrollbar{
+ display: none;
+ 
+}
+
+.page-footer {
+ flex: 0 0 auto;
+ height: auto;
+ text-align: center;
+ margin-top: 10px;
+ margin-top: auto; /* Push the footer to the bottom */
+    padding: 1px;
+}
+
+
+ 
+  
+
+
+
+::ng-deep .ng-select {
+ display: block;
+ box-sizing: border-box;
+}
+
+/* PAGE Title */
+/* .page-title,
+.page-title:active,
+.page-title:link {
+ font-weight: bold;
+ text-transform: capitalize;
+ text-decoration: none;
+ font-variant: small-caps;
+ color: var(--nav_list_active);
+ font-size: 25px !important;
+ text-align: center;
+ margin-top: 20px;
+} */
+
+.close-button {
+ float: right !important;
+ /* top: -24px; */
+ right: -24px;
+}
+
+.close-icon {
+ transition: 1s ease-in-out;
+}
+
+.close-icon:hover {
+ transform: rotate(180deg);
+}
+
+::ng-deep .icon-outside .close-button {
+ float: right;
+ top: -52px;
+ right: -52px;
+}
+
+.display-flex {
+ display: flex;
+}
+
+.flex-1 {
+ flex: 1;
+ /* margin-top: auto; */
+}
+
+
+ 
+::ng-deep .mat-form-field .mat-form-field-flex{
+ background-color: white; 
+ }
+
+
+.flex-2 {
+ flex: 2;
+}
+
+.flex-3 {
+ flex: 3;
+}
+
+.flex-4 {
+ flex: 4;
+}
+
+.flex-5 {
+ flex: 5;
+}
+
+.flex-6 {
+ flex: 6;
+}
+
+.flex-7 {
+ flex: 7;
+}
+
+.flex-8 {
+ flex: 8;
+}
+
+.flex-9 {
+ flex: 9;
+}
+
+.flex-10 {
+ flex: 10;
+}
+
+.flex-11 {
+ flex: 11;
+}
+
+.flex-12 {
+ flex: 12;
+}
+
+.flex-auto{
+    flex:1;
+    margin-top: auto; 
+}
+
+[class*="flex-"] {
+ padding-left: 20px;
+ /* padding-right: 10px; */
+}
+
+[class*="flex-"]:first-child {
+ padding-left: 0;
+}
+
+[class*="flex-"]:nth-last-child(2) {
+ padding-right: 0;
+}
+
+.dropdown-btn {
+ border: none !important;
+}
+
+.mat-radio-label {
+ margin-left: 10px;
+}
+
+.mat-checkbox {
+ padding: 5px;
+}
+
+.mat-menu-content:not(:empty) {
+ padding-top: 0px !important;
+ padding-bottom: 0px !important;
+}
+
+.mat-mdc-tab-body-content {
+ height: 100% !important;
+ overflow: hidden !important;
+}
+
+.mat-mdc-form-field {
+ --mat-mdc-form-field-floating-label-scale: 0.75;
+ display: inline-flex;
+ flex-direction: column;
+ min-width: 0;
+ text-align: left;
+ width: 100%;
+}
+
+.mat-mdc-card-header {
+ padding: 0px 16px 0 !important;
+}
+
+.mat-mdc-form-field .mat-mdc-floating-label.mdc-floating-label {
+ line-height: normal;
+ pointer-events: all;
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+ text-align: left;
+ padding: 1rem 1rem;
+ border: 1px solid #e9ecef;
+ border-width: 0 0 1px 0;
+ font-weight: 600;
+ color: #495057;
+ background: #e1e3e6;
+ transition: box-shadow 0.2s;
+}
+
+.p-datatable .p-datatable-tbody>tr>td {
+ text-align: left;
+ border: 1px solid #aeb4bb;
+ border-width: 0 0 1px 0;
+ padding: 1rem 1rem;
+}
+
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+ color: black;
+}
+
+.mat-mdc-tab.mdc-tab {
+ height: 48px;
+ /* flex-grow: 0 !important; */
+ background-color: #ffffff;
+ margin-bottom: 10px;
+ margin-right: 5px;
+}
+
+.mat-mdc-tab.mdc-tab:focus {
+ background-color: rgb(179, 179, 179);
+}
+
+
+.header {
+ margin-top: 100px;
+ text-align: center;
+ margin-bottom: 40px;
+}
+
+.html-header {
+ margin: 15px 0 5px;
+}
+
+.html {
+ border: 1px solid #ddd;
+ border-radius: 4px;
+ padding: 0.5rem;
+ background-color: #f1f1f1;
+ min-height: 20px;
+ max-height: 10rem;
+ overflow: auto;
+}
+
+
+
+.fa[_ngcontent-fma-c44] {
+ display: inline-block;
+ font: 14px/1 FontAwesome;
+ font-size: inherit;
+ text-rendering: auto;
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
+}
+
+.ui-sortable-column-icon.pi.pi-fw.pi-sort {
+ visibility: hidden;
+}
+
+
+
+
+
+
+
+.btn-primary {
+
+ --bs-btn-border-color: rgb(244, 67, 54);
+ --bs-btn-hover-border-color: rgb(244, 67, 54);
+}
+
+
+
+angular-editor-toolbar button i {
+ font-family: FontAwesome !important;
+ color: #474d6d !important;
+
+}
+
+.mdc-text-field--filled {
+ background-color: white;
+}
+
+.ag-theme-alpine .ag-root-wrapper {
+ border: solid 1px;
+ /* border-color: #babfc7;
+ border-color: var(--ag-border-color, #babfc7); */
+ border: solid 1px var(--ag-border-color);
+ border-radius: 10px;
+}
+
+.ag-header-cell-sortable .ag-header-cell-label {
+ cursor: pointer;
+}
+
+::ng-deep .ag-root-wrapper {
+ overflow: visible;
+}
+
+.mat-mdc-text-field-wrapper {
+ width: 100%;
+}
+
+.bg-color .mat-toolbar-row{
+ background-color:#0F5F4B !important;
+}
+
+
+.ag-theme-alpine {
+ --ag-header-height: 30px;
+ --ag-header-foreground-color: white;
+ --ag-header-background-color:var(--ag-header-color)
+
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+ width: 100%;
+ height: 100%;
+ overflow: scroll !important;
+}
+
+.mdc-text-field--outlined {
+ /* height: 125px; */
+ overflow: visible;
+}
+
+.mat-mdc-checkbox.mat-accent {
+ --mdc-checkbox-selected-checkmark-color: #000;
+ --mdc-checkbox-selected-focus-icon-color: #e4321f17;
+ --mdc-checkbox-selected-hover-icon-color: #271f1c0d;
+ --mdc-checkbox-selected-icon-color: #5a585114;
+ --mdc-checkbox-selected-pressed-icon-color: #48463e12;
+ --mdc-checkbox-unselected-focus-icon-color: #212121;
+ --mdc-checkbox-unselected-hover-icon-color: #212121;
+ --mdc-checkbox-disabled-selected-icon-color: rgba(0, 0, 0, 0.38);
+ --mdc-checkbox-disabled-unselected-icon-color: rgba(0, 0, 0, 0.38);
+ --mdc-checkbox-unselected-icon-color: rgba(0, 0, 0, 0.54);
+ --mdc-checkbox-unselected-pressed-icon-color: rgba(0, 0, 0, 0.54);
+}
+
+
+
+
+table {
+ display: table;
+ border-collapse: separate;
+ box-sizing: border-box;
+ text-indent: initial;
+ border-spacing: 2px;
+ border-color: gray;
+}
+
+td {
+ display: table-cell;
+ vertical-align: inherit;
+}
+
+.ag-theme-alpine .ag-ltr .ag-cell {
+ border-right: 1px solid white !important;
+ justify-content: center;
+ /* text-align: center; */
+}
+
+.mat-mdc-text-field-wrapper {
+ width: 100%;
+ margin-top: 5px;
+}
+
+.cancelbtn{
+ background-color: var(--cancel-button)!important;
+}
+.otherbtn{
+ background-color: var(--other-button-color)!important;
+}
+:root {
+ scroll-behavior: smooth;
+ overflow-y: hidden;
+ --sidenav-color: #0f5f4b;
+ --primary1-color: #0f5f4b;
+ --other-button-color: #0f5f4b; 
+ --page-heading-color: black;
+ --ag-header-color:rgb(245,245,245);
+ --cancel-button:#0f5f4b;
+ --filter-button:#0f5f4b;
+ --menu-font:white;
+ --header-font:rgba(0, 0, 0, 0.54);
+ --submit-button:#0f5f4b;
+}
+
+
+.mdc-icon-button {
+ font-size: 24px;
+ margin-right: 24px;
+ /* margin-bottom: 44px; */
+ /* width: 48px;
+ height: 48px;
+ padding: 12px; */
+}
+
+style attribute {
+ text-align: left !important;
+ background-color: rgb(255, 255, 255);
+}
+
+
+::ng-deep .mat-mdc-text-field-wrapper {
+ border-color: rgb(255, 255, 255) !important;
+}
+
+
+/* .dropdown-list{
+ position: absolute;
+ padding-top: 0px;
+ width: 100%;
+ z-index: 9999;
+ border: 1px solid rgb(203, 12, 12);
+ border-radius: 3px;
+ background: #fff;
+ overflow-y: auto;webkit-scrollba
+ margin-top: 10px;
+ box-shadow: 0 1px 5px #959595;
+ max-height: 120px !important;
+} */
+
+
+/* .dropdown-list{
+ z-index: 9999;
+ position: absolute;
+ max-height: 140px !important;
+} */
+
+::ng-deep .angular-editor-textarea {
+ outline: 0 !important;
+}
+
+.angular-editor-textarea :focus-within {
+ outline: none;
+}
+
+
+/* ::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+ color: red !important;
+ background-color: green !important;
+} */
+
+.submitbtn{
+ background-color: var(--submit-button) !important;
+}
+
+.mat-tab-header {
+ background-color: #424242;
+}
+
+.mdc-dialog__scrim {
+ width: 100%;
+ height: 535px;
+}
+
+.mat-drawer-inner-container::-webkit-scrollbar {
+ width: 6px;
+ height: 100%;
+}
+
+
+/*hide the scroll bar in the mat dialog */
+.mat-mdc-dialog-container .mdc-dialog__surface::-webkit-scrollbar{
+ display: none; 
+}
+
+/* .mat-drawer-backdrop {
+    position: fixed !important;
+} */
+
+
+.mat-drawer-inner-container::-webkit-scrollbar-track {
+ background-color: #f1f1f1;
+}
+
+.mat-drawer-inner-container::-webkit-scrollbar-thumb {
+ background-color: #cccaca;
+}
+
+.ag-body-vertical-scroll-viewport::-webkit-scrollbar {
+ width: 6px;
+ height: 100%;
+}
+
+.ag-body-vertical-scroll-viewport::-webkit-scrollbar-track {
+ background-color: #f1f1f1;
+}
+
+.ag-body-vertical-scroll-viewport::-webkit-scrollbar-thumb {
+ background-color: #cccaca;
+}
+
+/* .ag-body-horizontal-scroll-viewport {
+ overflow-x: auto;
+} */
+
+@media (max-width: 767px) {
+
+ /* CSS rules for smart mobile screens */
+ /* Example styles */
+ body {
+ overflow-y: scroll;
+ }
+ 
+ /* Add your custom styles here */
+ 
+ 
+}
+.ag-header-cell-text {
+ overflow: hidden;
+ text-overflow: ellipsis;
+ font-size:14px;
+ font-weight: 500;
+ color: var(--header-font);
+ text-align: center !important;
+}
+.ag-header-cell-label {
+ justify-content: center;
+ /* text-transform: uppercase; */
+}
+.ag-body-cell-label {
+ justify-content: center;
+ /* text-transform: uppercase; */
+}
+
+/* ::ng-deep.mat-mdc-menu-panel.mat-mdc-menu-panel {
+ min-width: 120px;
+ max-width: 280px;
+ max-height: none; 
+ overflow: hidden !important;
+ position: relative;
+ width: 150px !important;
+} */
+
+.mat-mdc-menu-panel.mat-mdc-menu-panel {
+ overflow: hidden !important;
+}
+
+
+/* .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+ color:#003588 !important;
+} */
+
+/* .mdc-text-field .mdc-text-field__input{
+ color: #003588!important;
+} */
+ /* .mdc-text-field--filled .mdc-line-ripple::after{
+ border-bottom-color:red!important;
+}
+
+.mdc-text-field--filled .mdc-line-ripple::before{
+ border-bottom-color: #0b0c0f!important;
+} */
+/* .mat-mdc-tab-group.mat-tab-header-active-focus-label-text-color{
+ color: #003588!important;
+} */
+
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+ color:#0b0c0f!important;
+}
+.mat-mdc-tab.mdc-tab--active .mdc-line-ripple{
+ border-bottom-color:#0b0c0f!important;
+} */
+.mdc-button .mdc-button__label {
+ position: relative;
+ text-transform: uppercase;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent
+   }
+/* Remove background fill on form field focus */
+.mat-form-field.mat-focused .mat-form-field-wrapper {
+ background-color: transparent !important;
+}
+
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent;
+}
+
+.mdc-text-field--filled{
+ background-color: transparent
+}
+
+.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
+ flex-grow: 1;
+ background-color: aliceblue;
+}
+
+.ng-select {
+ display: flex !important;
+ padding-top: 10px !important;
+ justify-content: center !important;
+}
+
+
+
+.ag-ltr .ag-right-aligned-cell {
+ text-align: center !important;
+}
+
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+ background-color: transparent
+}
+
+/* .mat-mdc-form-field-icon-prefix {
+ margin-top: 16px;
+} */
+
+
+
+.mdc-button {
+ padding: 0px 0px 0px 0px !important;
+}
+
+.mat-mdc-button .mat-mdc-button-touch-target {
+ height: 0px !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+ -webkit-appearance: none;
+ margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+ -moz-appearance: textfield; /* For Firefox */
+ appearance: textfield; /* Standard property for compatibility */
+}
+
+.mat-mdc-form-field-hint-wrapper, .mat-mdc-form-field-error-wrapper {
+ line-height: 10px !important ;
+}
+
+.mat-mdc-menu-item {
+ padding-left: 0px !important;
+ padding-bottom: 0px p !important;
+}
+
+
+
+.mat-datepicker-content {
+    background-color: white;
+    display: block;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px -1px #0003, 0 4px 5px #00000024, 0 1px 10px #0000001f;
+}
+
+/* ::ng-deep .ngx-datetimepicker-container {
+  
+    background-color: white;
+} */
+
+.map[_ngcontent-ng-c664085103] {
+  height: 315px !important;
+}
+
+.mat-mdc-icon-button svg {
+    vertical-align: baseline;
+    margin-bottom: 25px !important;
+}
+
+::ng-deep .mat-datepicker-toggle {
+    /* Adjust the font size to reduce the size of the datepicker icon */
+    font-size: 16px; /* You can adjust the value to your desired size */
+  }
+
+
+  /* .mat-datepicker-toggle {
+    transform: scale(0.8); 
+  } */
+
+  .number-cell-right {
+    text-align: right;
+  }
+
+  .mat-mdc-form-field-error {
+    display: inline !important;
+}
+
+
+.ag-ltr .ag-header-group-cell-label.ag-sticky-label {
+  left: var(--ag-cell-horizontal-padding);
+  color: black;
+}

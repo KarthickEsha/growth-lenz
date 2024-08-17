@@ -1,0 +1,48 @@
+[
+    {
+        "label": "==  Equal To",
+        "value": "equals",
+        "type": "gowtham001",
+        "anotherfield": false
+    },
+    {
+        "label": "!= Not Equal To",
+        "value": "notEqual",
+        "type": "gowtham001",
+        "anotherfield": false
+    },
+    {
+        "label": "A.. StartWith",
+        "value": "startswith",
+        "type": "gowtham001",
+        "anotherfield": false
+    },
+    {
+        "label": "..T EndWith",
+        "value": "endswith",
+        "type": "gowtham001",
+        "anotherfield": false
+    },
+    {
+        "label": "Not Blank",
+        "value": "notblank",
+        "type": "gowtham001",
+        "anotherfield": false,
+        "flag": true,
+        "value_not_need": true
+    },
+    {
+        "label": "Blank",
+        "value": "blank",
+        "type": "gowtham001",
+        "anotherfield": false,
+        "flag": true,
+        "value_not_need": true
+    },
+    {
+        "label": "Contains Any Words",
+        "value": "contains",
+        "type": "gowtham001",
+        "anotherfield": false
+    }
+]

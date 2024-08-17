@@ -1,0 +1,305 @@
+{
+	"pageHeading": "Sprint",
+	"formType": "master-detail",
+	"localSet":true,
+	"mapColumnDiff":true,
+	"mapColumnfield":"project_id",
+	"localSetField":"project_id",
+	"form": {
+		"collectionName": "project",
+		"fields": [
+			{
+				"type": "label-view",
+				"key": "client_id",
+				"props": {
+					"label": "Client Name",
+					"label_width": 100,
+					"value_width": 200,
+					"value_in_next_row": false,
+					"placeholder": "Client Name",
+					"required": true
+				}
+			}, 
+			{
+				"type": "label-view",
+				"key": "project_name",
+				"props": {
+					"label_width": 100,
+					"value_width": 200,
+					"value_in_next_row": true,
+					"label": "Project Name",
+					"placeholder": "Project Name",
+					"required": true
+				}
+			}, 
+			{
+				"type": "label-view",
+				"key": "status",
+				"props": {
+					"label_width": 100,
+					"value_width": 200,
+					"value_in_next_row": true,
+					"label": "Project Status",
+					"placeholder": "Project Status",
+					"required": true
+				}
+			}
+		],
+		"buttons": {
+			"start": false,
+			"newEntry": false
+		}
+	},
+	"detailForm": {
+        "customfilter":true,
+        "customkey":"project_id",
+		"collectionName": "sprint",
+		"mapColumn": "project_id",
+		"keyColumn": "_id",
+		"Change_id":true,
+		"changekeyfield":"id",
+		"addkeyfield":"release_id",
+
+		"isPopupEdit": true,
+		"fields": [
+			{
+				"fieldGroupClassName": "display-flex",
+				"fieldGroup": [
+				  {
+					"type": "label-view",
+					"key": "id",
+					"className": "flex-6",
+					"props": {
+					  "label": "Sprint Id",
+					  "label_width": 100,
+					  "value_width": 200,
+					  "value_in_next_row": false,
+					  "placeholder": "Sprint Id"
+					},
+					"hideExpression": "!model.isEdit"
+				  },
+				  {
+					"type": "label-view",
+					"key": "name",
+					"className": "flex-6",
+					"props": {
+					  "label_width": 100,
+					  "value_width": 200,
+					  "value_in_next_row": true,
+					  "label": "Sprint Name",
+					  "placeholder": "Sprint Name"
+					},
+					"hideExpression": "!model.isEdit"
+				  },
+				  {
+					  "type": "select-input",
+					  "key": "release_id",
+					  "className": "flex-6",
+					  "props": {
+						  "label": "Release Name",
+						  "placeholder": "Release Name",
+						  "labelPropTemplate": " {{name}}",
+						  "optionsDataSource": {
+							  "collectionName": "release"
+						  },
+						 
+						  "labelProp": "name",
+						  "valueProp": "_id",
+						  "required": true
+					  },
+					  "expressions": {
+						  "hide": "model.isEdit"
+						 
+					  }
+				  },
+				  {
+					"type": "matprefix-input",
+					"parentKey": "release_id",
+					"key": "id",
+					"className": "flex-6",
+					"props": {
+					  "label": "Sprint Id",
+					  "type": "Linked",
+					  "placeholder": "Sprint Id",
+					  "required": true,
+					  "pattern":"^[0-9]+$",
+					  "maxLength": 20
+					},
+					"hideExpression": "model.isEdit || !model.release_id"
+				  },
+				  {
+					"type": "input",
+					"key": "name",
+					"className": "flex-8",
+					"props": {
+					  "label": "Sprint Name",
+					  "placeholder": "Sprint Name",
+					  "pattern": "^[a-zA-Z0-9-_]*$",
+					  "required": true
+					},
+					"hideExpression": "model.isEdit"
+				  }
+				]
+			  },
+			{
+				"fieldGroupClassName": "display-flex",
+			"fieldGroup": [
+					{
+						"key": "start_date",
+						"type": "date-input", 
+						"className": "flex-6",
+						"props": {
+						"label": "Scheduled Start Date",
+						"placeholder": "Scheduled Start Date",
+						"type": "date",
+						"required": true
+						}
+					},
+					{
+						"key": "end_date",
+						"type": "date-input",
+						"className": "flex-6",
+						"parentKey": "start_date",
+						"props": {
+						"label": "Scheduled End Date",
+						"placeholder": "Scheduled End Date",
+						"type": "date",
+						"required": true
+						}
+					},
+					{
+						"type": "select",
+						"key": "status",
+						"className": "flex-6",
+						"props": {
+							"label": "Project Status",
+							"options": [
+								{
+									"label": "Active",
+									"value": "Active"
+								},
+								{
+									"label": "Inactive",
+									"value": "Inactive"
+								}
+								
+								
+							],
+							"placeholder": "Project Status",
+							"required": true
+						},
+					
+						"expressions": {
+							"hide": "!model.isshow"
+						}
+						}
+				]
+			},
+			{
+				"type": "html-input",
+				"key": "description",
+				"className": "flex-6",
+				"props": {
+					"label": "Sprint Description"
+				},
+				
+				"maxlength": 500
+			},{
+				"type": "select",
+				"key": "status",
+				"className": "flex-6",
+				"props": {
+					"label": "Project Status",
+					"options": [
+						{
+							"label": "Active",
+							"value": "A"
+						},
+						{
+							"label": "Inactive",
+							"value": "I"
+						}
+					]
+				},
+			
+				"expressions": {
+					"hide": "!model.isEdit"
+				}
+				}
+		]
+		 
+	},
+	"detailListConfig": {
+		"sectionHeading": "Project Team",
+		"actions": [
+			{
+				"label": "Edit",
+				"icon": "edit",
+				"formName": "project"
+			},
+			{
+				"label": "Delete",
+				"icon": "delete",
+                "formAction":"delete"
+
+			}
+		],
+		"fields": [
+            {
+                "headerName": "Id",
+                "field": "id",
+                "filter": "agTextColumnFilter",
+                "sortable": true
+            },
+            {
+                "headerName": "Name",
+                "field": "name",
+                "filter": "agTextColumnFilter",
+                "sortable": true
+            },
+            {
+                "headerName": "Release Version",
+                "field": "release_id",
+                "filter": "agTextColumnFilter",
+                "sortable": true
+            },
+            {
+                "headerName": "Start Data",
+                "field": "start_date",
+				"sortable": true,
+				"filter": "agDateColumnFilter",
+				"type": "date"
+            },
+            {
+                "headerName": "End Data",
+                "field": "end_date",
+				"sortable": true,
+				"filter": "agDateColumnFilter",
+				"type": "date"
+            },
+			
+                {
+                    "headerName": "Status",
+                    "field": "status",
+                    "filter": "agTextColumnFilter",
+                    "sortable": true
+                }, 
+			{
+				"type": "rightAligned",
+				"headerName": "Actions",
+				"cellRenderer": "buttonRenderer",
+				"cellRendererParams": {
+					"onClick": "this.onBtnClick1.bind(this)",
+					"label": "Click 1"
+				}
+			}
+		],
+		"filterOptions": [],
+		"defaultFilter": []
+	},
+
+	
+	"designConfig": {
+		"leftPanelWidth": "320px"
+	}
+  }
